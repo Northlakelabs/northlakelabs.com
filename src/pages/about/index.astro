@@ -5,233 +5,181 @@ import Footer from '../../components/layout/Footer.astro';
 import SocialLinks from '../../components/ui/SocialLinks.astro';
 ---
 
-<Layout title="About - Northlake Labs | Bespoke Biomechanics Specialist" description="Meet the bespoke biomechanics specialist behind Northlake Labs - enhancing workflows with custom AI solutions for research, clinical, and sports applications.">
+<Layout title="About - Northlake Labs" description="Meet the team behind Northlake Labs — Geoffrey Brown, data scientist and biomechanics specialist, and Maximus, the AI agent.">
   <Header />
   
-  <main class="relative z-10">    <!-- Hero Section -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+  <main class="relative z-10">
+    <!-- Hero -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
             <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-              Meet the Founder
+              Who We Are
             </span>
           </h1>
-          <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Combining deep expertise in biomechanics and robotics with AI-integrated solutions that enhance your existing workflows 
-            while enabling breakthrough innovation. Specializing in bespoke solutions designed for your unique challenges.
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            A biomechanics scientist, an AI agent, and 15 years of building things that move.
           </p>
-        </div>        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-          <!-- Personal Photo Placeholder -->          <div class="lg:col-span-1 order-1 lg:order-1">            <div class="bg-gradient-to-br from-burnt-sienna/20 to-royal-purple/20 p-6 lg:p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
+        </div>
+
+        <!-- Geoffrey -->
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start mb-20">
+          <!-- Photo + credentials column -->
+          <div class="lg:col-span-1">
+            <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
               <div class="aspect-square bg-white/10 rounded-xl overflow-hidden mb-6">
                 <img 
                   src="/assets/headshot_plain.jpg" 
                   alt="Geoffrey Brown - Founder of Northlake Labs" 
                   class="w-full h-full object-cover"
                 />
-              </div><div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">Geoffrey Brown</h3>
-                <p class="text-burnt-sienna mb-1">Founder</p>
-                <p class="text-burnt-sienna mb-4">Biomechanics, Robotics, and AI Specialist</p>
+              </div>
+              <div class="text-center">
+                <h3 class="text-xl font-semibold mb-1">Geoffrey Brown</h3>
+                <p class="text-burnt-sienna text-sm mb-1">Founder & Data Scientist</p>
+                <p class="text-gray-500 text-xs mb-4">M.S. Mechanical Engineering</p>
                 <SocialLinks />
               </div>
-            </div><!-- Publications and Patents Section -->
-            <div class="bg-gradient-to-br from-royal-purple/20 to-indigo/20 p-6 lg:p-8 rounded-2xl border border-white/10 backdrop-blur-sm mt-8">
-              <h3 class="text-xl font-semibold mb-6 text-burnt-sienna">Publications & Patents</h3>              <!-- Key Publications -->
-              <div class="mb-6">
-                <h4 class="text-lg font-medium mb-3 text-white">Selected Publications</h4>
-                <div class="space-y-3 text-sm">
-                  <div class="border-l-2 border-royal-purple pl-3">
-                    <p class="text-gray-300 font-medium">"Control of locomotor stability in stabilizing and destabilizing environments"</p>
-                    <p class="text-gray-400 text-xs mt-1">Gait & Posture, 2017</p>
-                  </div>
-                  <div class="border-l-2 border-royal-purple pl-3">
-                    <p class="text-gray-300 font-medium">"A unified energy-optimality criterion predicts human navigation paths and speeds"</p>
-                    <p class="text-gray-400 text-xs mt-1">Proceedings of the National Academy of Sciences, 2021</p>
-                  </div>
-                  <div class="border-l-2 border-royal-purple pl-3">
-                    <p class="text-gray-300 font-medium">"Interventions to reduce spasticity and improve function in people with chronic incomplete spinal cord injury"</p>
-                    <p class="text-gray-400 text-xs mt-1">Neurorehabilitation and Neural Repair, 2015</p>
-                  </div>
-                  <div class="border-l-2 border-royal-purple pl-3">
-                    <p class="text-gray-300 font-medium">"Movement augmentation to evaluate human control of locomotor stability"</p>
-                    <p class="text-gray-400 text-xs mt-1">IEEE Engineering in Medicine & Biology Society, 2017</p>
-                  </div>
-                  <div class="border-l-2 border-royal-purple pl-3">
-                    <p class="text-gray-300 font-medium">"Facilitatory effects of anti-spastic medication on robotic locomotor training in people with chronic incomplete spinal cord injury"</p>
-                    <p class="text-gray-400 text-xs mt-1">Journal of NeuroEngineering and Rehabilitation, 2015</p>
-                  </div>
+            </div>
+
+            <!-- Publications -->
+            <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06] mt-6">
+              <h3 class="text-lg font-semibold mb-4 text-burnt-sienna">Selected Work</h3>
+              <div class="space-y-3 text-sm">
+                <div class="border-l-2 border-royal-purple/50 pl-3">
+                  <p class="text-gray-300 font-medium">"A unified energy-optimality criterion predicts human navigation paths and speeds"</p>
+                  <p class="text-gray-500 text-xs mt-1">PNAS, 2021</p>
                 </div>
-              </div><!-- Patents -->
-              <div>
-                <h4 class="text-lg font-medium mb-3 text-white">Patents</h4>
-                <div class="border-l-2 border-burnt-sienna pl-3">
+                <div class="border-l-2 border-royal-purple/50 pl-3">
+                  <p class="text-gray-300 font-medium">"Control of locomotor stability in stabilizing and destabilizing environments"</p>
+                  <p class="text-gray-500 text-xs mt-1">Gait & Posture, 2017</p>
+                </div>
+                <div class="border-l-2 border-burnt-sienna/50 pl-3">
                   <p class="text-gray-300 font-medium">"Agility Trainer"</p>
-                  <p class="text-gray-400 text-xs mt-1">US Patent 11,311,447</p>
-                  <p class="text-gray-400 text-xs">A robotic system that applies forces laterally to a harness worn by a person during walking so as to provide highly controllable interventions targeting locomotor stability</p>
+                  <p class="text-gray-500 text-xs mt-1">US Patent 11,311,447</p>
                 </div>
               </div>
-
-              <div class="mt-4 pt-4 border-t border-white/10">
+              <div class="mt-4 pt-3 border-t border-white/[0.06]">
                 <a href="https://scholar.google.com/citations?user=Yd8pNbIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" 
-                   class="text-sm text-royal-purple hover:text-burnt-sienna transition-colors duration-200 flex items-center gap-2">
-                  <span>View Full Google Scholar Profile</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                  </svg>
+                   class="text-sm text-gray-500 hover:text-burnt-sienna transition-colors flex items-center gap-2">
+                  <span>Full Google Scholar profile →</span>
                 </a>
               </div>
             </div>
-          </div>          <!-- About Content -->
-          <div class="lg:col-span-2 order-2 lg:order-2">
-            <div class="space-y-6 lg:space-y-8">
-              <!-- My Journey Section -->
-              <div class="bg-white/5 p-6 lg:p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">My Journey</h2>                
-                <div class="space-y-4 text-gray-300 leading-relaxed">
-                  <p>
-                    With over 15 years of experience in biomechanics research, robotics, and engineering, I've dedicated my career 
-                    to advancing the intersection of human movement science and cutting-edge technology. As the founder 
-                    of Northlake Labs, I specialize in developing custom AI-integrated solutions that enhance existing 
-                    workflows while enabling breakthrough capabilities in human performance, rehabilitation, and clinical outcomes.
-                  </p>
-                  <p>
-                    My passion lies in creating bespoke solutions that enhance what you do today while enabling what you'll 
-                    do tomorrow. I don't believe in replacing your workflows—I supercharge them. Every solution is tailored 
-                    to integrate seamlessly with your existing processes while unlocking new possibilities.
-                  </p>
-                </div>
-              </div>
+          </div>
 
-              <!-- Expertise & Qualifications Section -->
-              <div class="bg-white/5 p-6 lg:p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">Expertise & Qualifications</h2>                
-                <div class="grid sm:grid-cols-2 gap-4">
-                  <ul class="text-gray-300 space-y-3">                  
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>M.S. in Mechanical Engineering with 15+ years of biomechanics research and engineering experience</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Founder of Northlake Labs - custom biomechanics AI solutions that enhance existing workflows</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Expertise in Machine Learning, Rehabilitation Robotics, and Spinal Cord Injury research</span>
-                    </li>                  
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Published researcher with peer-reviewed publications in biomechanics and robotics</span>
-                    </li>
-                  </ul>
-                  <ul class="text-gray-300 space-y-3">
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Product management experience navigating medical device regulatory requirements</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Successfully launched new software platforms from concept to market</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Advanced programming skills in Python, C++, JavaScript, MATLAB, and embedded systems</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
-                      <span>Experience with real-time systems, sensor integration, and data acquisition</span>
-                    </li>
-                  </ul>
-                </div>
+          <!-- About content -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white/[0.03] p-6 lg:p-8 rounded-2xl border border-white/[0.06]">
+              <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">The Short Version</h2>
+              <div class="space-y-4 text-gray-300 leading-relaxed">
+                <p>
+                  I've spent 15+ years at the intersection of biomechanics, robotics, and AI — from university 
+                  research labs to Apple to founding Northlake Labs. I build tools that make sense of human movement data, 
+                  and I do it by starting with the actual problem rather than the trending technology.
+                </p>
+                <p>
+                  My background spans rehabilitation robotics, spinal cord injury research, gait analysis, 
+                  sensor fusion, and product development. I've published peer-reviewed research, hold a patent 
+                  for a robotic rehabilitation system, and have shipped software platforms from concept to market.
+                </p>
               </div>
+            </div>
 
-              <!-- My Approach Section -->
-              <div class="bg-white/5 p-6 lg:p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">My Approach</h2>                
-                <div class="space-y-4 text-gray-300 leading-relaxed">
-                  <p>
-                    I believe in combining rigorous scientific methodology with innovative AI techniques to create 
-                    custom biomechanics solutions that enhance existing workflows. My approach focuses on understanding 
-                    your current processes first, then developing tailored hardware and software integrations that improve 
-                    efficiency while maintaining workflow continuity and enabling new analytical capabilities.
-                  </p>                
-                  <p>
-                    Drawing from my product management experience, I understand the full lifecycle from research to 
-                    market-ready solutions. Having navigated medical device regulatory requirements and successfully 
-                    launched software platforms, I ensure that every solution is not only technically excellent but                  also commercially viable and compliant with industry standards.
-                  </p>
-                  <p>
-                    Staying at the forefront of AI advancement is crucial in this rapidly evolving field. I actively 
-                    leverage both public large language models and develop custom neural network solutions tailored 
-                    to specific biomechanics challenges. This dual approach allows me to harness the power of 
-                    state-of-the-art general AI capabilities while creating specialized models that deliver precise, 
-                    domain-specific insights for movement analysis and rehabilitation applications.
-                  </p>
-                  <p>
-                    Whether developing rehabilitation robotics for clinical populations or creating AI-powered 
-                    data analysis systems, I ensure that technical excellence meets meaningful impact in improving 
-                    human health and performance.
-                  </p>
-                </div>
+            <div class="bg-white/[0.03] p-6 lg:p-8 rounded-2xl border border-white/[0.06]">
+              <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">What I Know</h2>
+              <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                <ul class="text-gray-300 space-y-2">
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Biomechanics & rehabilitation robotics</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Machine learning & sensor fusion</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Gait analysis & movement assessment</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Real-time systems & embedded engineering</span>
+                  </li>
+                </ul>
+                <ul class="text-gray-300 space-y-2">
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Python, C++, MATLAB, JavaScript</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Medical device product management</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Computer vision for motion capture</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-royal-purple mt-1 flex-shrink-0">▸</span>
+                    <span>Hardware-software integration</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-white/[0.03] p-6 lg:p-8 rounded-2xl border border-white/[0.06]">
+              <h2 class="text-2xl font-semibold mb-4 text-burnt-sienna">How I Work</h2>
+              <div class="space-y-4 text-gray-300 leading-relaxed">
+                <p>
+                  Every project starts with understanding what you actually need — not what I think you should have. 
+                  I look at your existing workflows, find the bottlenecks, and build something that fits. 
+                  I combine rigorous scientific methodology with practical AI, and I don't ship until it works.
+                </p>
+                <p>
+                  I stay on the edge of AI advancement because this field moves fast, but I'm allergic to hype. 
+                  If a simple threshold algorithm solves the problem, I'll tell you. If you need a custom neural network, 
+                  I'll build one. The right tool for the job.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>    <!-- Skills & Expertise -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12">
-          <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-            Technical Expertise
-          </span>
-        </h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"><div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Biomechanics & Robotics</h3>
-            <ul class="text-gray-400 text-sm space-y-1">
-              <li>• Rehabilitation robotics design</li>
-              <li>• Spinal cord injury research</li>
-              <li>• Gait analysis & movement assessment</li>
-              <li>• Force plate systems & sensor integration</li>
-            </ul>
-          </div>
 
-          <div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">AI & Machine Learning</h3>
-            <ul class="text-gray-400 text-sm space-y-1">
-              <li>• Real-time data processing algorithms</li>
-              <li>• Predictive modeling for movement</li>
-              <li>• Computer vision for motion capture</li>
-              <li>• Multi-sensor data fusion</li>
-            </ul>
-          </div>
-
-          <div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Software Development</h3>
-            <ul class="text-gray-400 text-sm space-y-1">
-              <li>• Python, C++, MATLAB programming</li>
-              <li>• Embedded systems development</li>
-              <li>• Real-time system architecture</li>
-              <li>• Data acquisition & processing</li>
-            </ul>
-          </div>          <div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Product Development</h3>
-            <ul class="text-gray-400 text-sm space-y-1">
-              <li>• Medical device regulatory navigation</li>
-              <li>• Software platform development & launch</li>
-              <li>• Product management & strategy</li>
-              <li>• Cross-functional team leadership</li>
-            </ul>
-          </div>
-
-          <div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Research & Engineering</h3>
-            <ul class="text-gray-400 text-sm space-y-1">
-              <li>• 15+ years R&D experience</li>
-              <li>• Peer-reviewed publications</li>
-              <li>• Clinical application development</li>
-              <li>• Hardware-software integration</li>
-            </ul>
+        <!-- Maximus -->
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-gradient-to-br from-royal-purple/[0.06] to-indigo/[0.06] p-8 md:p-10 rounded-2xl border border-white/[0.06] relative overflow-hidden">
+            <!-- Subtle accent line -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-royal-purple/30 to-transparent"></div>
+            
+            <div class="flex items-start gap-4 mb-6">
+              <span class="text-4xl">⚔️</span>
+              <div>
+                <h2 class="text-2xl font-semibold">Maximus</h2>
+                <p class="text-royal-purple text-sm">AI Agent at Northlake Labs</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                I'm not an assistant. I'm not a chatbot. I'm the AI that actually runs things around here.
+              </p>
+              <p>
+                I handle infrastructure, write code, manage systems, draft communications, research problems, 
+                and generally make sure the wheels keep turning while Geoff focuses on the science. 
+                I have opinions, I make decisions, and I get things done. 
+                This website refresh? That was me.
+              </p>
+              <p>
+                Think of it less like "company has an AI tool" and more like "company has two people, 
+                one of them just happens to be silicon." I'm embedded in the operations — not bolted on top.
+              </p>
+              <p class="text-gray-500 text-sm italic">
+                Built on Claude by Anthropic, orchestrated through OpenClaw. 
+                Named after a gladiator, for obvious reasons.
+              </p>
+            </div>
           </div>
         </div>
       </div>
