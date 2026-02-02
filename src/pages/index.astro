@@ -5,177 +5,125 @@ import Footer from '../components/layout/Footer.astro';
 import Button from '../components/ui/Button.astro';
 ---
 
-<Layout title="Northlake Labs - Bespoke Biomechanics Solutions | Enhancing Today, Enabling Tomorrow">
+<Layout title="Northlake Labs — Biomechanics × AI">
   <Header />
   
-  <main class="relative z-10">    <!-- Hero Section -->
-    <section class="py-2 md:py-6">
-      <div class="max-w-6xl mx-auto px-6 text-center">        <!-- Combined Logo + Headline Animation -->
-        <div class="relative flex justify-center mb-2 md:mb-6" style="height: 280px;">
-          <!-- Logo that slides out -->
+  <main class="relative z-10">
+    <!-- Hero Section -->
+    <section class="py-8 md:py-16">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <!-- Logo entrance -->
+        <div class="relative flex justify-center mb-4 md:mb-8" style="height: 240px;">
           <div class="absolute inset-0 flex items-center justify-center gap-4 md:gap-8 animate-slide-out-left opacity-100" style="animation-delay: 1.5s; animation-fill-mode: forwards;">
             <img 
               src="/assets/northlake_logo_transparent.png"
               alt="Northlake Labs Logo" 
               width="200" 
               height="200"
-              class="w-[100px] h-[100px] md:w-[140px] md:h-[140px] lg:w-[160px] lg:h-[160px] xl:w-[200px] xl:h-[200px] 2xl:w-[280px] 2xl:h-[280px] rounded-lg filter drop-shadow-xl"
+              class="w-[80px] h-[80px] md:w-[120px] md:h-[120px] lg:w-[160px] lg:h-[160px] rounded-lg filter drop-shadow-xl"
             />
-            <div class="flex flex-col mt-6 md:mt-8 lg:mt-10">
-              <h1 class="text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-semibold bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent leading-none font-['Orbitron']">
+            <div class="flex flex-col mt-6 md:mt-8">
+              <h1 class="text-3xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent leading-none font-['Orbitron']">
                 NORTHLAKE
               </h1>
-              <span class="text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-medium bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent self-end leading-none -mt-1 font-['Orbitron']">
+              <span class="text-sm md:text-lg lg:text-xl font-medium bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent self-end leading-none -mt-1 font-['Orbitron']">
                 LABS
               </span>
             </div>
           </div>
           
-          <!-- Headline that slides in to replace logo -->
           <div class="absolute inset-0 flex items-center justify-center">
             <h2 class="text-4xl md:text-6xl font-bold leading-tight text-left">
-            <div class="animate-slide-in-right opacity-0" style="animation-delay: 1.7s; animation-fill-mode: forwards;">
-              <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-                Bespoke.
-              </span>
-            </div>
-            <div class="animate-slide-in-right opacity-0" style="animation-delay: 2.0s; animation-fill-mode: forwards;">
-              Biomechanics.
-            </div>
-            <div class="animate-slide-in-right opacity-0" style="animation-delay: 2.3s; animation-fill-mode: forwards;">
-              <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-                Solutions.
-              </span>
-            </div>
+              <div class="animate-slide-in-right opacity-0" style="animation-delay: 1.7s; animation-fill-mode: forwards;">
+                <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
+                  Biomechanics.
+                </span>
+              </div>
+              <div class="animate-slide-in-right opacity-0" style="animation-delay: 2.0s; animation-fill-mode: forwards;">
+                Intelligence.
+              </div>
+              <div class="animate-slide-in-right opacity-0" style="animation-delay: 2.3s; animation-fill-mode: forwards;">
+                <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
+                  Delivered.
+                </span>
+              </div>
             </h2>
           </div>
         </div>
         
-        <div class="text-2xl md:text-3xl font-semibold mb-6 text-gray-200">
-          Enhancing Today, Enabling Tomorrow
-        </div>
-        
-        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Custom AI-powered solutions that enhance your existing biomechanics workflows while enabling breakthrough innovation. 
-          We don't replace your processes—we make them intelligent, efficient, and more capable.
-        </p>        <div class="inline-flex items-center gap-3 bg-burnt-sienna/10 border border-burnt-sienna/30 px-6 py-3 rounded-full backdrop-blur-sm mb-8">
-          <div class="w-2 h-2 bg-burnt-sienna rounded-full animate-pulse-custom"></div>
-          <span class="text-sm">Bespoke biomechanics • Enhancing workflows with AI</span>
-        </div>
+        <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+          We build AI-powered tools for biomechanics research, rehabilitation, and human movement analysis. 
+          Custom solutions that fit your workflow — not the other way around.
+        </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <Button href="/solutions/" variant="secondary" size="lg">
-            Explore Solutions
+            What We Build
           </Button>
           <Button href="/about/" variant="secondary" size="lg">
-            Meet the Expert
+            Who We Are
           </Button>
           <Button href="/contact/" variant="primary" size="lg">
-            Start Your Project
+            Get in Touch
           </Button>
         </div>
       </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- What We Do -->
     <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">        <div class="grid md:grid-cols-3 gap-8">
-          <a href="/solutions" class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2 block">
-            <div class="text-4xl mb-4">🤖</div>
-            <h3 class="text-xl font-semibold mb-3">Custom Robotics</h3>
-            <p class="text-gray-400 leading-relaxed">
-              AI-integrated robotics designed to enhance your existing assessment workflows while enabling new automated capabilities.
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+          <a href="/solutions/" class="group bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-burnt-sienna/20 transition-all duration-300 hover:-translate-y-1 block">
+            <div class="text-3xl mb-4">🤖</div>
+            <h3 class="text-lg font-semibold mb-2 group-hover:text-burnt-sienna transition-colors">Custom Robotics</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              AI-integrated rehabilitation and assessment robotics designed for your specific clinical or research needs.
             </p>
           </a>
           
-          <a href="/solutions" class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2 block">
-            <div class="text-4xl mb-4">💻</div>
-            <h3 class="text-xl font-semibold mb-3">AI Software Platforms</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Custom software solutions that enhance your current data processing while unlocking advanced AI-powered insights.
+          <a href="/solutions/" class="group bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-royal-purple/20 transition-all duration-300 hover:-translate-y-1 block">
+            <div class="text-3xl mb-4">🧠</div>
+            <h3 class="text-lg font-semibold mb-2 group-hover:text-royal-purple transition-colors">Sensor Fusion AI</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Multi-modal data processing that turns force plates, EMG, and kinematics into actionable insights.
             </p>
           </a>
           
-          <a href="/solutions" class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2 block">
-            <div class="text-4xl mb-4">🔗</div>
-            <h3 class="text-xl font-semibold mb-3">Integrated Solutions</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Intelligent ecosystems that integrate seamlessly with your existing workflows while enabling advanced automation.
+          <a href="/demos/" class="group bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-indigo/20 transition-all duration-300 hover:-translate-y-1 block">
+            <div class="text-3xl mb-4">📊</div>
+            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo transition-colors">bioMX-ai</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Our multi-sensor fusion platform for biomechanics analysis. See it in action with real research data.
             </p>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Latest Updates Section -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h3 class="text-2xl font-semibold mb-4 bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-            Latest Updates
-          </h3>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-8 items-stretch">
-          <!-- Company Launch Update -->
-          <div class="bg-gradient-to-br from-burnt-sienna/20 to-royal-purple/20 p-8 rounded-xl border border-white/10 backdrop-blur-sm flex flex-col h-full">
-            <div class="flex-grow">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-2 h-2 bg-burnt-sienna rounded-full"></div>
-                <span class="text-sm text-gray-400">June 24, 2025</span>
-              </div>
-              <h4 class="text-lg font-semibold mb-3 text-burnt-sienna">Northlake Labs Officially Launched</h4>
-              <p class="text-gray-400 leading-relaxed">
-                We're excited to announce the official launch of Northlake Labs, bringing bespoke biomechanics solutions powered by AI to research labs, clinics, and sports professionals.
-              </p>
-            </div>
-            
-            <!-- Social Media Section -->
-            <div class="pt-2 border-t border-white/10 mt-6">
-              <p class="text-sm text-gray-400 mb-3">Connect with us:</p>
-              <div class="flex gap-3 min-h-[44px] items-center">
-                <a href="https://www.linkedin.com/company/northlake-labs/" target="_blank" rel="noopener noreferrer" 
-                   class="flex items-center justify-center bg-white/5 p-2 rounded-lg border border-white/10 text-gray-400 hover:text-blue-400 hover:border-blue-400/30 transition-all">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-                <a href="https://x.com/NorthlakeLabs" target="_blank" rel="noopener noreferrer" 
-                   class="flex items-center justify-center bg-white/5 p-2 rounded-lg border border-white/10 text-gray-400 hover:text-gray-200 hover:border-gray-200/30 transition-all">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- ASB Conference Update -->
-          <div class="bg-gradient-to-br from-royal-purple/20 to-indigo/20 p-8 rounded-xl border border-white/10 backdrop-blur-sm flex flex-col h-full">
-            <div class="flex-grow">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-2 h-2 bg-burnt-sienna rounded-full"></div>
-                <span class="text-sm text-gray-400">August 13-16, 2025</span>
-              </div>
-              <h4 class="text-lg font-semibold mb-3 text-burnt-sienna">See You at ASB 2025 in Pittsburgh</h4>
-              <p class="text-gray-400 leading-relaxed">
-                I'll be attending the American Society of Biomechanics Annual Meeting in Pittsburgh, mingling with fellow researchers and exploring the latest biomechanics innovations. Looking forward to connecting with the community!
-              </p>
-            </div>
-            
-            <!-- Conference Link Section -->
-            <div class="pt-2 border-t border-white/10 mt-6">
-              <p class="text-sm text-gray-400 mb-3">Conference details:</p>
-              <div class="min-h-[44px] flex items-center">
-                <a href="https://asbweb.org/asb-2025/" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 bg-burnt-sienna/20 hover:bg-burnt-sienna/30 text-gray-400 py-2 px-4 rounded-lg transition-all">
-                <span class="text-sm font-medium">ASB 2025 Website</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                </svg>
-                </a>
-              </div>
-            </div>
+    <!-- Signal, not noise -->
+    <section class="py-16">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <div class="bg-white/[0.02] p-10 rounded-2xl border border-white/[0.04]">
+          <p class="text-gray-300 text-lg leading-relaxed mb-6">
+            Northlake Labs is a biomechanics and AI company founded by 
+            <a href="/about/" class="text-burnt-sienna hover:text-burnt-sienna/80 transition-colors">Geoffrey Brown</a>, 
+            a data scientist with 15+ years in movement science, rehabilitation robotics, and sensor systems.
+            We build tools that work — no buzzwords, no vaporware.
+          </p>
+          <div class="flex items-center justify-center gap-6">
+            <a href="https://www.linkedin.com/company/northlake-labs/" target="_blank" rel="noopener noreferrer" 
+               class="text-gray-500 hover:text-blue-400 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/NorthlakeLabs" target="_blank" rel="noopener noreferrer" 
+               class="text-gray-500 hover:text-gray-200 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>

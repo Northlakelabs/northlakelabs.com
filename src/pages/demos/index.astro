@@ -6,52 +6,39 @@ import Button from '../../components/ui/Button.astro';
 import MultiSensorFusionDemo from '../../components/interactive/MultiSensorFusionDemo/MultiSensorFusionDemo.tsx';
 ---
 
-<Layout title="Interactive Demos - Northlake Labs | Bespoke Biomechanics Development" description="Live demonstrations of bespoke AI-powered biomechanics solutions and multi-sensor fusion algorithms in development.">
+<Layout title="bioMX-ai Demo - Northlake Labs" description="Live multi-sensor fusion demo with real constrained gait research data.">
   <Header />
   
   <main class="relative z-10">
-    <!-- Hero Section -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6 text-center">
+    <!-- Hero -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="inline-flex items-center gap-2 bg-burnt-sienna/10 border border-burnt-sienna/20 rounded-full px-4 py-1.5 mb-6">
+          <div class="w-2 h-2 bg-burnt-sienna rounded-full animate-pulse"></div>
+          <span class="text-xs text-burnt-sienna font-medium uppercase tracking-wider">Live Demo</span>
+        </div>
         <h1 class="text-4xl md:text-5xl font-bold mb-6">
           <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-            Interactive Demonstrations
+            bioMX-ai: Multi-Sensor Fusion
           </span>
         </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Experience live AI-powered biomechanics analysis with real research data showcasing 
-          constrained gait patterns and multi-sensor fusion capabilities.
+        <p class="text-lg text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+          Real research data from a constrained gait study (left leg locked in extension). 
+          Watch how traditional detection methods struggle — and where AI-powered fusion shines.
         </p>
-        <div class="inline-flex items-center gap-2 bg-burnt-sienna/10 border border-burnt-sienna/30 rounded-full px-4 py-2">
-          <div class="w-2 h-2 bg-burnt-sienna rounded-full animate-pulse"></div>
-          <span class="text-sm text-burnt-sienna font-medium">Development Preview</span>
-        </div>
       </div>
     </section>
 
-    <!-- Multi-Sensor Fusion Demo -->
-    <section class="py-20">
+    <!-- Live Demo -->
+    <section class="py-8">
       <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">
-            <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-              Multi-Sensor Fusion: Constrained Gait Analysis
-            </span>
-          </h2>
-          <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            This demonstration uses actual research data from a constrained gait study (left leg locked in extension) 
-            to showcase the challenges of traditional detection methods with pathological movement patterns.
-          </p>
-        </div>
-
-        <!-- Live Demo Component -->
         <MultiSensorFusionDemo client:only="react" trialId="T5" />
         
-        <!-- Demo Information -->
-        <div class="mt-12 grid md:grid-cols-2 gap-8">
-          <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-burnt-sienna">Dataset Information</h3>
-            <ul class="text-gray-300 space-y-2">
+        <!-- Dataset info -->
+        <div class="mt-10 grid md:grid-cols-2 gap-6">
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Dataset</h3>
+            <ul class="text-gray-300 space-y-2 text-sm">
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
                 <span><strong>Trial:</strong> T5 (Subject 1, Session 2)</span>
@@ -71,116 +58,79 @@ import MultiSensorFusionDemo from '../../components/interactive/MultiSensorFusio
             </ul>
           </div>
           
-          <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-burnt-sienna">Clinical Significance</h3>
-            <ul class="text-gray-300 space-y-2">
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Why This Matters</h3>
+            <ul class="text-gray-300 space-y-2 text-sm">
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span><strong>Compensation Patterns:</strong> Observable adaptations in right leg</span>
+                <span><strong>Force Asymmetry:</strong> Significant left-right differences from constraint</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span><strong>Force Asymmetry:</strong> Significant left-right differences</span>
+                <span><strong>Traditional Limits:</strong> Threshold-based methods break down</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span><strong>Traditional Challenges:</strong> Threshold-based methods struggle</span>
+                <span><strong>AI Advantage:</strong> Pattern recognition adapts to pathological gait</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span><strong>AI Advantage:</strong> Pattern recognition adapts to constraints</span>
+                <span><strong>Real Impact:</strong> Better detection → better clinical decisions</span>
               </li>
             </ul>
-          </div>
-        </div>
-        
-        <!-- Coming Soon Features -->
-        <div class="mt-12 bg-gradient-to-r from-burnt-sienna/5 to-royal-purple/5 p-8 rounded-3xl border border-burnt-sienna/20 backdrop-blur-sm">
-          <h3 class="text-xl font-semibold mb-6 text-center text-burnt-sienna">
-            Enhanced Features in Development
-          </h3>
-          
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
-              <div class="text-2xl mb-2">🔄</div>
-              <h4 class="font-semibold text-burnt-sienna mb-2">Multi-Algorithm Comparison</h4>
-              <p class="text-sm text-gray-400">Traditional (60%) → Basic Fusion (75%) → AI Fusion (92%)</p>
-            </div>
-            <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
-              <div class="text-2xl mb-2">✅</div>
-              <h4 class="font-semibold text-burnt-sienna mb-2">Ground Truth Validation</h4>
-              <p class="text-sm text-gray-400">Scientific annotation tool for accuracy measurement</p>
-            </div>
-            <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
-              <div class="text-2xl mb-2">📈</div>
-              <h4 class="font-semibold text-burnt-sienna mb-2">Performance Metrics</h4>
-              <p class="text-sm text-gray-400">Real-time accuracy comparison and confidence scoring</p>
-            </div>
-          </div>
-          
-          <div class="text-center mt-6">
-            <Button href="/contact" variant="secondary">Request Custom Demo</Button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Details -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">
-            <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-              Technical Implementation
-            </span>
-          </h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-burnt-sienna">Data Processing Pipeline</h3>
-            <ul class="text-gray-300 space-y-2">
+    <!-- Technical details -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Data Pipeline</h3>
+            <ul class="text-gray-300 space-y-2 text-sm">
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>Multi-rate sensor synchronization (1000Hz master timeline)</span>
+                <span>Multi-rate sensor synchronization (1000Hz master)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>Real-time Chart.js visualization (60fps optimized)</span>
+                <span>Real-time Chart.js visualization (60fps)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>Smart caching system (10-20x development speed boost)</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-royal-purple mt-1">▸</span>
-                <span>Interactive threshold controls with live detection updates</span>
+                <span>Interactive threshold controls with live updates</span>
               </li>
             </ul>
           </div>
           
-          <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-burnt-sienna">Algorithm Architecture</h3>
-            <ul class="text-gray-300 space-y-2">
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <h3 class="text-lg font-semibold mb-3 text-burnt-sienna">Algorithm Stack</h3>
+            <ul class="text-gray-300 space-y-2 text-sm">
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>Traditional: Force plate threshold detection (currently active)</span>
+                <span>Traditional: Force plate threshold detection</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>Basic Fusion: EMG + Force rule-based combination (in development)</span>
+                <span>Basic Fusion: EMG + Force rule-based combination</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-royal-purple mt-1">▸</span>
-                <span>AI Fusion: Multi-modal pattern recognition (in development)</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-royal-purple mt-1">▸</span>
-                <span>Comprehensive gait analysis with force metrics integration</span>
+                <span>AI Fusion: Multi-modal pattern recognition</span>
               </li>
             </ul>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-12">
+      <div class="max-w-2xl mx-auto px-6 text-center">
+        <p class="text-gray-400 mb-6">Want to see bioMX-ai applied to your data?</p>
+        <Button href="/contact/" variant="primary" size="lg">Let's Talk</Button>
       </div>
     </section>
   </main>

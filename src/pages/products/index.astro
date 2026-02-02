@@ -5,268 +5,106 @@ import Footer from '../../components/layout/Footer.astro';
 import Button from '../../components/ui/Button.astro';
 ---
 
-<Layout title="Products - Northlake Labs | Intelligent Biomechanics & Robotics Systems">
+<Layout title="Products - Northlake Labs | bioMX-ai & Biomechanics Systems">
   <Header />
   
   <main class="relative z-10">
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6 text-center">        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
           <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-            Intelligent Biomechanics & Robotics Systems
+            Products
           </span>
         </h1>
-        
-        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          AI-enhanced biomechanics and robotics products born from 15+ years of experience across research, 
-          clinical, and industry applications. Professional-grade systems that bring advanced capabilities to the broader biomechanics community.
+        <p class="text-xl text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+          Professional-grade biomechanics and AI systems built from 15+ years of research, clinical, and industry experience.
         </p>
-
-        <div class="inline-flex items-center gap-3 bg-burnt-sienna/10 border border-burnt-sienna/30 px-6 py-3 rounded-full backdrop-blur-sm mb-8">
-          <div class="w-2 h-2 bg-burnt-sienna rounded-full animate-pulse-custom"></div>
-          <span class="text-sm">Advancing proven technologies to market</span>
-        </div>
       </div>
     </section>
 
-    <!-- Development Status Section -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            Cross-Sector Experience Driving Innovation
-          </h2>
-          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-            Born from proven experience across research institutions, clinical facilities, and industry applications. 
-            Our intelligent biomechanics and robotics systems bring advanced capabilities to professional environments worldwide.
-          </p>
-        </div>        <div class="grid md:grid-cols-3 gap-8 mb-16">
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2">
-            <div class="text-4xl mb-4">🤖</div>
-            <h3 class="text-xl font-semibold mb-3">Research-to-Clinical Robotics</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Patented robotic systems refined through university research partnerships and validated in clinical rehabilitation settings.
-            </p>
-          </div>
-          
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2">
-            <div class="text-4xl mb-4">💻</div>
-            <h3 class="text-xl font-semibold mb-3">Industry-Proven AI Systems</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Intelligent processing algorithms developed through research collaborations and validated across clinical and sports performance applications.
-            </p>
-          </div>
-          
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:shadow-lg hover:shadow-royal-purple/20 transition-all duration-300 hover:-translate-y-2">
-            <div class="text-4xl mb-4">🔗</div>
-            <h3 class="text-xl font-semibold mb-3">Cross-Sector Integration</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Comprehensive biomechanics and robotics systems designed for seamless deployment across research, clinical, and industry environments.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Product Pipeline Section -->
-    <section class="py-20">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="bg-white/5 p-12 rounded-2xl border border-white/10 backdrop-blur-sm">          <h3 class="text-2xl font-semibold mb-6 text-center bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-            Professional Biomechanics & Robotics Systems
-          </h3>
-          
-          <div class="space-y-6">
-            <div class="border-l-4 border-burnt-sienna pl-6">
-              <h4 class="text-lg font-medium mb-2 text-burnt-sienna">Intelligent Gait Analysis & Rehabilitation Systems</h4>
-              <p class="text-gray-400">
-                AI-enhanced robotics and instrumentation systems for clinical gait analysis, rehabilitation training, and comprehensive movement assessment.
+    <!-- bioMX-ai -->
+    <section class="py-12">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="bg-gradient-to-br from-burnt-sienna/[0.06] to-royal-purple/[0.06] p-8 md:p-12 rounded-2xl border border-white/[0.06]">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div class="inline-flex items-center gap-2 bg-burnt-sienna/10 border border-burnt-sienna/20 rounded-full px-4 py-1.5 mb-4">
+                <div class="w-2 h-2 bg-burnt-sienna rounded-full animate-pulse-custom"></div>
+                <span class="text-xs text-burnt-sienna font-medium uppercase tracking-wider">Active Development</span>
+              </div>
+              <h2 class="text-3xl font-bold mb-4">
+                <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">bioMX-ai</span>
+              </h2>
+              <p class="text-gray-300 leading-relaxed mb-6">
+                Multi-sensor fusion platform for biomechanics analysis. Integrates force plate, EMG, and kinematic data 
+                with AI-powered pattern recognition to handle even pathological movement patterns that break traditional methods.
               </p>
+              <Button href="/demos/" variant="primary" size="md">Try the Demo →</Button>
             </div>
-            
-            <div class="border-l-4 border-royal-purple pl-6">
-              <h4 class="text-lg font-medium mb-2 text-royal-purple">Multi-Sensor Processing Platforms</h4>
-              <p class="text-gray-400">
-                Advanced biomechanics analysis systems with intelligent data fusion, pattern recognition, and predictive capabilities proven across research and industry applications.
-              </p>
-            </div>
-            
-            <div class="border-l-4 border-indigo pl-6">
-              <h4 class="text-lg font-medium mb-2 text-indigo">Integrated Research & Clinical Products</h4>
-              <p class="text-gray-400">
-                Complete hardware-software systems designed for seamless deployment across biomechanics research labs, clinical facilities, and sports performance centers.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technology Commercialization Section -->
-    <section class="py-20 bg-gradient-to-r from-black-pearl/50 to-black-pearl">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
-              From Innovation to Implementation
-            </span>
-          </h2>
-          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-            We're actively transforming breakthrough technologies from custom solutions into scalable, market-ready systems.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-burnt-sienna">Technology Development</h3>
-            <p class="text-gray-400 mb-6 leading-relaxed">
-              Building on 15+ years of proven experience, we're refining and validating our most successful custom solutions 
-              for broader deployment across the biomechanics community.
-            </p>
-            <ul class="text-gray-300 space-y-3">
-              <li class="flex items-start gap-3">
-                <span class="text-burnt-sienna mt-1">•</span>
-                <span>Transforming proven custom robotics into scalable systems</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-burnt-sienna mt-1">•</span>
-                <span>Advancing AI algorithms from research to production-ready platforms</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-burnt-sienna mt-1">•</span>
-                <span>Validating technologies across diverse professional environments</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 text-royal-purple">Market Readiness</h3>
-            <p class="text-gray-400 mb-6 leading-relaxed">
-              Our commercialization process focuses on bringing mature, validated technologies to market 
-              with the reliability and support that professional environments demand.
-            </p>
-            <ul class="text-gray-300 space-y-3">
-              <li class="flex items-start gap-3">
-                <span class="text-royal-purple mt-1">•</span>
-                <span>Professional-grade reliability and performance standards</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-royal-purple mt-1">•</span>
-                <span>Comprehensive validation through industry partnerships</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-royal-purple mt-1">•</span>
-                <span>Scalable deployment across research, clinical, and industry settings</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="mt-12 text-center">
-          <div class="bg-gradient-to-r from-burnt-sienna/10 to-royal-purple/10 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h4 class="text-lg font-semibold mb-3 text-indigo">Stay Informed</h4>
-            <p class="text-gray-400 mb-6">
-              Follow our progress as we advance breakthrough biomechanics technologies from innovation to market implementation.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact/#research" variant="secondary" size="md">
-                Technology Updates
-              </Button>
-              <Button href="https://www.linkedin.com/company/northlake-labs/" variant="secondary" size="md">
-                Development Progress
-              </Button>
+            <div class="space-y-3">
+              <div class="bg-white/[0.03] p-4 rounded-xl border border-white/[0.04]">
+                <h4 class="text-sm font-semibold text-burnt-sienna mb-1">Multi-Sensor Fusion</h4>
+                <p class="text-xs text-gray-400">Force plates (1000Hz), EMG (2000Hz), Kinematics (100Hz) — synchronized and processed in real-time</p>
+              </div>
+              <div class="bg-white/[0.03] p-4 rounded-xl border border-white/[0.04]">
+                <h4 class="text-sm font-semibold text-royal-purple mb-1">AI Pattern Recognition</h4>
+                <p class="text-xs text-gray-400">Adapts to constrained and pathological gait where threshold-based methods fail</p>
+              </div>
+              <div class="bg-white/[0.03] p-4 rounded-xl border border-white/[0.04]">
+                <h4 class="text-sm font-semibold text-indigo mb-1">Interactive Visualization</h4>
+                <p class="text-xs text-gray-400">Real-time charts, gait analysis panels, and detection statistics at 60fps</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Partnership Opportunities Section -->
-    <section class="py-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            Partnership Opportunities
-          </h2>          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-            Partner with us to advance biomechanics and robotics technology. We collaborate with academic institutions 
-            and industry leaders to develop, validate, and deploy intelligent systems across diverse applications.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 flex items-center gap-3">
-              <span class="text-2xl">🎓</span>
-              Academic Partnerships
-            </h3>            <p class="text-gray-400 mb-6">
-              Collaborate with universities and research institutions to advance biomechanics and robotics science. 
-              Joint research, educational tools, and validation studies that benefit the broader academic community.
+    <!-- Product Pipeline -->
+    <section class="py-12">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-2xl font-bold mb-8 text-center">In the Pipeline</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <div class="text-3xl mb-3">🤖</div>
+            <h3 class="text-lg font-semibold mb-2">Rehabilitation Robotics</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Patented robotic systems for clinical rehabilitation, refined through university research partnerships.
             </p>
-            <ul class="text-gray-300 space-y-2 mb-6">
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-burnt-sienna rounded-full"></span>
-                Joint research projects and publications
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-burnt-sienna rounded-full"></span>
-                Grant funding collaboration and support
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-burnt-sienna rounded-full"></span>
-                Educational platform and curriculum development
-              </li>
-            </ul>
-          </div>
-
-          <div class="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold mb-4 flex items-center gap-3">
-              <span class="text-2xl">🏢</span>
-              Industry Partnerships
-            </h3>            <p class="text-gray-400 mb-6">
-              Collaborate with clinical facilities, sports organizations, and technology companies to deploy and validate 
-              intelligent biomechanics and robotics systems in real-world professional environments.
-            </p>
-            <ul class="text-gray-300 space-y-2 mb-6">
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-royal-purple rounded-full"></span>
-                Clinical facility integration and validation
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-royal-purple rounded-full"></span>
-                Sports performance center collaborations
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-royal-purple rounded-full"></span>
-                Technology integration and market development
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stay Informed Section -->
-    <section class="py-20">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <div class="bg-gradient-to-r from-burnt-sienna/10 via-royal-purple/10 to-indigo/10 p-12 rounded-2xl border border-white/10 backdrop-blur-sm">
-          <h3 class="text-2xl font-semibold mb-4">
-            Join Our Professional Network
-          </h3>          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Stay connected with our technology commercialization progress and product development. Follow our professional updates, 
-            research insights, and market advancement within the biomechanics community.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="/contact/" variant="primary" size="lg">
-              Partnership Inquiry
-            </Button>
-            <Button href="https://www.linkedin.com/company/northlake-labs/" variant="secondary" size="lg">
-              Product Updates
-            </Button>
           </div>
           
-          <p class="text-sm text-gray-500 mt-6">
-            Interested in investment opportunities or strategic partnerships? 
-            <a href="https://calendly.com/geoff-northlakelabs/30min" target="_blank" rel="noopener noreferrer" class="text-burnt-sienna hover:text-burnt-sienna/80 transition-colors">Get in touch</a>
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <div class="text-3xl mb-3">📊</div>
+            <h3 class="text-lg font-semibold mb-2">Gait Analysis Systems</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Intelligent gait analysis and assessment tools for clinical and research environments.
+            </p>
+          </div>
+          
+          <div class="bg-white/[0.03] p-6 rounded-2xl border border-white/[0.06]">
+            <div class="text-3xl mb-3">🔗</div>
+            <h3 class="text-lg font-semibold mb-2">Integrated Platforms</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Complete hardware-software systems for biomechanics labs, clinics, and sports performance centers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partnership -->
+    <section class="py-16">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <div class="bg-white/[0.02] p-10 rounded-2xl border border-white/[0.04]">
+          <h3 class="text-xl font-semibold mb-3">Partnerships & Collaboration</h3>
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            We work with universities, clinical facilities, and industry partners. 
+            If you're doing interesting work in biomechanics, we want to hear about it.
           </p>
+          <Button href="/contact/" variant="primary" size="md">
+            Get in Touch
+          </Button>
         </div>
       </div>
     </section>
