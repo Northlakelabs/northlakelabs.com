@@ -1,36 +1,39 @@
 ---
 import MobileMenuButton from '../ui/MobileMenuButton.astro';
 
-// Use consistent relative paths for custom domain setup
 const logoSrc = "/assets/northlake_logo_transparent.png";
 ---
 
-<header class="relative z-10 py-4 md:py-8">
-  <div class="max-w-6xl mx-auto px-6">
-    <nav class="flex items-center justify-between">      <div class="flex items-center gap-4">        <a href="/" class="filter drop-shadow-lg">
-          <img 
-            src={logoSrc}
-            alt="Northlake Labs Logo" 
-            width="80" 
-            height="80"
-            class="rounded-lg transition-transform duration-300 hover:scale-105"
-          />
-        </a>        <div class="flex flex-col mt-5">
-          <h1 class="text-3xl font-semibold bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent leading-none font-['Orbitron']">
+<header class="relative z-10 py-4 md:py-6">
+  <div class="max-w-5xl mx-auto px-6">
+    <nav class="flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <img 
+          src={logoSrc}
+          alt="Northlake Labs" 
+          width="48" 
+          height="48"
+          class="w-10 h-10 md:w-12 md:h-12 rounded-lg transition-transform duration-300 group-hover:scale-105 filter drop-shadow-lg"
+        />
+        <div class="flex flex-col">
+          <span class="text-xl md:text-2xl font-semibold bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent leading-none font-['Orbitron']">
             NORTHLAKE
-          </h1>
-          <span class="text-sm font-medium bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent self-end leading-none -mt-1 font-['Orbitron']">
+          </span>
+          <span class="text-[10px] md:text-xs font-medium bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent self-end leading-none font-['Orbitron']">
             LABS
           </span>
         </div>
-      </div><!-- Desktop navigation -->
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="/" class="text-gray-300 hover:text-burnt-sienna transition-colors duration-300">Home</a>
-        <a href="/about/" class="text-gray-300 hover:text-burnt-sienna transition-colors duration-300">About</a>
-        <a href="/solutions/" class="text-gray-300 hover:text-burnt-sienna transition-colors duration-300">Solutions</a>
-        <a href="/products/" class="text-gray-300 hover:text-burnt-sienna transition-colors duration-300">Products</a>
-        <a href="/contact/" class="text-gray-300 hover:text-burnt-sienna transition-colors duration-300">Contact</a>
-      </nav><!-- Mobile Menu Button -->
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="/about/" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">About</a>
+        <a href="/solutions/" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Solutions</a>
+        <a href="/products/" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Products</a>
+        <a href="/demos/" class="text-sm text-gray-400 hover:text-white transition-colors duration-200">Demo</a>
+        <a href="/contact/" class="text-sm text-burnt-sienna hover:text-burnt-sienna/80 transition-colors duration-200">Contact</a>
+      </nav>
+
       <MobileMenuButton />
     </nav>
   </div>

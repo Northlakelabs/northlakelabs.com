@@ -6,7 +6,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "AI-integrated robotics and intelligent software platforms for biomechanics research, clinical assessment, and rehabilitation. Custom hardware and software solutions." } = Astro.props;
+const { title, description = "Biomechanics × AI. Custom solutions for research, clinical, and sports applications." } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,24 +14,27 @@ const { title, description = "AI-integrated robotics and intelligent software pl
 <head>
   <meta charset="UTF-8" />
   <meta name="description" content={description} />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <title>{title}</title>
 </head>
-<body class="bg-gradient-to-br from-black-pearl via-black-pearl/90 to-black-pearl/80 text-white min-h-screen">  <div style="isolation: isolate;">
+<body class="bg-black-pearl text-white min-h-screen antialiased">
+  <div style="isolation: isolate;">
     <slot />
     
-    <!-- Background Animation -->
+    <!-- Subtle background grain -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-[0.015]" 
+         style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+    
+    <!-- Very subtle gradient glow -->
     <div class="fixed inset-0 pointer-events-none z-0">
-      <div class="absolute top-[10%] left-[10%] w-15 h-15 bg-gradient-radial from-burnt-sienna/30 via-royal-purple/20 to-transparent rounded-full animate-float"></div>
-      <div class="absolute top-[20%] right-[15%] w-15 h-15 bg-gradient-radial from-burnt-sienna/30 via-royal-purple/20 to-transparent rounded-full animate-float" style="animation-delay: 2s;"></div>
-      <div class="absolute bottom-[15%] left-[20%] w-15 h-15 bg-gradient-radial from-burnt-sienna/30 via-royal-purple/20 to-transparent rounded-full animate-float" style="animation-delay: 4s;"></div>
-      <div class="absolute bottom-[25%] right-[10%] w-15 h-15 bg-gradient-radial from-burnt-sienna/30 via-royal-purple/20 to-transparent rounded-full animate-float" style="animation-delay: 6s;"></div>
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-burnt-sienna/[0.03] rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-royal-purple/[0.03] rounded-full blur-3xl"></div>
     </div>
   </div>
 
-  <!-- Mobile Menu Portal - Rendered at end of body for proper z-index stacking -->
   <MobileMenu />
 </body>
 </html>
