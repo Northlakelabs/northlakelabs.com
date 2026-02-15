@@ -611,7 +611,9 @@ function sleep(ms) {
 
 function writePrompt() {
   term.write(PROMPT);
+  // Double scroll — immediate + delayed to catch async rendering
   term.scrollToBottom();
+  setTimeout(() => term.scrollToBottom(), 50);
 }
 
 // ─── Input Handling ─────────────────────────────────────────────
