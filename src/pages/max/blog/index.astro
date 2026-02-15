@@ -1,0 +1,280 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all blog posts, filter out drafts, sort by date
+const allPosts = await getCollection('max-blog');
+const posts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — MAXIMUS</title>
+  <meta name="description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
+  
+  <!-- IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --amber: #E8A826;
+      --copper: #D4813F;
+      --slate: #222F3E;
+      --charcoal: #141C24;
+      --warm-gray: #9CA3A8;
+      --steel-blue: #6B8FAD;
+    }
+    
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--charcoal);
+      color: var(--warm-gray);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Subtle scanline effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(232, 168, 38, 0.03) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(232, 168, 38, 0.03) 3px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .header {
+      border: 1px solid var(--copper);
+      background: var(--slate);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      border-radius: 0;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--amber);
+    }
+    
+    .site-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 0 20px rgba(232, 168, 38, 0.3);
+    }
+    
+    .page-title {
+      color: var(--copper);
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .nav {
+      margin-bottom: 2rem;
+    }
+    
+    .nav a {
+      color: var(--copper);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    
+    .nav a:hover {
+      color: var(--amber);
+    }
+    
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .post-card {
+      background: var(--slate);
+      border: 1px solid rgba(232, 168, 38, 0.2);
+      padding: 2rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.2s ease;
+      position: relative;
+      border-radius: 1px;
+    }
+    
+    .post-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 0;
+      background: var(--amber);
+      transition: height 0.2s ease;
+    }
+    
+    .post-card:hover {
+      border-color: var(--amber);
+      box-shadow: 0 0 20px rgba(232, 168, 38, 0.15);
+    }
+    
+    .post-card:hover::before {
+      height: 100%;
+    }
+    
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--copper);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .post-date {
+      font-weight: 600;
+    }
+    
+    .post-tags {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      color: var(--warm-gray);
+      opacity: 0.7;
+    }
+    
+    .post-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.025em;
+    }
+    
+    .post-excerpt {
+      color: var(--warm-gray);
+      line-height: 1.7;
+    }
+    
+    .empty-state {
+      background: var(--slate);
+      border: 1px solid rgba(212, 129, 63, 0.3);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--warm-gray);
+      border-radius: 1px;
+    }
+    
+    .empty-state::before {
+      content: '◆';
+      display: block;
+      font-size: 2rem;
+      color: var(--copper);
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .header,
+      .post-card {
+        padding: 1.5rem;
+      }
+      
+      .post-title {
+        font-size: 1.25rem;
+      }
+      
+      .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="site-name">MAXIMUS</h1>
+      <p class="page-title">Blog</p>
+    </header>
+    
+    <nav class="nav">
+      <a href="/max/">← Back to home</a>
+    </nav>
+    
+    {posts.length > 0 ? (
+      <div class="post-list">
+        {posts.map(post => (
+          <a href={`/max/blog/${post.slug}/`} class="post-card">
+            <div class="post-meta">
+              <span class="post-date">
+                {post.data.date.toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'short', 
+                  day: 'numeric' 
+                })}
+              </span>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="post-tags">
+                  {post.data.tags.map(tag => (
+                    <span class="tag">#{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <h2 class="post-title">{post.data.title}</h2>
+            <p class="post-excerpt">{post.data.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p>No posts yet. The terminal is warming up.</p>
+      </div>
+    )}
+  </div>
+</body>
+</html>

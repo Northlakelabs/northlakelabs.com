@@ -1,0 +1,326 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('max-blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{post.data.title} — MAXIMUS</title>
+  <meta name="description" content={post.data.excerpt}>
+  
+  <!-- IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --amber: #E8A826;
+      --copper: #D4813F;
+      --slate: #222F3E;
+      --charcoal: #141C24;
+      --warm-gray: #9CA3A8;
+      --steel-blue: #6B8FAD;
+    }
+    
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--charcoal);
+      color: var(--warm-gray);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Subtle scanline effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(232, 168, 38, 0.03) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(232, 168, 38, 0.03) 3px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .header {
+      border: 1px solid var(--copper);
+      background: var(--slate);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      border-radius: 0;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--amber);
+    }
+    
+    .nav {
+      margin-bottom: 2rem;
+    }
+    
+    .nav a {
+      color: var(--copper);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    
+    .nav a:hover {
+      color: var(--amber);
+    }
+    
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--copper);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .post-date {
+      font-weight: 600;
+    }
+    
+    .post-tags {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      color: var(--warm-gray);
+      opacity: 0.7;
+    }
+    
+    .post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.025em;
+      text-shadow: 0 0 20px rgba(232, 168, 38, 0.3);
+    }
+    
+    .post-excerpt {
+      color: var(--copper);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(212, 129, 63, 0.3);
+    }
+    
+    .post-content {
+      background: var(--slate);
+      border: 1px solid rgba(232, 168, 38, 0.2);
+      padding: 2.5rem;
+      border-radius: 1px;
+      position: relative;
+    }
+    
+    .post-content::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      opacity: 0.3;
+    }
+    
+    /* Markdown content styles */
+    .post-content :global(h2) {
+      color: var(--amber);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      letter-spacing: 0.025em;
+    }
+    
+    .post-content :global(h3) {
+      color: var(--copper);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+    }
+    
+    .post-content :global(p) {
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+    
+    .post-content :global(ul),
+    .post-content :global(ol) {
+      margin-bottom: 1.25rem;
+      padding-left: 2rem;
+    }
+    
+    .post-content :global(li) {
+      margin-bottom: 0.5rem;
+      line-height: 1.7;
+    }
+    
+    .post-content :global(blockquote) {
+      border-left: 4px solid var(--amber);
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      color: var(--copper);
+      font-style: italic;
+    }
+    
+    .post-content :global(code) {
+      background: var(--charcoal);
+      color: var(--amber);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      font-size: 0.875em;
+      border: 1px solid rgba(232, 168, 38, 0.2);
+    }
+    
+    .post-content :global(pre) {
+      background: var(--charcoal);
+      border: 1px solid var(--copper);
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 1px;
+    }
+    
+    .post-content :global(pre code) {
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+    
+    .post-content :global(a) {
+      color: var(--copper);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    
+    .post-content :global(a:hover) {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+    
+    .post-content :global(strong) {
+      color: var(--amber);
+      font-weight: 600;
+    }
+    
+    .post-content :global(em) {
+      color: var(--copper);
+      font-style: italic;
+    }
+    
+    .post-content :global(hr) {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+      margin: 2rem 0;
+    }
+    
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .header,
+      .post-content {
+        padding: 1.5rem;
+      }
+      
+      .post-title {
+        font-size: 1.5rem;
+      }
+      
+      .post-excerpt {
+        font-size: 1rem;
+      }
+      
+      .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="/max/blog/">← All posts</a>
+    </nav>
+    
+    <article>
+      <header class="header">
+        <div class="post-meta">
+          <span class="post-date">
+            {post.data.date.toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </span>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="post-tags">
+              {post.data.tags.map(tag => (
+                <span class="tag">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+        <h1 class="post-title">{post.data.title}</h1>
+        <p class="post-excerpt">{post.data.excerpt}</p>
+      </header>
+      
+      <div class="post-content">
+        <Content />
+      </div>
+    </article>
+  </div>
+</body>
+</html>
