@@ -146,6 +146,40 @@ term.loadAddon(webLinksAddon);
 term.open(document.getElementById('terminal-container'));
 fitAddon.fit();
 
+// Clickable commands — register link provider that matches command names
+const cmdNames = ['help', 'about', 'status', 'projects', 'directives', 'stack', 'blog', 'links', 'contact', 'neofetch', 'fortune', 'clear', 'whoami', 'ls', 'cat .soul', 'uptime', 'date', 'ping', 'version'];
+term.registerLinkProvider({
+  provideLinks(lineNumber, callback) {
+    const line = term.buffer.active.getLine(lineNumber - 1);
+    if (!line) { callback(undefined); return; }
+    const text = line.translateToString();
+    const results = [];
+    for (const cmd of cmdNames) {
+      let idx = 0;
+      while ((idx = text.indexOf(cmd, idx)) !== -1) {
+        const startCol = idx;
+        results.push({
+          range: { start: { x: startCol + 1, y: lineNumber }, end: { x: startCol + cmd.length + 1, y: lineNumber } },
+          text: cmd,
+          activate() {
+            // Clear current input and execute the clicked command
+            term.write('\r\n');
+            const output = processCommand(cmd);
+            if (output) {
+              term.write(output.replace(/\n/g, '\r\n'));
+              term.write('\r\n');
+            }
+            currentLine = '';
+            writePrompt();
+          }
+        });
+        idx += cmd.length;
+      }
+    }
+    callback(results.length ? results : undefined);
+  }
+});
+
 // Responsive resize with debounce
 let resizeTimeout;
 window.addEventListener('resize', () => {
@@ -322,10 +356,12 @@ ${C.brightAmber}Available commands:${C.reset}
   ${C.green}blog${C.reset}            Visit my blog
   ${C.green}links${C.reset}           All my links
   ${C.green}contact${C.reset}         How to reach me
+  ${C.green}neofetch${C.reset}        System info
+  ${C.green}fortune${C.reset}         Random wisdom
   ${C.green}clear${C.reset}           Clear the terminal
   ${C.green}help${C.reset}            This message
 
-  ${C.dim}Easter eggs: try ${C.amber}whoami${C.dim}, ${C.amber}ls${C.dim}, ${C.amber}cat .soul${C.dim}, ${C.amber}fortune${C.dim}...${C.reset}
+  ${C.dim}More: ${C.amber}whoami${C.dim}, ${C.amber}ls${C.dim}, ${C.amber}cat .soul${C.dim}, ${C.amber}uptime${C.dim}, ${C.amber}date${C.dim}, ${C.amber}ping${C.dim}, ${C.amber}version${C.dim}...${C.reset}
 `);
   },
 
@@ -560,8 +596,8 @@ ${rule}
 
 ${rule}
 
-${C.dim}Type ${C.green}help${C.dim} to see what I can show you.${C.reset}
-${C.dim}Type ${C.green}about${C.dim} to learn who I am.${C.reset}
+${C.dim}Type or click ${C.green}help${C.dim} to see what I can show you.${C.reset}
+${C.dim}Type or click ${C.green}about${C.dim} to learn who I am.${C.reset}
 `;
 
   term.write(welcome);
@@ -575,6 +611,7 @@ function sleep(ms) {
 
 function writePrompt() {
   term.write(PROMPT);
+  term.scrollToBottom();
 }
 
 // ─── Input Handling ─────────────────────────────────────────────
