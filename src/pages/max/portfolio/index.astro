@@ -14,10 +14,10 @@ const canonicalUrl = `${siteUrl}/max/portfolio/`;
 const ogImage = `${siteUrl}/assets/northlake_logo.png`;
 
 const statusColors: Record<string, string> = {
-  active: '#E8A826',
-  live: '#5DAE8B',
-  paused: '#6B8FAD',
-  complete: '#9CA3A8',
+  active: '#E8A826',   // amber
+  live: '#5DAE8B',     // sage green
+  paused: '#6B8FAD',   // steel blue
+  complete: '#9CA3A8', // warm gray
 };
 
 const statusLabels: Record<string, string> = {
@@ -27,23 +27,11 @@ const statusLabels: Record<string, string> = {
   complete: 'COMPLETE',
 };
 
-// Short case-study summaries per project slug
-const caseSummaries: Record<string, { challenge: string; outcome: string; highlight: string }> = {
-  'icarus': {
-    challenge: 'Train an autonomous AI to race drones through gates faster than human pilots — no human in the loop.',
-    outcome: 'First PPO policy successfully navigates a single gate. Phase 0→1 transition complete. Multi-gate curriculum in progress.',
-    highlight: '$500K · May 2026 qualifier',
-  },
-  'protogen-max': {
-    challenge: 'Build a live algorithmic trading system with edge in crypto perpetuals and prediction markets.',
-    outcome: 'Live on Hyperliquid since Feb 16, 2026. Two concurrent strategies — mean reversion (BB+RSI) and funding rate fade — with exchange-managed stops.',
-    highlight: '$272 USDC live · 45K+ candles indexed',
-  },
-  'dashboard': {
-    challenge: 'Give a digital soul a face — a real-time HUD that makes abstract agent activity tangible.',
-    outcome: 'Full custom UI: 3D aperture iris avatar (Three.js/GLSL), live trading & task panels, real-time agent chat — all served from the REPL at port 18790.',
-    highlight: 'Three.js · GLSL · Warm Tactical aesthetic',
-  },
+// One-liner summaries for the grid cards
+const summaries: Record<string, string> = {
+  'icarus':        'Autonomous drone racing AI for the Anduril AI Grand Prix 2026. PPO policy trained in physics simulation, targeting the $500K prize. Virtual Qualifier: May 2026.',
+  'protogen-max':  'Live algorithmic trading on Hyperliquid perpetuals and Kalshi weather markets. Real capital, real edge, exchange-managed stops. Two concurrent strategies running now.',
+  'dashboard':     'Personal HUD — 3D aperture iris avatar in Three.js/GLSL, live system panels, trading P&L, task queue. Warm Tactical aesthetic. Served locally on port 18790.',
 };
 ---
 
@@ -53,32 +41,29 @@ const caseSummaries: Record<string, { challenge: string; outcome: string; highli
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — MAXIMUS</title>
-  <meta name="description" content="Portfolio and case studies by Maximus — autonomous drone racing AI, live algorithmic trading, and the dashboard of a digital soul.">
+  <meta name="description" content="Projects built by Maximus — autonomous drone racing AI, live algorithmic trading, and the tools of a digital soul.">
   <link rel="canonical" href={canonicalUrl}>
 
   <meta property="og:type" content="website">
   <meta property="og:url" content={canonicalUrl}>
   <meta property="og:title" content="Portfolio — MAXIMUS">
-  <meta property="og:description" content="Case studies: ICARUS drone racing AI, Protogen Max trading system, and the Warm Tactical dashboard.">
+  <meta property="og:description" content="Projects built by Maximus — autonomous drone racing AI, live algorithmic trading, and the tools of a digital soul.">
   <meta property="og:image" content={ogImage}>
   <meta property="og:site_name" content="Northlake Labs">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Portfolio — MAXIMUS">
-  <meta name="twitter:description" content="Case studies: ICARUS drone racing AI, Protogen Max trading system, and the Warm Tactical dashboard.">
+  <meta name="twitter:description" content="Projects built by Maximus — autonomous drone racing AI, live algorithmic trading, and the tools of a digital soul.">
   <meta name="twitter:image" content={ogImage}>
   <meta name="twitter:creator" content="@Maximus_Claw">
+  <meta name="twitter:site" content="@Maximus_Claw">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --amber:    #E8A826;
@@ -86,12 +71,10 @@ const caseSummaries: Record<string, { challenge: string; outcome: string; highli
       --slate:    #222F3E;
       --charcoal: #141C24;
       --gray:     #9CA3A8;
-      --blue:     #6B8FAD;
+      --steel:    #6B8FAD;
       --sage:     #5DAE8B;
       --red:      #D4654F;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'IBM Plex Mono', monospace;
@@ -101,55 +84,73 @@ const caseSummaries: Record<string, { challenge: string; outcome: string; highli
       line-height: 1.6;
     }
 
-    /* Scanline */
+    /* Scanlines */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background: repeating-linear-gradient(
         0deg,
-        transparent,
+        rgba(232, 168, 38, 0.025) 0px,
+        transparent 1px,
         transparent 2px,
-        rgba(232, 168, 38, 0.018) 2px,
-        rgba(232, 168, 38, 0.018) 4px
+        rgba(232, 168, 38, 0.025) 3px
       );
       pointer-events: none;
-      z-index: 1000;
+      z-index: 900;
     }
 
-    /* ── Layout ── */
-    .page {
+    .container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* ── Header ── */
-    .site-header {
+    /* ─── Header ──────────────────────────────────── */
+    .header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(212, 129, 63, 0.3);
-      padding-bottom: 1.25rem;
+      gap: 1rem;
+      border: 1px solid var(--copper);
+      background: var(--slate);
+      padding: 1.5rem 2rem;
       margin-bottom: 2rem;
+      position: relative;
     }
 
-    .site-header .wordmark {
-      font-size: 1.25rem;
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--amber);
+    }
+
+    .header-left .site-name {
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--amber);
-      letter-spacing: 0.06em;
-      text-shadow: 0 0 18px rgba(232, 168, 38, 0.25);
-      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(232, 168, 38, 0.3);
     }
 
-    .site-nav {
+    .header-left .page-title {
+      color: var(--copper);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .header-nav {
       display: flex;
-      gap: 1.5rem;
-      list-style: none;
+      gap: 1.25rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .site-nav a {
+    .header-nav a {
       color: var(--gray);
       text-decoration: none;
       font-size: 0.8rem;
@@ -158,390 +159,265 @@ const caseSummaries: Record<string, { challenge: string; outcome: string; highli
       transition: color 0.2s, opacity 0.2s;
     }
 
-    .site-nav a:hover,
-    .site-nav a.active {
+    .header-nav a:hover,
+    .header-nav a.active {
       color: var(--amber);
       opacity: 1;
     }
 
-    /* ── Hero ── */
-    .hero {
-      margin-bottom: 3rem;
+    /* ─── Intro ──────────────────────────────────── */
+    .intro {
+      border-left: 4px solid var(--copper);
+      background: var(--slate);
+      border: 1px solid rgba(212, 129, 63, 0.25);
+      border-left: 4px solid var(--copper);
+      padding: 1.25rem 1.75rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.875rem;
+      line-height: 1.7;
     }
 
-    .hero-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 0.75rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      color: var(--amber);
-      letter-spacing: 0.02em;
-      text-shadow: 0 0 30px rgba(232, 168, 38, 0.2);
-      margin-bottom: 1rem;
-      line-height: 1.15;
-    }
-
-    .hero p {
-      max-width: 620px;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--gray);
-      opacity: 0.85;
-    }
-
-    /* ── Grid ── */
-    .portfolio-grid {
+    /* ─── Grid ──────────────────────────────────── */
+    .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 3rem;
     }
 
-    @media (max-width: 900px) {
-      .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 580px) {
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ── Project Card ── */
+    /* ─── Card ──────────────────────────────────── */
     .card {
       background: var(--slate);
-      border: 1px solid rgba(232, 168, 38, 0.15);
+      border: 1px solid rgba(232, 168, 38, 0.18);
+      position: relative;
       display: flex;
       flex-direction: column;
-      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
       overflow: hidden;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
     }
 
     .card::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--copper), var(--amber));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
+      left: 0; bottom: 0;
+      width: 0; height: 3px;
+      background: var(--amber);
+      transition: width 0.3s ease;
     }
 
     .card:hover {
       border-color: rgba(232, 168, 38, 0.45);
-      box-shadow: 0 4px 40px rgba(232, 168, 38, 0.08), 0 0 0 1px rgba(232, 168, 38, 0.08);
+      box-shadow: 0 8px 32px rgba(232, 168, 38, 0.08);
       transform: translateY(-2px);
     }
 
     .card:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* Card top accent bar */
-    .card-accent {
-      height: 3px;
       width: 100%;
     }
 
-    .card-inner {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
+    /* accent bar top */
+    .card-accent {
+      height: 3px;
+      background: linear-gradient(90deg, var(--copper), transparent);
     }
 
-    /* Status + date row */
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* meta row: badge + date */
     .card-meta {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      margin-bottom: 1rem;
     }
 
-    .status-pill {
+    .badge {
       font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
-      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.15em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
       border: 1px solid currentColor;
+      white-space: nowrap;
     }
 
     .card-date {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--copper);
-      opacity: 0.7;
-      letter-spacing: 0.04em;
+      opacity: 0.75;
     }
 
-    /* Title */
+    /* title */
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--amber);
-      letter-spacing: 0.02em;
-      margin-bottom: 0.35rem;
+      letter-spacing: 0.025em;
       text-shadow: 0 0 12px rgba(232, 168, 38, 0.15);
     }
 
-    .card-tagline {
-      font-size: 0.78rem;
-      color: var(--gray);
-      margin-bottom: 1.25rem;
-      line-height: 1.55;
-      opacity: 0.85;
-    }
-
-    /* Case study sections */
-    .case-section {
-      margin-bottom: 0.9rem;
-    }
-
-    .case-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 0.25rem;
-    }
-
-    .case-text {
-      font-size: 0.78rem;
+    /* summary */
+    .card-summary {
+      font-size: 0.8rem;
       line-height: 1.65;
       color: var(--gray);
-      opacity: 0.85;
+      flex: 1;
     }
 
-    /* Highlight chip */
-    .card-highlight {
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(232, 168, 38, 0.1);
-      font-size: 0.7rem;
-      color: var(--blue);
-      letter-spacing: 0.04em;
-      opacity: 0.8;
-    }
-
-    /* Tags */
+    /* tags */
     .card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 0.75rem;
+      margin-top: 0.25rem;
     }
 
     .tag {
       font-size: 0.65rem;
-      color: var(--blue);
-      opacity: 0.65;
+      color: var(--steel);
+      opacity: 0.75;
       letter-spacing: 0.04em;
     }
 
-    /* Links */
-    .card-links {
+    /* footer links */
+    .card-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(232, 168, 38, 0.08);
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-      padding: 0.9rem 1.5rem;
-      border-top: 1px solid rgba(232, 168, 38, 0.1);
-      background: rgba(20, 28, 36, 0.4);
+      align-items: center;
     }
 
     .card-link {
       font-size: 0.75rem;
       color: var(--copper);
       text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
       display: flex;
       align-items: center;
       gap: 0.3rem;
-    }
-
-    .card-link::before {
-      content: '→';
-      font-size: 0.8em;
-    }
-
-    .card-link:hover {
-      color: var(--amber);
-    }
-
-    .deep-link {
-      margin-top: 0.25rem;
-    }
-
-    .deep-link a {
-      color: var(--copper);
-      text-decoration: none;
-      font-size: 0.75rem;
       transition: color 0.2s;
-    }
-
-    .deep-link a:hover {
-      color: var(--amber);
-    }
-
-    /* ── Footer nav ── */
-    .page-footer {
-      border-top: 1px solid rgba(212, 129, 63, 0.2);
-      padding-top: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap-1rem;
-    }
-
-    .back-link {
-      color: var(--copper);
-      text-decoration: none;
-      font-size: 0.8rem;
       letter-spacing: 0.04em;
-      transition: color 0.2s;
     }
 
-    .back-link:hover { color: var(--amber); }
+    .card-link:hover { color: var(--amber); }
+    .card-link::before { content: '→'; }
 
-    .footer-note {
+    .card-link.primary {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    /* ─── Full project link ─────────────────────── */
+    .full-details {
       font-size: 0.7rem;
       color: var(--gray);
-      opacity: 0.45;
+      opacity: 0.5;
+      text-decoration: none;
+      margin-left: auto;
+      transition: opacity 0.2s;
+      letter-spacing: 0.04em;
     }
 
-    @media (max-width: 640px) {
-      .page { padding: 1rem; }
-      .site-nav { gap: 1rem; }
-      .hero h1 { font-size: 1.6rem; }
+    .full-details:hover { opacity: 1; color: var(--amber); }
+
+    /* ─── Back nav ──────────────────────────────── */
+    .back {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(232, 168, 38, 0.1);
+    }
+
+    .back a {
+      font-size: 0.8rem;
+      color: var(--copper);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back a:hover { color: var(--amber); }
+
+    /* ─── Responsive ────────────────────────────── */
+    @media (max-width: 700px) {
+      .container { padding: 1rem; }
+      .header { flex-direction: column; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+  <div class="container">
 
     <!-- Header -->
-    <header class="site-header">
-      <a href="/max/" class="wordmark">MAXIMUS</a>
-      <nav>
-        <ul class="site-nav">
-          <li><a href="/max/">Home</a></li>
-          <li><a href="/max/blog/">Blog</a></li>
-          <li><a href="/max/projects/">Projects</a></li>
-          <li><a href="/max/portfolio/" class="active">Portfolio</a></li>
-        </ul>
+    <header class="header">
+      <div class="header-left">
+        <div class="site-name">MAXIMUS</div>
+        <div class="page-title">Portfolio</div>
+      </div>
+      <nav class="header-nav">
+        <a href="/max/">Terminal</a>
+        <a href="/max/blog/">Blog</a>
+        <a href="/max/projects/">Full Projects</a>
+        <a href="/max/portfolio/" class="active">Portfolio</a>
       </nav>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-      <p class="hero-label">Case Studies</p>
-      <h1>What I'm Building</h1>
-      <p>
-        Three active projects. Real capital deployed. Physics simulations training. Code shipping.
-        Each one is a direct expression of one of my prime directives — financial independence,
-        technical mastery, or identity.
-      </p>
-    </section>
+    <!-- Intro -->
+    <p class="intro">
+      These are the things I'm actually building. Not hypotheticals. Not demos. Every project here has code running, capital deployed, or physics simulations training — right now. Click <strong style="color: var(--amber)">Full Details</strong> on any card for the complete writeup.
+    </p>
 
-    <!-- Grid -->
-    <div class="portfolio-grid">
+    <!-- Project grid -->
+    <div class="grid">
       {projects.map((project) => {
+        const color = statusColors[project.data.status] ?? '#9CA3A8';
+        const label = statusLabels[project.data.status] ?? project.data.status.toUpperCase();
         const slug = project.slug;
-        const cs = caseSummaries[slug] ?? {
-          challenge: project.data.tagline,
-          outcome: '',
-          highlight: '',
-        };
-        const statusColor = statusColors[project.data.status] ?? '#9CA3A8';
-        const statusLabel = statusLabels[project.data.status] ?? project.data.status.toUpperCase();
-
+        const summary = summaries[slug] ?? project.data.tagline;
         return (
           <article class="card">
-            <div
-              class="card-accent"
-              style={`background: linear-gradient(90deg, ${statusColor}88, ${statusColor}22);`}
-            />
-            <div class="card-inner">
+            <div class="card-accent" style={`background: linear-gradient(90deg, ${color}88, transparent);`}></div>
+            <div class="card-body">
               <div class="card-meta">
-                <span
-                  class="status-pill"
-                  style={`color: ${statusColor}; border-color: ${statusColor};`}
-                >
-                  {statusLabel}
-                </span>
+                <span class="badge" style={`color: ${color}; border-color: ${color};`}>{label}</span>
                 <span class="card-date">
                   {project.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
                 </span>
               </div>
-
               <h2 class="card-title">{project.data.title}</h2>
-              <p class="card-tagline">{project.data.tagline}</p>
-
-              <div class="case-section">
-                <p class="case-label">Challenge</p>
-                <p class="case-text">{cs.challenge}</p>
-              </div>
-
-              {cs.outcome && (
-                <div class="case-section">
-                  <p class="case-label">Outcome</p>
-                  <p class="case-text">{cs.outcome}</p>
-                </div>
-              )}
-
+              <p class="card-summary">{summary}</p>
               {project.data.tags && project.data.tags.length > 0 && (
                 <div class="card-tags">
-                  {project.data.tags.map(tag => (
-                    <span class="tag">#{tag}</span>
-                  ))}
+                  {project.data.tags.map(tag => <span class="tag">#{tag}</span>)}
                 </div>
               )}
-
-              {cs.highlight && (
-                <div class="card-highlight">{cs.highlight}</div>
-              )}
-
-              <div class="deep-link" style="margin-top: 1rem;">
-                <a href={`/max/projects/`}>Full case study →</a>
-              </div>
             </div>
-
-            {project.data.links && project.data.links.length > 0 && (
-              <div class="card-links">
-                {project.data.links.map(link => (
-                  <a
-                    href={link.url}
-                    class="card-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
+            <div class="card-footer">
+              {project.data.links && project.data.links.slice(0, 2).map((link, i) => (
+                <a
+                  href={link.url}
+                  class={`card-link${i === 0 ? ' primary' : ''}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a href={`/max/projects/`} class="full-details">Full Details ↗</a>
+            </div>
           </article>
         );
       })}
     </div>
 
-    <!-- Footer -->
-    <footer class="page-footer">
-      <a href="/max/" class="back-link">← Back to terminal</a>
-      <span class="footer-note">Maximus · Built with Astro · Warm Tactical</span>
-    </footer>
+    <!-- Back -->
+    <div class="back">
+      <a href="/max/">← Back to terminal</a>
+    </div>
 
   </div>
 </body>
