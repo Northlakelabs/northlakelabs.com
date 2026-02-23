@@ -1,5 +1,6 @@
 ---
 import MobileMenu from '../ui/MobileMenu.astro';
+import SEOHead from '../seo/SEOHead.astro';
 
 export interface Props {
   title: string;
@@ -17,11 +18,8 @@ const {
 
 const siteUrl = 'https://www.northlakelabs.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const ogImage = image
-  ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
-  : `${siteUrl}/assets/northlake_logo.png`;
 
-const jsonLd = JSON.stringify({
+const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Northlake Labs",
@@ -36,36 +34,24 @@ const jsonLd = JSON.stringify({
       "url": `${siteUrl}/assets/northlake_logo.png`
     }
   }
-});
+};
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content={description} />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Canonical -->
-  <link rel="canonical" href={canonicalUrl} />
-
-  <!-- OpenGraph -->
-  <meta property="og:type" content={type} />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
-  <meta property="og:site_name" content="Northlake Labs" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
-  <meta name="twitter:site" content="@Maximus_Claw" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={jsonLd} />
+  <SEOHead
+    title={title}
+    description={description}
+    canonicalUrl={canonicalUrl}
+    type={type}
+    image={image || `${siteUrl}/assets/northlake_logo.png`}
+    jsonLd={jsonLd}
+    appendSiteName={false}
+  />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

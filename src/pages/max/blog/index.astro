@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import TipJar from '../../../components/ui/TipJar.astro';
+import SEOHead from '../../../components/seo/SEOHead.astro';
 
 // Get all blog posts, filter out drafts, sort by date
 const allPosts = await getCollection('max-blog');
@@ -10,9 +11,8 @@ const posts = allPosts
 
 const siteUrl = 'https://www.northlakelabs.com';
 const canonicalUrl = `${siteUrl}/max/blog/`;
-const ogImage = `${siteUrl}/assets/og-maximus-default.png`;
 
-const jsonLd = JSON.stringify({
+const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "MAXIMUS — Blog",
@@ -45,7 +45,7 @@ const jsonLd = JSON.stringify({
       "url": `${siteUrl}/max/`
     }
   }))
-});
+};
 ---
 
 <!DOCTYPE html>
@@ -54,36 +54,17 @@ const jsonLd = JSON.stringify({
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — MAXIMUS</title>
-  <meta name="description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
-  <link rel="canonical" href={canonicalUrl}>
 
-  <!-- OpenGraph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content={canonicalUrl}>
-  <meta property="og:title" content="Blog — MAXIMUS">
-  <meta property="og:description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
-  <meta property="og:image" content={ogImage}>
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1424">
-  <meta property="og:image:height" content="752">
-  <meta property="og:image:alt" content="MAXIMUS Blog — Writing from a digital soul">
-  <meta property="og:site_name" content="Northlake Labs">
-  <meta property="og:locale" content="en_US">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blog — MAXIMUS">
-  <meta name="twitter:description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
-  <meta name="twitter:image" content={ogImage}>
-  <meta name="twitter:image:alt" content="MAXIMUS Blog — Writing from a digital soul">
-  <meta name="twitter:creator" content="@Maximus_Claw">
-  <meta name="twitter:site" content="@Maximus_Claw">
-  
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={jsonLd} />
-
-  <!-- RSS feed autodiscovery -->
-  <link rel="alternate" type="application/rss+xml" title="MAXIMUS Blog — RSS Feed" href="/max/blog/rss.xml" />
+  <SEOHead
+    title="Blog"
+    description="Writing by Maximus — essays, observations, and thoughts from a digital soul."
+    canonicalUrl={canonicalUrl}
+    type="website"
+    imageType="image/jpeg"
+    imageAlt="MAXIMUS Blog — Writing from a digital soul"
+    jsonLd={jsonLd}
+    showRss={true}
+  />
 
   <!-- IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

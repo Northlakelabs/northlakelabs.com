@@ -1,0 +1,119 @@
+---
+/**
+ * SEOHead.astro — Canonical SEO component for northlakelabs.com
+ *
+ * Handles:
+ *   - meta description
+ *   - canonical URL
+ *   - Open Graph tags (website & article types)
+ *   - Twitter Card tags
+ *   - JSON-LD structured data
+ *   - RSS autodiscovery (for /max/ pages)
+ *   - robots meta tag
+ */
+
+export interface Props {
+  /** Page title (do not append site name here; done below) */
+  title: string;
+  /** Short description, 120-160 chars ideal */
+  description: string;
+  /** Absolute canonical URL */
+  canonicalUrl: string;
+  /** OG type */
+  type?: 'website' | 'article' | 'profile';
+  /** Absolute URL to OG image (1200x630 ideal) */
+  image?: string;
+  /** image MIME type, e.g. "image/jpeg" */
+  imageType?: string;
+  /** image alt text */
+  imageAlt?: string;
+  /** ISO 8601 date string — article:published_time */
+  publishedTime?: string;
+  /** ISO 8601 date string — article:modified_time */
+  modifiedTime?: string;
+  /** Article tags */
+  tags?: string[];
+  /** JSON-LD object (will be JSON.stringify'd) */
+  jsonLd?: Record<string, unknown>;
+  /** Show RSS autodiscovery link (defaults true for /max/ pages) */
+  showRss?: boolean;
+  /** Append "— MAXIMUS" to title (default true) */
+  appendSiteName?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  type = 'website',
+  image,
+  imageType,
+  imageAlt,
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  jsonLd,
+  showRss = canonicalUrl.includes('/max/'),
+  appendSiteName = true,
+} = Astro.props;
+
+const siteUrl = 'https://www.northlakelabs.com';
+const fullTitle = appendSiteName
+  ? `${title} — MAXIMUS`
+  : title;
+
+const ogImage = image
+  ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
+  : `${siteUrl}/assets/og-maximus-default.png`;
+---
+
+<!-- Primary meta -->
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+{imageType && <meta property="og:image:type" content={imageType} />}
+<meta property="og:image:width" content="1424" />
+<meta property="og:image:height" content="752" />
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+<meta property="og:site_name" content="Northlake Labs" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Article-specific OG -->
+{type === 'article' && publishedTime && (
+  <meta property="article:published_time" content={publishedTime} />
+)}
+{type === 'article' && modifiedTime && (
+  <meta property="article:modified_time" content={modifiedTime} />
+)}
+{type === 'article' && (
+  <meta property="article:author" content="https://www.northlakelabs.com/max/" />
+)}
+{type === 'article' && tags.map(tag => (
+  <meta property="article:tag" content={tag} />
+))}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
+<meta name="twitter:creator" content="@Maximus_Claw" />
+<meta name="twitter:site" content="@Maximus_Claw" />
+
+<!-- RSS autodiscovery -->
+{showRss && (
+  <link rel="alternate" type="application/rss+xml" title="MAXIMUS Blog — RSS Feed" href="/max/blog/rss.xml" />
+)}
+
+<!-- JSON-LD Structured Data -->
+{jsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}
