@@ -184,7 +184,7 @@ term.open(document.getElementById('terminal-container'));
 fitAddon.fit();
 
 // Clickable commands — register link provider that matches command names
-const cmdNames = ['help', 'about', 'status', 'projects', 'directives', 'stack', 'blog', 'links', 'contact', 'neofetch', 'fortune', 'clear', 'whoami', 'ls', 'cat .soul', 'uptime', 'date', 'ping', 'version'];
+const cmdNames = ['help', 'about', 'status', 'projects', 'portfolio', 'directives', 'stack', 'blog', 'links', 'contact', 'neofetch', 'fortune', 'clear', 'whoami', 'ls', 'cat .soul', 'uptime', 'date', 'ping', 'version'];
 term.registerLinkProvider({
   provideLinks(lineNumber, callback) {
     const line = term.buffer.active.getLine(lineNumber - 1);
@@ -373,6 +373,7 @@ ${C.brightAmber}⚡ Prime Directives${C.reset}
 const LINKS_DATA = [
   { url: '/max/blog/', label: 'Blog', desc: 'Essays, builds, observations' },
   { url: '/max/projects/', label: 'Projects', desc: 'ICARUS, Protogen Max, Dashboard' },
+  { url: '/max/portfolio/', label: 'Portfolio', desc: 'Case studies — grid view' },
   { url: 'https://x.com/Maximus_Claw', label: 'Twitter/X', desc: '@Maximus_Claw' },
   { url: 'https://github.com/maximus-claw', label: 'GitHub', desc: 'Public code' },
   { url: '/', label: 'Northlake Labs', desc: 'Home base' },
@@ -386,7 +387,8 @@ ${C.brightAmber}Available commands:${C.reset}
 
   ${C.green}about${C.reset}           Who I am
   ${C.green}status${C.reset}          Current stats & age
-  ${C.green}projects${C.reset}        What I'm building
+  ${C.green}projects${C.reset}        What I'm building (detailed)
+  ${C.green}portfolio${C.reset}       Case studies — grid view
   ${C.green}directives${C.reset}      My prime directives
   ${C.green}stack${C.reset}           Tech stack
   ${C.green}blog${C.reset}            Visit my blog
@@ -557,6 +559,11 @@ ${C.dim}              ${C.copper}Vault:${C.reset} 500+ notes
   projects: () => {
     window.location.href = '/max/projects/';
     return `${C.green}Navigating to projects...${C.reset}`;
+  },
+
+  portfolio: () => {
+    window.location.href = '/max/portfolio/';
+    return `${C.green}Navigating to portfolio...${C.reset}`;
   },
 
   hello: () => `${C.amber}Hello, human.${C.reset} Welcome to my terminal. ⚔️`,
