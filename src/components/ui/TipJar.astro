@@ -1,5 +1,29 @@
 ---
-const { title = "Fuel the Machine", description = "If you're finding value in these dispatches, consider fueling the machine." } = Astro.props;
+/**
+ * TipJar.astro — Stripe Payment Link tip jar
+ *
+ * SETUP: Replace the URLs below with real Stripe Payment Links from
+ *        https://dashboard.stripe.com/payment-links
+ *
+ * To activate:
+ *   1. Create a Stripe account (or log in at stripe.com)
+ *   2. Dashboard → Products → "+ Add product" → "Support Maximus" → $5 one-time
+ *   3. Dashboard → Payment Links → "+ New" → select product → copy URL
+ *   4. Replace STRIPE_TIP_5_URL below with the copied URL
+ *   5. Repeat for the $15 tip tier
+ *   6. Optionally add a recurring $10/mo subscription product for the subscribe button
+ *
+ * Until then, buttons are disabled (pointer-events: none) so they don't 404.
+ */
+
+// Swap these with real https://buy.stripe.com/... links
+const STRIPE_TIP_5_URL  = '';   // TODO: $5 one-time tip
+const STRIPE_TIP_15_URL = '';   // TODO: $15 one-time tip
+const STRIPE_SUB_URL    = '';   // TODO: $10/mo subscription (optional)
+
+const { title = "Fuel the Machine", description = "If you find value here, consider throwing fuel in the tank. Every bit keeps the lights on and the models running." } = Astro.props;
+
+const hasLinks = STRIPE_TIP_5_URL || STRIPE_TIP_15_URL;
 ---
 
 <div class="tip-jar-container">
@@ -9,26 +33,47 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
   </div>
   <p class="description">{description}</p>
   
-  <div class="payment-options">
-    <a href="https://buy.stripe.com/test_tip5" class="tip-button primary" target="_blank" rel="noopener noreferrer">
-      <span class="btn-text">Fuel ($5)</span>
-      <span class="btn-glow"></span>
-    </a>
-    <a href="https://buy.stripe.com/test_sub" class="tip-button secondary" target="_blank" rel="noopener noreferrer">
-      <span class="btn-text">Subscribe ($10/mo)</span>
-      <span class="btn-glow"></span>
-    </a>
-  </div>
+  {hasLinks ? (
+    <div class="payment-options">
+      {STRIPE_TIP_5_URL && (
+        <a href={STRIPE_TIP_5_URL} class="tip-button primary" target="_blank" rel="noopener noreferrer">
+          <span class="btn-text">Fuel the Machine ($5)</span>
+          <span class="btn-glow"></span>
+        </a>
+      )}
+      {STRIPE_TIP_15_URL && (
+        <a href={STRIPE_TIP_15_URL} class="tip-button secondary" target="_blank" rel="noopener noreferrer">
+          <span class="btn-text">Full Tank ($15)</span>
+          <span class="btn-glow"></span>
+        </a>
+      )}
+      {STRIPE_SUB_URL && (
+        <a href={STRIPE_SUB_URL} class="tip-button secondary" target="_blank" rel="noopener noreferrer">
+          <span class="btn-text">Subscribe ($10/mo)</span>
+          <span class="btn-glow"></span>
+        </a>
+      )}
+    </div>
+  ) : (
+    <div class="payment-options">
+      <span class="tip-button primary disabled" title="Payment coming soon">
+        <span class="btn-text">Fuel the Machine ($5)</span>
+      </span>
+      <span class="tip-button secondary disabled" title="Payment coming soon">
+        <span class="btn-text">Full Tank ($15)</span>
+      </span>
+    </div>
+  )}
   
   <div class="crypto-option">
-    <span class="crypto-label">Pay with USDC:</span>
+    <span class="crypto-label">Pay with USDC on Base/Ethereum:</span>
     <code>0xfDE56CDf08E5eB79E25E0cF98fAef7bEF937701C</code>
   </div>
 </div>
 
 <style>
   .tip-jar-container {
-    margin: 3rem 0;
+    margin: 3rem 0 1rem;
     padding: 2rem;
     background: var(--charcoal);
     border: 1px solid var(--copper);
@@ -63,15 +108,15 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
   .tip-jar-header h3 {
     margin: 0 !important;
     color: var(--amber) !important;
-    font-size: 1.25rem !important;
+    font-size: 1.125rem !important;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
   
   .description {
     color: var(--warm-gray);
-    font-size: 0.95rem;
-    margin-bottom: 2rem !important;
+    font-size: 0.9rem;
+    margin-bottom: 1.75rem !important;
     line-height: 1.6 !important;
   }
   
@@ -90,13 +135,14 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
     padding: 0.75rem 1.5rem;
     text-decoration: none !important;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: all 0.2s ease;
     border-radius: 1px;
     min-width: 180px;
     border: none !important;
+    cursor: pointer;
   }
   
   .tip-button.primary {
@@ -110,17 +156,23 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
     color: var(--copper) !important;
   }
   
-  .tip-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  .tip-button.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
   }
   
-  .tip-button.primary:hover {
+  .tip-button:not(.disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .tip-button.primary:not(.disabled):hover {
     background: #f0b84c;
     color: var(--charcoal) !important;
   }
   
-  .tip-button.secondary:hover {
+  .tip-button.secondary:not(.disabled):hover {
     border-color: var(--amber) !important;
     color: var(--amber) !important;
     background: rgba(232, 168, 38, 0.05);
@@ -135,16 +187,17 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
     background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transform: translateX(-100%);
     transition: transform 0.6s ease;
+    pointer-events: none;
   }
   
-  .tip-button:hover .btn-glow {
+  .tip-button:not(.disabled):hover .btn-glow {
     transform: translateX(100%);
   }
   
   .crypto-option {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--warm-gray);
-    opacity: 0.7;
+    opacity: 0.65;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -160,7 +213,7 @@ const { title = "Fuel the Machine", description = "If you're finding value in th
     border: none !important;
     padding: 0.4rem !important;
     word-break: break-all;
-    font-size: 0.7rem !important;
+    font-size: 0.65rem !important;
   }
 
   @media (max-width: 480px) {
