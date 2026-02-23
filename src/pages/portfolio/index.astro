@@ -1,0 +1,302 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Button from '../../components/ui/Button.astro';
+---
+
+<Layout 
+  title="Portfolio & Case Studies - Northlake Labs" 
+  description="Real work in biomechanics, AI, and rehabilitation robotics — from peer-reviewed research to patented hardware to production software."
+>
+  <Header />
+  
+  <main class="relative z-10">
+    <!-- Hero -->
+    <section class="py-20">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
+            Portfolio
+          </span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+          Fifteen years of biomechanics, robotics, and AI work — from university research to patented hardware to production software. 
+          No case study templates. Just real projects.
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured Case Study: bioMX-ai -->
+    <section class="py-8">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="bg-gradient-to-br from-burnt-sienna/[0.08] to-royal-purple/[0.06] p-8 md:p-12 rounded-2xl border border-burnt-sienna/20 relative overflow-hidden">
+          <!-- Featured badge -->
+          <div class="absolute top-6 right-6">
+            <span class="inline-flex items-center gap-2 bg-burnt-sienna/15 border border-burnt-sienna/30 rounded-full px-3 py-1 text-xs text-burnt-sienna font-medium uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 bg-burnt-sienna rounded-full animate-pulse-custom"></span>
+              Active
+            </span>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+              <div class="text-4xl mb-4">🧠</div>
+              <h2 class="text-2xl md:text-3xl font-bold mb-2">bioMX-ai</h2>
+              <p class="text-burnt-sienna text-sm font-medium mb-4">Multi-Sensor Fusion Platform · 2024–Present</p>
+              <p class="text-gray-300 leading-relaxed mb-6">
+                Built from scratch to solve a problem that keeps coming up in biomechanics labs: 
+                existing threshold-based gait event detection breaks down with pathological or constrained movement. 
+                Traditional algorithms assume "normal" gait. bioMX-ai doesn't.
+              </p>
+              <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                The platform synchronizes force plates (1000Hz), surface EMG (2000Hz), and kinematic data (100Hz), 
+                then runs an AI fusion model that learns from multi-modal signals rather than relying on 
+                single-sensor thresholds. The result: accurate gait event detection even when individual sensors 
+                would fail alone.
+              </p>
+              <Button href="/demos/" variant="primary" size="sm">Try the Live Demo →</Button>
+            </div>
+            <div class="space-y-3">
+              <div class="bg-black/30 p-4 rounded-xl border border-white/[0.06]">
+                <h4 class="text-sm font-semibold text-gray-200 mb-2">Problem</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  Traditional force plate thresholding fails on patients with neurological conditions, 
+                  partial weight-bearing constraints, or atypical gait patterns.
+                </p>
+              </div>
+              <div class="bg-black/30 p-4 rounded-xl border border-white/[0.06]">
+                <h4 class="text-sm font-semibold text-gray-200 mb-2">Approach</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  Multi-modal fusion: when force data is ambiguous, EMG timing and kinematic phase 
+                  provide corroborating signal. AI model trained on diverse gait patterns including pathological cases.
+                </p>
+              </div>
+              <div class="bg-black/30 p-4 rounded-xl border border-white/[0.06]">
+                <h4 class="text-sm font-semibold text-gray-200 mb-2">Stack</h4>
+                <p class="text-xs text-gray-400">Python · PyTorch · TypeScript · React · Astro · Real-time 60fps visualization</p>
+              </div>
+              <div class="bg-black/30 p-4 rounded-xl border border-white/[0.06]">
+                <h4 class="text-sm font-semibold text-gray-200 mb-2">Status</h4>
+                <p class="text-xs text-gray-400">
+                  Live interactive demo with real constrained gait research data. Clinical validation ongoing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies Grid -->
+    <section class="py-12">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-8">
+
+          <!-- Agility Trainer / Patent -->
+          <div class="bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-white/10 transition-colors">
+            <div class="text-3xl mb-4">🤖</div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h2 class="text-xl font-semibold">Agility Trainer</h2>
+              <span class="flex-shrink-0 text-xs bg-royal-purple/15 border border-royal-purple/30 text-royal-purple rounded-full px-2.5 py-1 font-medium">
+                Patented
+              </span>
+            </div>
+            <p class="text-gray-500 text-sm mb-4">Rehabilitation Robotics · US Patent 11,311,447</p>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              A robotic rehabilitation system designed to improve agility and dynamic balance in patients with 
+              neurological and musculoskeletal conditions. The system uses real-time sensor feedback to 
+              automatically adapt challenge level to patient performance, keeping patients in the therapeutic zone 
+              — not too easy, not overloading.
+            </p>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              Developed through university research and refined with clinical partners. The core idea: 
+              static rehab equipment is boring and sub-optimal; intelligent systems that respond to the patient 
+              in real time produce better outcomes.
+            </p>
+
+            <div class="space-y-2 text-sm mb-6">
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Adaptive challenge algorithm: auto-adjusts difficulty to patient capability</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Multi-sensor feedback loop: force, EMG, kinematics</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Clinical validation with spinal cord injury and stroke populations</span>
+              </div>
+            </div>
+
+            <a 
+              href="https://patents.google.com/patent/US11311447B2" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-royal-purple transition-colors"
+            >
+              US 11,311,447 — View Patent →
+            </a>
+          </div>
+
+          <!-- PNAS Energy Optimality -->
+          <div class="bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-white/10 transition-colors">
+            <div class="text-3xl mb-4">🏃</div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h2 class="text-xl font-semibold">Energy-Optimal Navigation</h2>
+              <span class="flex-shrink-0 text-xs bg-indigo/15 border border-indigo/30 text-indigo rounded-full px-2.5 py-1 font-medium">
+                Published
+              </span>
+            </div>
+            <p class="text-gray-500 text-sm mb-4">Biomechanics Research · PNAS, 2021</p>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              A unified theoretical model that predicts both the paths people choose and the speeds they walk — 
+              using a single energy-optimality criterion. The kicker: prior models handled either path or speed 
+              independently. This one explains both simultaneously, from first principles.
+            </p>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              Relevant beyond basic science: this kind of model underpins how autonomous systems (robots, 
+              prosthetics, exoskeletons) should plan motion to minimize effort and maximize safety. 
+              When the model is right, the robot moves like a human.
+            </p>
+
+            <div class="space-y-2 text-sm mb-6">
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Unified model predicts path geometry AND walking speed</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Validated across diverse terrain, obstacle configurations, and populations</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Applications: prosthetics, exoskeletons, autonomous mobility systems</span>
+              </div>
+            </div>
+
+            <a 
+              href="https://scholar.google.com/citations?user=Yd8pNbIAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo transition-colors"
+            >
+              PNAS, 2021 — Full Google Scholar →
+            </a>
+          </div>
+
+          <!-- Locomotor Stability Research -->
+          <div class="bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-white/10 transition-colors">
+            <div class="text-3xl mb-4">⚖️</div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h2 class="text-xl font-semibold">Locomotor Stability Research</h2>
+              <span class="flex-shrink-0 text-xs bg-indigo/15 border border-indigo/30 text-indigo rounded-full px-2.5 py-1 font-medium">
+                Published
+              </span>
+            </div>
+            <p class="text-gray-500 text-sm mb-4">Gait Science · Gait & Posture, 2017</p>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              How does the human nervous system control stability when the environment is actively working against you? 
+              This study characterized how people adapt locomotor control in environments that either 
+              aid or resist stability, and what that tells us about fall risk and rehabilitation targets.
+            </p>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              The findings are directly applicable to clinical settings: understanding how gait adapts 
+              to perturbation informs better treadmill protocols, better testing standards, and better 
+              interventions for fall-prone populations.
+            </p>
+
+            <div class="space-y-2 text-sm mb-6">
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Perturbation paradigms in stabilizing vs. destabilizing environments</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Quantified neuromuscular control adaptations via EMG + kinematics</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Informs fall-risk screening and rehab protocol design</span>
+              </div>
+            </div>
+
+            <a 
+              href="https://scholar.google.com/citations?user=Yd8pNbIAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo transition-colors"
+            >
+              Gait & Posture, 2017 — Full Google Scholar →
+            </a>
+          </div>
+
+          <!-- Sensor Systems / Apple -->
+          <div class="bg-white/[0.03] p-8 rounded-2xl border border-white/[0.06] hover:border-white/10 transition-colors">
+            <div class="text-3xl mb-4">📡</div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h2 class="text-xl font-semibold">Wearable Sensor Systems</h2>
+              <span class="flex-shrink-0 text-xs bg-white/10 border border-white/20 text-gray-400 rounded-full px-2.5 py-1 font-medium">
+                Industry
+              </span>
+            </div>
+            <p class="text-gray-500 text-sm mb-4">ML · Data Science · Sensor Fusion · 2020–Present</p>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              From wrist-worn motion sensors to full-body IMU arrays — building ML pipelines that extract 
+              meaningful biomechanical insights from noisy, real-world wearable data. 
+              Constrained computation, ambient noise, and realistic activity diversity are the actual problem. 
+              Lab data is easy.
+            </p>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              The core challenge: making models that work when the user isn't cooperating — walking awkwardly, 
+              phone in a bag, smartwatch askew. Production ML for health and movement is harder than 
+              academic ML by an order of magnitude.
+            </p>
+
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Multi-IMU fusion for activity recognition and gait metrics</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">Robust models designed for real-world device variability</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-burnt-sienna mt-1 flex-shrink-0">▸</span>
+                <span class="text-gray-400">On-device inference: accuracy + efficiency under tight compute budgets</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- What this means for you -->
+    <section class="py-16">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="bg-white/[0.02] p-10 rounded-2xl border border-white/[0.04] text-center">
+          <h3 class="text-2xl font-semibold mb-4">What This Means for Your Project</h3>
+          <p class="text-gray-300 mb-4 leading-relaxed">
+            The through-line: 15 years of actual biomechanics work, not borrowed credibility. 
+            Whether you need research-grade precision, clinical-ready robustness, 
+            or production software that ships — this is what that experience looks like.
+          </p>
+          <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+            Every project is different. If you're solving a real problem in movement science, 
+            rehabilitation, or human performance — let's talk about it.
+          </p>
+          <Button href="/contact/" variant="primary" size="lg">Start a Conversation</Button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
