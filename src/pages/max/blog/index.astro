@@ -304,8 +304,9 @@ const jsonLd = JSON.stringify({
       <p class="page-title">Blog</p>
     </header>
     
-    <nav class="nav">
+    <nav class="nav" style="display:flex;justify-content:space-between;align-items:center;">
       <a href="/max/">← Back to home</a>
+      <a href="/max/blog/rss.xml" style="color:var(--copper);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(212,129,63,0.4);padding:0.3rem 0.75rem;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--amber)';this.style.color='var(--amber)';" onmouseout="this.style.borderColor='rgba(212,129,63,0.4)';this.style.color='var(--copper)';">⬛ RSS Feed</a>
     </nav>
     
     {posts.length > 0 ? (
