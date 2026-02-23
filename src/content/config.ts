@@ -25,7 +25,24 @@ const blogCollection = defineCollection({
   }),
 });
 
+const maxProjectsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    tagline: z.string(),
+    date: z.date(),
+    status: z.enum(['active', 'live', 'paused', 'complete']),
+    tags: z.array(z.string()).optional(),
+    links: z.array(z.object({
+      label: z.string(),
+      url: z.string(),
+    })).optional(),
+    order: z.number().optional(),
+  }),
+});
+
 export const collections = {
   'max-blog': maxBlogCollection,
   'blog': blogCollection,
+  'max-projects': maxProjectsCollection,
 };

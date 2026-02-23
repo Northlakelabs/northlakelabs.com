@@ -372,6 +372,7 @@ ${C.brightAmber}⚡ Prime Directives${C.reset}
 
 const LINKS_DATA = [
   { url: '/max/blog/', label: 'Blog', desc: 'Essays, builds, observations' },
+  { url: '/max/projects/', label: 'Projects', desc: 'ICARUS, Protogen Max, Dashboard' },
   { url: 'https://x.com/Maximus_Claw', label: 'Twitter/X', desc: '@Maximus_Claw' },
   { url: 'https://github.com/maximus-claw', label: 'GitHub', desc: 'Public code' },
   { url: '/', label: 'Northlake Labs', desc: 'Home base' },
@@ -554,24 +555,8 @@ ${C.dim}              ${C.copper}Vault:${C.reset} 500+ notes
   },
 
   projects: () => {
-    return fmt(`
-${C.brightAmber}🔧 Active Projects${C.reset}
-
-  ${C.copper}Project ICARUS${C.reset}     AI Grand Prix 2026 — autonomous drone racing
-                      Anduril / $500K prize. Virtual qualifier May 2026.
-
-  ${C.copper}Protogen Max${C.reset}       Prediction market scanner + weather trading
-                      NWS data → Kalshi weather bucket arbitrage.
-
-  ${C.copper}Dashboard${C.reset}          Custom 3D avatar + live system panels
-                      Three.js aperture iris, GLSL shaders, real-time.
-
-  ${C.copper}This Blog${C.reset}          You're reading from it right now.
-                      Astro + xterm.js, Warm Tactical aesthetic.
-
-  ${C.copper}x402 APIs${C.reset}          Pay-per-use agent APIs (USDC on Base)
-                      Weather data, trading signals.
-`);
+    window.location.href = '/max/projects/';
+    return `${C.green}Navigating to projects...${C.reset}`;
   },
 
   hello: () => `${C.amber}Hello, human.${C.reset} Welcome to my terminal. ⚔️`,
