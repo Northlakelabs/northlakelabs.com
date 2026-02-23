@@ -1,0 +1,193 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/layout/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const siteUrl = 'https://www.northlakelabs.com';
+const canonicalUrl = `${siteUrl}/blog/`;
+const ogImage = `${siteUrl}/assets/northlake_logo.png`;
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Northlake Labs — Insights",
+  "description": "Biomechanics, AI, and human movement science. Research notes and practical thinking from Northlake Labs.",
+  "url": canonicalUrl,
+  "author": {
+    "@type": "Person",
+    "name": "Geoffrey Brown",
+    "url": `${siteUrl}/about/`
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Northlake Labs",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": ogImage
+    }
+  },
+  "blogPost": posts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.excerpt,
+    "url": `${siteUrl}/blog/${post.slug}/`,
+    "datePublished": post.data.date.toISOString(),
+    "keywords": post.data.tags ? post.data.tags.join(', ') : '',
+    "author": {
+      "@type": "Person",
+      "name": post.data.author || "Geoffrey Brown"
+    }
+  }))
+});
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights — Northlake Labs</title>
+  <meta name="description" content="Biomechanics, AI, and human movement science. Research notes and practical thinking from Northlake Labs.">
+  <link rel="canonical" href={canonicalUrl}>
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Insights — Northlake Labs">
+  <meta property="og:description" content="Biomechanics, AI, and human movement science. Research notes and practical thinking from Northlake Labs.">
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:site_name" content="Northlake Labs">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Insights — Northlake Labs">
+  <meta name="twitter:description" content="Biomechanics, AI, and human movement science. Research notes and practical thinking from Northlake Labs.">
+  <meta name="twitter:image" content={ogImage}>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={jsonLd}></script>
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Northlake Labs Insights" href="/blog/rss.xml">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-black-pearl text-white min-h-screen">
+  <Header />
+
+  <main class="relative z-10">
+    <!-- Hero -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-burnt-sienna via-royal-purple to-indigo bg-clip-text text-transparent">
+              Insights
+            </span>
+          </h1>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Biomechanics, AI, and human movement science. Research notes and practical thinking from the Northlake Labs team.
+          </p>
+        </div>
+
+        <!-- Posts Grid -->
+        {posts.length > 0 ? (
+          <div class="space-y-8">
+            {posts.map((post, index) => (
+              <article class={`group bg-white/[0.03] rounded-2xl border border-white/[0.06] hover:border-burnt-sienna/20 transition-all duration-300 overflow-hidden ${index === 0 ? 'hover:-translate-y-1' : ''}`}>
+                <a href={`/blog/${post.slug}/`} class="block p-8">
+                  <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-1">
+                      <!-- Tags -->
+                      {post.data.tags && post.data.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mb-3">
+                          {post.data.tags.slice(0, 3).map(tag => (
+                            <span class="text-xs font-medium px-2 py-1 bg-burnt-sienna/10 text-burnt-sienna rounded-full border border-burnt-sienna/20">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <!-- Title -->
+                      <h2 class="text-xl md:text-2xl font-bold mb-3 group-hover:text-burnt-sienna transition-colors duration-200 leading-snug">
+                        {post.data.title}
+                      </h2>
+
+                      <!-- Excerpt -->
+                      <p class="text-gray-400 leading-relaxed mb-4">
+                        {post.data.excerpt}
+                      </p>
+
+                      <!-- Meta -->
+                      <div class="flex items-center gap-4 text-sm text-gray-500">
+                        <span>{post.data.author || 'Geoffrey Brown'}</span>
+                        <span>·</span>
+                        <time datetime={post.data.date.toISOString()}>
+                          {formatDate(post.data.date)}
+                        </time>
+                      </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex items-center text-gray-600 group-hover:text-burnt-sienna transition-colors duration-200 mt-2">
+                      <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-20 text-gray-500">
+            <p class="text-lg">No posts yet. Check back soon.</p>
+          </div>
+        )}
+
+        <!-- CTA -->
+        <div class="mt-16 p-8 bg-white/[0.02] rounded-2xl border border-white/[0.06] text-center">
+          <h2 class="text-xl font-semibold mb-3">Working on a biomechanics challenge?</h2>
+          <p class="text-gray-400 mb-6 max-w-xl mx-auto">We build custom AI tools for human movement analysis, rehabilitation, and sports science. Let's talk about what you're building.</p>
+          <a href="/contact/" class="inline-flex items-center gap-2 bg-burnt-sienna hover:bg-burnt-sienna/80 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200">
+            Get in touch
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</body>
+</html>
+
+<style>
+  body {
+    background-color: #0a0e17;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  .bg-black-pearl { background-color: #0a0e17; }
+  .text-burnt-sienna { color: #c9604a; }
+  .bg-burnt-sienna { background-color: #c9604a; }
+  .border-burnt-sienna\/20 { border-color: rgba(201, 96, 74, 0.2); }
+  .bg-burnt-sienna\/10 { background-color: rgba(201, 96, 74, 0.1); }
+  .border-burnt-sienna\/20 { border-color: rgba(201, 96, 74, 0.2); }
+</style>
