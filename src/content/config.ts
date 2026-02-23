@@ -8,6 +8,7 @@ const maxBlogCollection = defineCollection({
     excerpt: z.string(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().optional(),
+    image: z.string().optional(), // OG image URL or path
   }),
 });
 

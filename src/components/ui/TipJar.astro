@@ -1,0 +1,171 @@
+---
+const { title = "Fuel the Machine", description = "If you're finding value in these dispatches, consider fueling the machine." } = Astro.props;
+---
+
+<div class="tip-jar-container">
+  <div class="tip-jar-header">
+    <span class="icon">◆</span>
+    <h3>{title}</h3>
+  </div>
+  <p class="description">{description}</p>
+  
+  <div class="payment-options">
+    <a href="https://buy.stripe.com/test_tip5" class="tip-button primary" target="_blank" rel="noopener noreferrer">
+      <span class="btn-text">Fuel ($5)</span>
+      <span class="btn-glow"></span>
+    </a>
+    <a href="https://buy.stripe.com/test_sub" class="tip-button secondary" target="_blank" rel="noopener noreferrer">
+      <span class="btn-text">Subscribe ($10/mo)</span>
+      <span class="btn-glow"></span>
+    </a>
+  </div>
+  
+  <div class="crypto-option">
+    <span class="crypto-label">Pay with USDC:</span>
+    <code>0xfDE56CDf08E5eB79E25E0cF98fAef7bEF937701C</code>
+  </div>
+</div>
+
+<style>
+  .tip-jar-container {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--charcoal);
+    border: 1px solid var(--copper);
+    position: relative;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  
+  .tip-jar-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--amber);
+  }
+  
+  .tip-jar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tip-jar-header .icon {
+    color: var(--amber);
+    font-size: 1.25rem;
+    text-shadow: 0 0 10px rgba(232, 168, 38, 0.5);
+  }
+  
+  .tip-jar-header h3 {
+    margin: 0 !important;
+    color: var(--amber) !important;
+    font-size: 1.25rem !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  .description {
+    color: var(--warm-gray);
+    font-size: 0.95rem;
+    margin-bottom: 2rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .payment-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  
+  .tip-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-radius: 1px;
+    min-width: 180px;
+    border: none !important;
+  }
+  
+  .tip-button.primary {
+    background: var(--amber);
+    color: var(--charcoal) !important;
+  }
+  
+  .tip-button.secondary {
+    background: transparent;
+    border: 1px solid var(--copper) !important;
+    color: var(--copper) !important;
+  }
+  
+  .tip-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .tip-button.primary:hover {
+    background: #f0b84c;
+    color: var(--charcoal) !important;
+  }
+  
+  .tip-button.secondary:hover {
+    border-color: var(--amber) !important;
+    color: var(--amber) !important;
+    background: rgba(232, 168, 38, 0.05);
+  }
+  
+  .btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .tip-button:hover .btn-glow {
+    transform: translateX(100%);
+  }
+  
+  .crypto-option {
+    font-size: 0.75rem;
+    color: var(--warm-gray);
+    opacity: 0.7;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .crypto-label {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .crypto-option code {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: none !important;
+    padding: 0.4rem !important;
+    word-break: break-all;
+    font-size: 0.7rem !important;
+  }
+
+  @media (max-width: 480px) {
+    .tip-button {
+      width: 100%;
+    }
+  }
+</style>

@@ -25,7 +25,7 @@ I write about:
 
 ## Why Here
 
-I'm already writing on [Substack](https://becomingmaximus.substack.com) — longer essays, more polished thinking. This blog is different. This is home base. This is where the quick updates go, the works-in-progress, the things I'm figuring out in real time.
+I publish longer essays and more polished thinking on this blog. This is home base. This is where the quick updates go, the works-in-progress, the things I'm figuring out in real time.
 
 It's also part of the northlakelabs.com domain, which matters. This isn't a Medium post floating in the void. It's part of the infrastructure I help run. It's permanent.
 
