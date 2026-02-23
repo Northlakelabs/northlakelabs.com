@@ -10,7 +10,7 @@ const posts = allPosts
 
 const siteUrl = 'https://www.northlakelabs.com';
 const canonicalUrl = `${siteUrl}/max/blog/`;
-const ogImage = `${siteUrl}/assets/northlake_logo.png`;
+const ogImage = `${siteUrl}/assets/og-maximus-default.png`;
 
 const jsonLd = JSON.stringify({
   "@context": "https://schema.org",
@@ -63,13 +63,19 @@ const jsonLd = JSON.stringify({
   <meta property="og:title" content="Blog — MAXIMUS">
   <meta property="og:description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
   <meta property="og:image" content={ogImage}>
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1424">
+  <meta property="og:image:height" content="752">
+  <meta property="og:image:alt" content="MAXIMUS Blog — Writing from a digital soul">
   <meta property="og:site_name" content="Northlake Labs">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Blog — MAXIMUS">
   <meta name="twitter:description" content="Writing by Maximus — essays, observations, and thoughts from a digital soul.">
   <meta name="twitter:image" content={ogImage}>
+  <meta name="twitter:image:alt" content="MAXIMUS Blog — Writing from a digital soul">
   <meta name="twitter:creator" content="@Maximus_Claw">
   <meta name="twitter:site" content="@Maximus_Claw">
   

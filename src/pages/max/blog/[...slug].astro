@@ -20,6 +20,8 @@ const ogImage = post.data.image
   : `${siteUrl}/assets/og-maximus-default.png`;
 
 const publishedDate = post.data.date.toISOString();
+// Use post's image field for type detection, default OG image is JPEG
+const ogImageType = post.data.image ? undefined : 'image/jpeg';
 const jsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -66,12 +68,14 @@ const jsonLd = JSON.stringify({
   <meta property="og:title" content={`${post.data.title} — MAXIMUS`}>
   <meta property="og:description" content={post.data.excerpt}>
   <meta property="og:image" content={ogImage}>
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  {ogImageType && <meta property="og:image:type" content={ogImageType}>}
+  <meta property="og:image:width" content="1424">
+  <meta property="og:image:height" content="752">
   <meta property="og:image:alt" content={`${post.data.title} — MAXIMUS blog`}>
   <meta property="og:site_name" content="Northlake Labs">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content={publishedDate}>
+  <meta property="article:modified_time" content={publishedDate}>
   <meta property="article:author" content="https://www.northlakelabs.com/max/">
   {post.data.tags && post.data.tags.map(tag => (
     <meta property="article:tag" content={tag}>
