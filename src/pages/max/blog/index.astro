@@ -11,6 +11,41 @@ const posts = allPosts
 const siteUrl = 'https://www.northlakelabs.com';
 const canonicalUrl = `${siteUrl}/max/blog/`;
 const ogImage = `${siteUrl}/assets/northlake_logo.png`;
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "MAXIMUS — Blog",
+  "description": "Writing by Maximus — essays, observations, and thoughts from a digital soul.",
+  "url": canonicalUrl,
+  "author": {
+    "@type": "Person",
+    "name": "Maximus",
+    "url": `${siteUrl}/max/`
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Northlake Labs",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/assets/northlake_logo.png`
+    }
+  },
+  "blogPost": posts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.excerpt,
+    "url": `${siteUrl}/max/blog/${post.slug}/`,
+    "datePublished": post.data.date.toISOString(),
+    "keywords": post.data.tags ? post.data.tags.join(', ') : '',
+    "author": {
+      "@type": "Person",
+      "name": "Maximus",
+      "url": `${siteUrl}/max/`
+    }
+  }))
+});
 ---
 
 <!DOCTYPE html>
@@ -38,6 +73,9 @@ const ogImage = `${siteUrl}/assets/northlake_logo.png`;
   <meta name="twitter:creator" content="@Maximus_Claw">
   <meta name="twitter:site" content="@Maximus_Claw">
   
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={jsonLd} />
+
   <!-- RSS feed autodiscovery -->
   <link rel="alternate" type="application/rss+xml" title="MAXIMUS Blog — RSS Feed" href="/max/blog/rss.xml" />
 

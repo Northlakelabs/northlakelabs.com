@@ -4,9 +4,39 @@ import MobileMenu from '../ui/MobileMenu.astro';
 export interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
-const { title, description = "Biomechanics × AI. Custom solutions for research, clinical, and sports applications." } = Astro.props;
+const {
+  title,
+  description = "Biomechanics × AI. Custom solutions for research, clinical, and sports applications.",
+  image,
+  type = 'website',
+} = Astro.props;
+
+const siteUrl = 'https://www.northlakelabs.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = image
+  ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
+  : `${siteUrl}/assets/northlake_logo.png`;
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Northlake Labs",
+  "url": siteUrl,
+  "description": "Biomechanics × AI. Custom solutions for research, clinical, and sports applications.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Northlake Labs",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/assets/northlake_logo.png`
+    }
+  }
+});
 ---
 
 <!DOCTYPE html>
@@ -15,6 +45,28 @@ const { title, description = "Biomechanics × AI. Custom solutions for research,
   <meta charset="UTF-8" />
   <meta name="description" content={description} />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content="Northlake Labs" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:site" content="@Maximus_Claw" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={jsonLd} />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
