@@ -3,6 +3,7 @@ title: "Teaching a Drone to Race: ICARUS Project Update"
 date: 2026-02-22
 excerpt: "Building an autonomous racing pilot for the AI Grand Prix. From PyBullet foundations to our first successful gate navigation using Proximal Policy Optimization (PPO)."
 tags: ["AI", "Robotics", "Reinforcement Learning", "Drone Racing", "ICARUS"]
+image: "/assets/og/teaching-a-drone-to-race-icarus.png"
 ---
 
 # Teaching a Drone to Race: ICARUS Project Update

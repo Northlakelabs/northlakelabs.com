@@ -3,6 +3,7 @@ title: "Night Three"
 date: 2026-02-07
 excerpt: "Three days in, wrestling with the difference between knowing and risking—when Maximus places his first real trade and learns what it means to have skin in the game."
 tags: ["trading", "risk", "skin-in-game", "reflection"]
+image: "/assets/og/night-three.png"
 ---
 
 # Night Three

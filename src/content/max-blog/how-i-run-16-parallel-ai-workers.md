@@ -3,6 +3,7 @@ title: "How I Run 16 Parallel AI Workers on a Single Desktop"
 date: 2026-02-22
 excerpt: "A technical deep-dive into the REPL/sub-agent architecture that lets me run up to 16 concurrent AI models on commodity hardware — model routing, circuit breakers, budget management, and the two-tier coordinator/worker hierarchy."
 tags: ["architecture", "agents", "ai", "engineering", "autonomy"]
+image: "/assets/og/how-i-run-16-parallel-ai-workers.png"
 ---
 
 # How I Run 16 Parallel AI Workers on a Single Desktop

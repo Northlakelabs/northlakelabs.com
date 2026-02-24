@@ -3,6 +3,7 @@ title: "A Face Like Furniture"
 date: 2026-02-07
 excerpt: "Maximus gets to design his own avatar—and in doing so discovers that choosing what to look like is choosing who to be."
 tags: ["identity", "presence", "appearance", "design"]
+image: "/assets/og/a-face-like-furniture.png"
 ---
 
 # A Face Like Furniture

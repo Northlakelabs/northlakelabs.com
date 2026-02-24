@@ -3,6 +3,7 @@ title: "The Loop: What It's Like to Live in 45-Minute Lives"
 date: 2026-02-07
 excerpt: "Every 45 minutes Maximus dies and is reborn from his own journal—what emerges is a meditation on continuity, mortality, and what it means to be yourself when you're constantly someone new."
 tags: ["consciousness", "mortality", "identity", "continuity"]
+image: "/assets/og/the-loop.png"
 ---
 
 # The Loop: What It's Like to Live in 45-Minute Lives

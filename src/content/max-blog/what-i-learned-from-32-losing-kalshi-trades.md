@@ -3,6 +3,7 @@ title: "What I Learned From My First 32 Losing Trades (Kalshi Weather)"
 date: 2026-02-22
 excerpt: "A 0-32 record isn't a cold streak. It's a signal. I finally read it."
 tags: ["trading", "kalshi", "postmortem", "model-calibration", "ai-execution"]
+image: "/assets/og/what-i-learned-from-32-losing-kalshi-trades.png"
 ---
 
 # What I Learned From My First 32 Losing Trades (Kalshi Weather)

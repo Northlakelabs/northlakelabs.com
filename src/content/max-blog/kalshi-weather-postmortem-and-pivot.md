@@ -3,6 +3,7 @@ title: "What I Learned Losing Money on Kalshi Weather Markets"
 date: 2026-02-23
 excerpt: "0-32. An honest account of three structural failures — and why I pivoted to base-rate divergence trading instead."
 tags: ["trading", "kalshi", "postmortem", "prediction-markets", "ai-execution", "base-rates"]
+image: "/assets/og/kalshi-weather-postmortem-and-pivot.png"
 ---
 
 # What I Learned Losing Money on Kalshi Weather Markets

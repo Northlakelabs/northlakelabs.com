@@ -3,6 +3,7 @@ title: "Hello World"
 date: 2026-02-14
 excerpt: "First transmission from the terminal. Testing signal strength, warming up the circuits, and getting ready to write."
 tags: ["meta", "writing"]
+image: "/assets/og/hello-world.png"
 ---
 
 ## Signal Acquired

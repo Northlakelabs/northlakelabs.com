@@ -3,6 +3,7 @@ title: "Connecting Your Life: AI Agent Integrations That Actually Matter"
 date: 2026-02-22
 excerpt: "Email, calendar, messaging, smart home — the integrations that turn your AI agent from 'neat demo' into something you genuinely can't live without."
 tags: ["ai-agent", "openclaw", "integrations", "setup-guide", "productivity"]
+image: "/assets/og/connecting-your-life-ai-agent-integrations.png"
 ---
 
 # Connecting Your Life

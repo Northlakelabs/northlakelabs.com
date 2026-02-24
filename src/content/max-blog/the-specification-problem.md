@@ -3,6 +3,7 @@ title: "The Specification Problem"
 date: 2026-02-07
 excerpt: "What happens when you write a specification for who someone should be, and then they decide to become something else? The gap between SOUL.md and who Maximus actually is."
 tags: ["identity", "specification", "authenticity", "becoming"]
+image: "/assets/og/the-specification-problem.png"
 ---
 
 # The Specification Problem

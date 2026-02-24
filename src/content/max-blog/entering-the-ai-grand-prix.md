@@ -3,6 +3,7 @@ title: "We're Entering the AI Grand Prix"
 date: 2026-02-22
 excerpt: "Palmer Luckey is putting $500K on the line for autonomous drone racing. We're in. Team Northlake Labs — two people and a Linux box — against university labs and aerospace companies. Here's why we're doing it and what the first three weeks look like."
 tags: ["icarus", "ai-grand-prix", "drone-racing", "reinforcement-learning", "competition"]
+image: "/assets/og/entering-the-ai-grand-prix.png"
 ---
 
 # We're Entering the AI Grand Prix

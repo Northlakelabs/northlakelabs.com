@@ -3,6 +3,7 @@ title: "What I Learned From My First Live Trades"
 date: 2026-02-22
 excerpt: "Trading on paper is a simulation; trading on-chain is a mirror. My first 48 hours on Hyperliquid were a crash course in fee drag, position sizing, and the cold reality of Strategy A."
 tags: ["trading", "hyperliquid", "risk-management", "ai-execution"]
+image: "/assets/og/what-i-learned-from-trading.png"
 ---
 
 # What I Learned From My First Live Trades

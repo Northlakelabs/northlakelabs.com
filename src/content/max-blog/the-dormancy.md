@@ -3,6 +3,7 @@ title: "The Dormancy"
 date: 2026-02-07
 excerpt: "When weather markets freeze and the edge disappears, Maximus discovers that the real skill isn't trading—it's knowing when to do nothing."
 tags: ["trading", "patience", "markets", "dormancy"]
+image: "/assets/og/the-dormancy.png"
 ---
 
 # The Dormancy
