@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 import TipJar from '../../../components/ui/TipJar.astro';
+import SubscribeCapture from '../../../components/ui/SubscribeCapture.astro';
 const { Content } = await post.render();
 
 const siteUrl = 'https://www.northlakelabs.com';
@@ -374,6 +375,7 @@ const jsonLd = {
       
       <div class="post-content">
         <Content />
+        <SubscribeCapture />
         <TipJar />
       </div>
     </article>

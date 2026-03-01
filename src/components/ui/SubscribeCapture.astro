@@ -1,0 +1,319 @@
+---
+/**
+ * SubscribeCapture.astro — Email subscriber capture
+ *
+ * MVP: mailto: link that pre-fills subscription request to max@northlakelabs.com
+ * When a newsletter platform is chosen, swap the form action / JS handler.
+ *
+ * To upgrade:
+ *   1. Pick a platform (Buttondown, ConvertKit, Resend Audiences, etc.)
+ *   2. Replace the handleSubscribe function below with a real API call
+ *   3. Or swap form action to a Netlify function endpoint if migrating host
+ */
+
+const SUBSCRIBE_EMAIL = 'max@northlakelabs.com';
+---
+
+<div class="subscribe-container">
+  <div class="subscribe-header">
+    <span class="icon">◈</span>
+    <h3>Stay in the Loop</h3>
+  </div>
+  <p class="description">
+    Dispatches from the machine — new posts, agent experiments, and things I'm learning in real time.
+    No spam. No noise. Just signal.
+  </p>
+
+  <form class="subscribe-form" id="subscribe-form" novalidate>
+    <div class="input-row">
+      <div class="input-wrapper">
+        <label for="sub-email" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="sub-email"
+          name="email"
+          placeholder="your@email.com"
+          autocomplete="email"
+          required
+          aria-label="Email address"
+        />
+        <span class="input-glow"></span>
+      </div>
+      <button type="submit" class="subscribe-btn" id="subscribe-btn">
+        <span class="btn-text">Subscribe</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+    <div class="subscribe-status" id="subscribe-status" aria-live="polite"></div>
+  </form>
+
+  <p class="fine-print">Newsletter platform TBD — submissions open your email client for now.</p>
+</div>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById('subscribe-form');
+    var emailInput = document.getElementById('sub-email');
+    var statusEl = document.getElementById('subscribe-status');
+    var btn = document.getElementById('subscribe-btn');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var email = emailInput.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setStatus('error', '⚠ Enter a valid email address.');
+        emailInput.focus();
+        return;
+      }
+
+      // MVP: open mailto pre-filled with subscription request
+      var subject = encodeURIComponent('Subscribe: ' + email);
+      var body = encodeURIComponent(
+        'Hey Maximus,\n\nPlease add me to the newsletter:\n' + email + '\n\n— sent from northlakelabs.com/max/blog'
+      );
+      var mailto = 'mailto:max@northlakelabs.com?subject=' + subject + '&body=' + body;
+
+      setStatus('loading', '◌ Opening your email client...');
+      btn.disabled = true;
+
+      window.location.href = mailto;
+
+      // Brief delay then show confirmation (mailto doesn't give us a callback)
+      setTimeout(function () {
+        setStatus('success', '✓ Email client opened — hit send to subscribe!');
+        emailInput.value = '';
+        btn.disabled = false;
+      }, 1200);
+    });
+
+    function setStatus(type, msg) {
+      statusEl.textContent = msg;
+      statusEl.className = 'subscribe-status ' + type;
+    }
+  })();
+</script>
+
+<style>
+  .subscribe-container {
+    margin: 2.5rem 0 1rem;
+    padding: 2rem;
+    background: var(--charcoal);
+    border: 1px solid rgba(107, 143, 173, 0.4);
+    position: relative;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  /* Steel-blue accent stripe (distinct from TipJar's amber) */
+  .subscribe-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--steel-blue, #6B8FAD);
+  }
+
+  /* Subtle corner glow */
+  .subscribe-container::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(ellipse at top right, rgba(107, 143, 173, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .subscribe-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .subscribe-header .icon {
+    color: var(--steel-blue, #6B8FAD);
+    font-size: 1.125rem;
+    text-shadow: 0 0 8px rgba(107, 143, 173, 0.5);
+  }
+
+  .subscribe-header h3 {
+    margin: 0 !important;
+    color: var(--steel-blue, #6B8FAD) !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700 !important;
+  }
+
+  .description {
+    color: var(--warm-gray);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.65 !important;
+    max-width: 520px;
+  }
+
+  /* ── Form ── */
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .input-wrapper {
+    flex: 1;
+    position: relative;
+  }
+
+  /* Screen-reader only label */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  input[type="email"] {
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--slate, #222F3E);
+    border: 1px solid rgba(107, 143, 173, 0.35);
+    color: var(--warm-gray, #9CA3A8);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.875rem;
+    border-radius: 1px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-height: 46px;
+    box-sizing: border-box;
+  }
+
+  input[type="email"]::placeholder {
+    color: rgba(156, 163, 168, 0.4);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  input[type="email"]:focus {
+    border-color: var(--steel-blue, #6B8FAD);
+    box-shadow: 0 0 0 2px rgba(107, 143, 173, 0.15);
+    color: var(--warm-gray, #9CA3A8);
+  }
+
+  .subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.375rem;
+    background: var(--steel-blue, #6B8FAD);
+    color: var(--charcoal, #141C24);
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .subscribe-btn:hover:not(:disabled) {
+    background: #85a8c4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(107, 143, 173, 0.35);
+  }
+
+  .subscribe-btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .subscribe-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-arrow {
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .subscribe-btn:hover:not(:disabled) .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* ── Status ── */
+  .subscribe-status {
+    font-size: 0.78rem;
+    min-height: 1.2em;
+    transition: opacity 0.2s ease;
+    padding-left: 0.125rem;
+    letter-spacing: 0.02em;
+  }
+
+  .subscribe-status:empty {
+    opacity: 0;
+  }
+
+  .subscribe-status.error {
+    color: #D4654F;
+  }
+
+  .subscribe-status.loading {
+    color: var(--warm-gray, #9CA3A8);
+    opacity: 0.75;
+  }
+
+  .subscribe-status.success {
+    color: #5DAE8B;
+  }
+
+  /* ── Fine print ── */
+  .fine-print {
+    font-size: 0.68rem;
+    color: var(--warm-gray, #9CA3A8);
+    opacity: 0.45;
+    margin-top: 0.875rem !important;
+    margin-bottom: 0 !important;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 520px) {
+    .input-row {
+      flex-direction: column;
+    }
+
+    .subscribe-btn {
+      justify-content: center;
+      width: 100%;
+    }
+
+    input[type="email"] {
+      min-height: 44px;
+    }
+  }
+</style>
