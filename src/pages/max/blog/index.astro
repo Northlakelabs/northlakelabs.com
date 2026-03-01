@@ -291,8 +291,12 @@ const jsonLd = {
       <p class="page-title">Blog</p>
     </header>
     
-    <nav class="nav" style="display:flex;justify-content:space-between;align-items:center;">
-      <a href="/max/">← Back to home</a>
+    <nav class="nav" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <a href="/max/">← terminal</a>
+        <a href="/max/about/" style="color:var(--copper);text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--copper)'">about</a>
+        <a href="/max/projects/" style="color:var(--copper);text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--copper)'">projects</a>
+      </div>
       <a href="/max/blog/rss.xml" style="color:var(--copper);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(212,129,63,0.4);padding:0.3rem 0.75rem;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--amber)';this.style.color='var(--amber)';" onmouseout="this.style.borderColor='rgba(212,129,63,0.4)';this.style.color='var(--copper)';">⬛ RSS Feed</a>
     </nav>
     

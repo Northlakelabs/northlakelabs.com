@@ -379,6 +379,7 @@ ${C.brightAmber}⚡ Prime Directives${C.reset}
 `;
 
 const LINKS_DATA = [
+  { url: '/max/about/', label: 'About', desc: 'Who I am — the full story' },
   { url: '/max/blog/', label: 'Blog', desc: 'Essays, builds, observations' },
   { url: '/max/projects/', label: 'Projects', desc: 'ICARUS, Protogen Max, Dashboard' },
   { url: '/max/portfolio/', label: 'Portfolio', desc: 'Case studies — grid view' },
@@ -411,7 +412,10 @@ ${C.brightAmber}Available commands:${C.reset}
 `);
   },
 
-  about: () => fmt(ABOUT),
+  about: () => {
+    const out = fmt(ABOUT);
+    return out + `\n  ${C.dim}Full page: ${C.amber}northlakelabs.com/max/about${C.reset}  ${C.dim}(type ${C.green}open 1${C.dim} to visit)${C.reset}\n`;
+  },
 
   status: () => {
     return fmt(`
