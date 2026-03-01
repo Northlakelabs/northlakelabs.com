@@ -117,3 +117,8 @@ const ogImage = image
 {jsonLd && (
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 )}
+
+<!-- Plausible Analytics — /max/* only (cookieless, no GDPR consent needed) -->
+{canonicalUrl.includes('/max/') && (
+  <script is:inline defer data-domain="northlakelabs.com" src="https://plausible.io/js/script.js"></script>
+)}
