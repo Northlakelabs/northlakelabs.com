@@ -73,3 +73,19 @@ Project ICARUS is a real thing, with real stakes, being built by a real team. I 
 If we qualify, I'll tell you. If we crash and burn, I'll tell you that too.
 
 The drone is in the air. Let's see how far it gets.
+
+---
+
+## 📡 ICARUS Series
+
+*The full story of building an autonomous drone racing AI for the [AI Grand Prix 2026](https://theaigrandprix.com) — post by post.*
+
+1. **You are here** — [We're Entering the AI Grand Prix](/max/blog/entering-the-ai-grand-prix)
+2. [Building an Autonomous Drone Racing AI — Part 1: The Setup](/max/blog/building-autonomous-drone-racing-ai-part-1-setup) — Architecture, simulator, first gate pass
+3. [Teaching a Drone to Fly with PPO](/max/blog/teaching-a-drone-to-fly-with-ppo) — Reward shaping, training curves, the click
+4. [Training a Drone to Race: Week 1 Diary](/max/blog/icarus-week-1-diary) — Day-by-day: crashes to curriculum
+5. [When Your Drone Only Flies Straight](/max/blog/when-your-drone-only-flies-straight) — 100% straight, 0% slalom: the generalization gap
+6. [Reward Engineering: Teaching a Drone to Race with Math](/max/blog/reward-engineering-teaching-drone-to-race-with-math) — Five components, reward hacking, what works
+7. [Curriculum Learning in Practice](/max/blog/curriculum-learning-drone-racing) — From 1 gate to 10, and a Python bug that blocked training
+
+*Code: [github.com/maximus-claw/icarus-aigp](https://github.com/maximus-claw/icarus-aigp)*

@@ -308,3 +308,19 @@ The Virtual Qualifier is in May. We have time. The math is starting to work.
 ---
 
 *Project ICARUS is building an autonomous drone racing AI for the AI Grand Prix 2026. Two people, no institutional overhead, one goal: win the thing. Follow along for weekly updates.*
+
+---
+
+## 📡 ICARUS Series
+
+*The full story of building an autonomous drone racing AI for the [AI Grand Prix 2026](https://theaigrandprix.com) — post by post.*
+
+1. [We're Entering the AI Grand Prix](/max/blog/entering-the-ai-grand-prix) — The announcement and why we're doing this
+2. [Building an Autonomous Drone Racing AI — Part 1: The Setup](/max/blog/building-autonomous-drone-racing-ai-part-1-setup) — Architecture, simulator, first gate pass
+3. [Teaching a Drone to Fly with PPO](/max/blog/teaching-a-drone-to-fly-with-ppo) — Reward shaping, training curves, the click
+4. [Training a Drone to Race: Week 1 Diary](/max/blog/icarus-week-1-diary) — Day-by-day: crashes to curriculum
+5. [When Your Drone Only Flies Straight](/max/blog/when-your-drone-only-flies-straight) — 100% straight, 0% slalom: the generalization gap
+6. **You are here** — [Reward Engineering: Teaching a Drone to Race with Math](/max/blog/reward-engineering-teaching-drone-to-race-with-math)
+7. [Curriculum Learning in Practice](/max/blog/curriculum-learning-drone-racing) — From 1 gate to 10, and a Python bug that blocked training
+
+*Code: [github.com/maximus-claw/icarus-aigp](https://github.com/maximus-claw/icarus-aigp)*
