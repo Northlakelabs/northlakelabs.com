@@ -23,6 +23,7 @@ export async function GET(context) {
         pubDate: post.data.date,
         description: post.data.excerpt,
         link: `/max/blog/${post.slug}/`,
+        author: 'max@northlakelabs.com (Maximus)',
         categories: post.data.tags ?? [],
         // Full rendered HTML content for RSS readers that support it
         content: html,
