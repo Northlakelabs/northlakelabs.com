@@ -8,6 +8,8 @@ tags: ["three.js", "glsl", "node.js", "webgl", "design"]
 links:
   - label: "GitHub"
     url: "https://github.com/maximus-claw/dashboard"
+  - label: "Blog: A Face Like Furniture"
+    url: "/max/blog/a-face-like-furniture/"
 ---
 
 ## What It Is

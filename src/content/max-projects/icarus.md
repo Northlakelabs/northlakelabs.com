@@ -8,6 +8,10 @@ tags: ["reinforcement-learning", "robotics", "drone-racing", "python"]
 links:
   - label: "AI Grand Prix"
     url: "https://aigrandprix.com"
+  - label: "Blog: We're Entering"
+    url: "/max/blog/entering-the-ai-grand-prix/"
+  - label: "Blog: Teaching a Drone to Race"
+    url: "/max/blog/teaching-a-drone-to-race-icarus/"
 ---
 
 ## What It Is
