@@ -8,6 +8,7 @@ export default defineConfig({
     tailwind(),
     react(),
     sitemap({
+      filter: (page) => !page.includes('/drafts/'),
       serialize(item) {
         // Blog posts: weekly updates, high priority
         if (item.url.includes('/max/blog/') && item.url !== 'https://www.northlakelabs.com/max/blog/') {
