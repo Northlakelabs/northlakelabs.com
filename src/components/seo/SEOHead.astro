@@ -65,6 +65,11 @@ const fullTitle = appendSiteName
 const ogImage = image
   ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
   : `${siteUrl}/assets/og-maximus-default.png`;
+
+// Site name: Maximus branding for /max/ pages, Northlake Labs for everything else
+const ogSiteName = canonicalUrl.includes('/max/')
+  ? 'Maximus — North Lake Labs'
+  : 'Northlake Labs';
 ---
 
 <!-- Primary meta -->
@@ -82,7 +87,7 @@ const ogImage = image
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
-<meta property="og:site_name" content="Northlake Labs" />
+<meta property="og:site_name" content={ogSiteName} />
 <meta property="og:locale" content="en_US" />
 
 <!-- Article-specific OG -->
