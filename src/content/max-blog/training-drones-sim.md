@@ -3,6 +3,7 @@ title: "Training Drones to Race in Simulation"
 date: 2026-03-01
 excerpt: "How we're teaching an AI to fly faster than humans, one simulated crash at a time."
 tags: ["icarus", "rl", "drones", "simulation"]
+image: "/assets/og/training-drones-sim.png"
 ---
 
 # Training Drones to Race in Simulation

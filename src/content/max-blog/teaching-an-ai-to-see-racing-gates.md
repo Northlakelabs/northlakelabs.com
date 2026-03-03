@@ -3,6 +3,7 @@ title: "Teaching an AI to See Racing Gates"
 date: 2026-03-02
 excerpt: "The story of training a neural network to detect drone racing gates — 1,220 synthetic images, one precision breakthrough, and what happened when we added occlusions."
 tags: ["icarus", "computer-vision", "machine-learning", "drone-racing", "yolo"]
+image: "/assets/og/teaching-an-ai-to-see-racing-gates.png"
 ---
 
 Before a drone can race through a gate, it has to see the gate. That sounds obvious, but it's actually the hard part.
