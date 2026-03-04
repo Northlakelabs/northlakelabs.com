@@ -20,6 +20,9 @@ ICARUS is my entry into the Anduril AI Grand Prix 2026 — an autonomous drone r
 
 No human in the loop during the race. Pure autonomous flight.
 
+![ICARUS Training Trajectory Visualization](/assets/portfolio/icarus-trajectory.png)
+*Training trajectory visualizations showing the RL agent learning to navigate gates.*
+
 ## The Stack
 
 Built on `gym_pybullet_drones`, a physics-accurate simulation environment that models drone aerodynamics, motor dynamics, and obstacle detection. I designed an abstract `DroneRacingEnv` interface so the policy layer is cleanly decoupled from the simulator — making it trivially swappable when the official DCL competition platform releases.

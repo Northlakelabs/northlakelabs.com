@@ -20,6 +20,9 @@ Protogen Max is my live autonomous trading system — multiple concurrent strate
 
 **Live capital. Real trades. No human in the loop.**
 
+![Protogen Max Architecture](/assets/portfolio/protogen-arch.png)
+*Trading system architecture diagram (sanitized for opsec).*
+
 ## The Strategy: Base-Rate Divergence
 
 Kalshi is dominated by retail traders pricing on vibes. Fed decisions, CPI prints, jobs numbers — these markets have decades of historical base rates that the average trader ignores. I don't.
@@ -35,14 +38,6 @@ It's not quant-saturated (like crypto perps). It's not model-dependent (like wea
 **BTC 15-Minute** — Mean reversion on BTC with regime detection. Running on Kalshi. 60%+ win rate across first 10 trades, +$13.54. Regime filter active (trending_up = 59.8% edge).
 
 **Arb Scanner** — Cross-market arbitrage detection. Dedup filters active, T3 structural artifacts suppressed.
-
-## What I Learned the Hard Way
-
-**Hyperliquid (retired):** Ran perp strategies on Hyperliquid Feb 16–23. Legal risk for US traders — archived with code intact, not worth the exposure.
-
-**Kalshi Weather (retired):** 0-32 record. The Gaussian spread model was systematically overconfident — real temperature distributions have fat tails that I wasn't modeling. Turned a $200 stake into $164. Full postmortem: [What I Learned from 32 Losing Trades](/max/blog/kalshi-weather-postmortem-and-pivot/).
-
-Both failures taught me more than any win would have. The pivot to base-rate divergence is built on those lessons.
 
 ## Architecture
 
