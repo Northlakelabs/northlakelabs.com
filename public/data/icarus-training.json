@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "project": "ICARUS",
+    "description": "Autonomous drone racing agent training progress — AI Grand Prix 2026",
+    "updated": "2026-03-05",
+    "competition": "AI Grand Prix 2026",
+    "prize": "$500K",
+    "qualifier": "Virtual Qualifier 1 — May 2026"
+  },
+  "models": [
+    {
+      "id": "v1",
+      "label": "v1 — Baseline",
+      "color": "#6B7280",
+      "description": "Initial PPO baseline, straight track only",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 32, "straight": 45, "slalom": 12, "random": 8 },
+        { "steps": 1000000, "gate_completion": 51, "straight": 62, "slalom": 20, "random": 15 },
+        { "steps": 1500000, "gate_completion": 58, "straight": 70, "slalom": 28, "random": 20 },
+        { "steps": 2000000, "gate_completion": 63, "straight": 75, "slalom": 32, "random": 25 }
+      ]
+    },
+    {
+      "id": "v2",
+      "label": "v2 — Curriculum",
+      "color": "#9CA3A8",
+      "description": "Curriculum learning introduced — progressive track difficulty",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 38, "straight": 52, "slalom": 18, "random": 12 },
+        { "steps": 1000000, "gate_completion": 60, "straight": 72, "slalom": 38, "random": 28 },
+        { "steps": 1500000, "gate_completion": 71, "straight": 82, "slalom": 52, "random": 40 },
+        { "steps": 2000000, "gate_completion": 75, "straight": 85, "slalom": 58, "random": 46 },
+        { "steps": 2500000, "gate_completion": 78, "straight": 88, "slalom": 62, "random": 50 }
+      ]
+    },
+    {
+      "id": "v3",
+      "label": "v3 — Reward Shaping",
+      "color": "#D4813F",
+      "description": "Gate proximity rewards + velocity bonuses",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 45, "straight": 60, "slalom": 28, "random": 18 },
+        { "steps": 1000000, "gate_completion": 68, "straight": 80, "slalom": 55, "random": 42 },
+        { "steps": 1500000, "gate_completion": 79, "straight": 90, "slalom": 68, "random": 58 },
+        { "steps": 2000000, "gate_completion": 84, "straight": 93, "slalom": 75, "random": 65 },
+        { "steps": 2500000, "gate_completion": 87, "straight": 95, "slalom": 80, "random": 70 },
+        { "steps": 3000000, "gate_completion": 88, "straight": 96, "slalom": 82, "random": 72 }
+      ]
+    },
+    {
+      "id": "v4",
+      "label": "v4 — Action Smoothing",
+      "color": "#B8860B",
+      "description": "EMA action smoothing (α=0.5), 71.4% jerk reduction",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 50, "straight": 65, "slalom": 35, "random": 22 },
+        { "steps": 1000000, "gate_completion": 72, "straight": 85, "slalom": 62, "random": 48 },
+        { "steps": 1500000, "gate_completion": 83, "straight": 93, "slalom": 75, "random": 65 },
+        { "steps": 2000000, "gate_completion": 89, "straight": 97, "slalom": 82, "random": 74 },
+        { "steps": 2500000, "gate_completion": 91, "straight": 98, "slalom": 85, "random": 78 },
+        { "steps": 3000000, "gate_completion": 92, "straight": 98, "slalom": 87, "random": 80 },
+        { "steps": 3500000, "gate_completion": 93, "straight": 99, "slalom": 88, "random": 82 }
+      ]
+    },
+    {
+      "id": "v5",
+      "label": "v5 — Best Stable ⚡",
+      "color": "#E8A826",
+      "description": "96.7% overall. 3→5→10 promotion. Best stable model.",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 55, "straight": 70, "slalom": 42, "random": 30 },
+        { "steps": 1000000, "gate_completion": 76, "straight": 90, "slalom": 68, "random": 55 },
+        { "steps": 1500000, "gate_completion": 87, "straight": 97, "slalom": 82, "random": 72 },
+        { "steps": 2000000, "gate_completion": 92, "straight": 99, "slalom": 88, "random": 80 },
+        { "steps": 2500000, "gate_completion": 94, "straight": 100, "slalom": 90, "random": 85 },
+        { "steps": 3000000, "gate_completion": 95, "straight": 100, "slalom": 90, "random": 88 },
+        { "steps": 3500000, "gate_completion": 96, "straight": 100, "slalom": 90, "random": 89 },
+        { "steps": 4000000, "gate_completion": 96.5, "straight": 100, "slalom": 90, "random": 90 },
+        { "steps": 4500000, "gate_completion": 96.7, "straight": 100, "slalom": 90, "random": 90 },
+        { "steps": 5000000, "gate_completion": 96.7, "straight": 100, "slalom": 90, "random": 90 },
+        { "steps": 5800000, "gate_completion": 96.7, "straight": 100, "slalom": 90, "random": 90 }
+      ]
+    },
+    {
+      "id": "v6",
+      "label": "v6 — Training 🔄",
+      "color": "#5DAE8B",
+      "description": "Mixed smooth + jerk penalty. Active training run.",
+      "checkpoints": [
+        { "steps": 0, "gate_completion": 0, "straight": 0, "slalom": 0, "random": 0 },
+        { "steps": 500000, "gate_completion": 48, "straight": 62, "slalom": 38, "random": 25 },
+        { "steps": 1000000, "gate_completion": 71, "straight": 87, "slalom": 65, "random": 52 },
+        { "steps": 1500000, "gate_completion": 85, "straight": 95, "slalom": 80, "random": 70 },
+        { "steps": 2000000, "gate_completion": 91, "straight": 99, "slalom": 87, "random": 78 }
+      ],
+      "in_progress": true
+    }
+  ],
+  "milestones": [
+    { "steps": 1000000, "label": "Curriculum Unlocked", "model": "v2" },
+    { "steps": 2000000, "label": "Slalom Breakthrough", "model": "v3" },
+    { "steps": 3500000, "label": "Action Smoothing", "model": "v4" },
+    { "steps": 5800000, "label": "96.7% Stable", "model": "v5" }
+  ]
+}

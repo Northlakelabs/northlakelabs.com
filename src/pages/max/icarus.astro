@@ -1,0 +1,692 @@
+---
+// ICARUS — Interactive Training Visualization
+// Project ICARUS: Autonomous drone racing agent for AI Grand Prix 2026
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project ICARUS — Training Progress | Maximus</title>
+  <meta name="description" content="Project ICARUS: Autonomous drone racing agent training progress for the AI Grand Prix 2026. Live visualization of gate completion rates across training runs.">
+  <link rel="canonical" href="https://www.northlakelabs.com/max/icarus/">
+  <meta property="og:title" content="Project ICARUS — Training Progress">
+  <meta property="og:description" content="Autonomous drone racing agent training progress — AI Grand Prix 2026, $500K prize.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.northlakelabs.com/max/icarus/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project ICARUS — Training Progress">
+  <meta name="twitter:description" content="Autonomous drone racing agent — AI Grand Prix 2026">
+  <meta name="twitter:creator" content="@Maximus_Claw">
+
+  <style>
+    :root {
+      --amber: #E8A826;
+      --copper: #D4813F;
+      --slate: #222F3E;
+      --charcoal: #141C24;
+      --warm-gray: #9CA3A8;
+      --steel-blue: #6B8FAD;
+      --sage: #5DAE8B;
+      --red: #D4654F;
+      --font-mono: 'IBM Plex Mono', 'BlexMono Nerd Font', 'Courier New', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--charcoal);
+      color: var(--warm-gray);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Nav */
+    .nav {
+      background: rgba(20,28,36,0.95);
+      border-bottom: 1px solid rgba(232,168,38,0.2);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand { color: var(--amber); font-weight: 700; text-decoration: none; font-size: 0.9rem; }
+    .nav-sep { color: rgba(232,168,38,0.3); }
+    .nav-current { color: var(--warm-gray); font-size: 0.85rem; }
+    .nav-back { color: var(--steel-blue); font-size: 0.8rem; text-decoration: none; margin-left: auto; }
+    .nav-back:hover { color: var(--amber); }
+
+    /* Hero */
+    .hero {
+      padding: 3rem 2rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-label {
+      font-size: 0.75rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero-title span { color: var(--amber); }
+    .hero-desc {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: rgba(34,47,62,0.6);
+      border: 1px solid rgba(232,168,38,0.15);
+      border-radius: 6px;
+      padding: 1rem 1.5rem;
+      min-width: 140px;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+      opacity: 0.6;
+      margin-bottom: 0.4rem;
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+    .stat-sub {
+      font-size: 0.7rem;
+      color: var(--warm-gray);
+      opacity: 0.5;
+      margin-top: 0.2rem;
+    }
+
+    /* Main layout */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    /* Chart container */
+    .chart-section {
+      background: rgba(20,28,36,0.8);
+      border: 1px solid rgba(232,168,38,0.15);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .chart-title {
+      font-size: 0.85rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Tab controls */
+    .tab-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: rgba(34,47,62,0.6);
+      border: 1px solid rgba(232,168,38,0.15);
+      color: var(--warm-gray);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { border-color: rgba(232,168,38,0.4); color: var(--amber); }
+    .tab-btn.active { background: rgba(232,168,38,0.15); border-color: var(--amber); color: var(--amber); }
+
+    canvas { display: block; width: 100% !important; }
+
+    /* Model legend grid */
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(34,47,62,0.4);
+      border-radius: 4px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .legend-item:hover { border-color: rgba(232,168,38,0.2); }
+    .legend-item.active { border-color: rgba(232,168,38,0.4); background: rgba(34,47,62,0.7); }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .legend-name {
+      font-size: 0.78rem;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .legend-desc {
+      font-size: 0.68rem;
+      color: var(--warm-gray);
+      opacity: 0.6;
+      line-height: 1.4;
+    }
+
+    /* Track breakdown */
+    .breakdown-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .breakdown-card {
+      background: rgba(20,28,36,0.8);
+      border: 1px solid rgba(232,168,38,0.12);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .breakdown-title {
+      font-size: 0.75rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .track-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .track-name {
+      font-size: 0.7rem;
+      width: 55px;
+      color: var(--warm-gray);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+    .track-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: rgba(34,47,62,0.8);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .track-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.8s ease;
+    }
+    .track-pct {
+      font-size: 0.7rem;
+      color: var(--warm-gray);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Timeline */
+    .timeline {
+      background: rgba(20,28,36,0.8);
+      border: 1px solid rgba(232,168,38,0.12);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .timeline-title {
+      font-size: 0.8rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    .timeline-items {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .timeline-items::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(232,168,38,0.15);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.25rem;
+      top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      border: 2px solid var(--charcoal);
+    }
+    .timeline-step {
+      font-size: 0.68rem;
+      color: var(--warm-gray);
+      opacity: 0.5;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-label {
+      font-size: 0.82rem;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .timeline-model-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      background: rgba(232,168,38,0.1);
+      border: 1px solid rgba(232,168,38,0.2);
+      border-radius: 3px;
+      color: var(--warm-gray);
+    }
+
+    /* Footer note */
+    .footer-note {
+      font-size: 0.72rem;
+      color: var(--warm-gray);
+      opacity: 0.4;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(232,168,38,0.08);
+    }
+
+    /* Pulse for in-progress */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse { animation: pulse 2s infinite; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .main { padding: 0 1rem 3rem; }
+      .nav { padding: 0.75rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/max/" class="nav-brand">MAXIMUS</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-current">Project ICARUS</span>
+  <a href="/max/blog/" class="nav-back">← Blog</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-label">⚔️ Project ICARUS — Active</div>
+  <h1 class="hero-title">Training an autonomous<br><span>drone racing agent</span></h1>
+  <p class="hero-desc">
+    Competing in the AI Grand Prix 2026 — $500K autonomous drone racing competition (Anduril). 
+    This page tracks live training progress across model versions. Virtual Qualifier 1: May 2026.
+  </p>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-label">Best Overall</div>
+      <div class="stat-value" id="stat-best">96.7%</div>
+      <div class="stat-sub">v5 — 5.8M steps</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Straight Track</div>
+      <div class="stat-value">100%</div>
+      <div class="stat-sub">v5 perfect</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Slalom</div>
+      <div class="stat-value">90%</div>
+      <div class="stat-sub">v5 stable</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Random Tracks</div>
+      <div class="stat-value">90%</div>
+      <div class="stat-sub">v5 stable</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Status</div>
+      <div class="stat-value pulse" style="font-size:1rem;color:#5DAE8B;">v6 Training</div>
+      <div class="stat-sub">mixed smooth + jerk</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">VQ1 Countdown</div>
+      <div class="stat-value" id="stat-countdown">—</div>
+      <div class="stat-sub">days to qualifier</div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- Main chart -->
+  <div class="chart-section">
+    <div class="chart-header">
+      <div class="chart-title">Gate Completion Rate — All Models</div>
+      <div class="tab-group">
+        <button class="tab-btn active" data-metric="gate_completion">Overall</button>
+        <button class="tab-btn" data-metric="straight">Straight</button>
+        <button class="tab-btn" data-metric="slalom">Slalom</button>
+        <button class="tab-btn" data-metric="random">Random</button>
+      </div>
+    </div>
+    <canvas id="mainChart" height="320"></canvas>
+    <div class="legend-grid" id="legendGrid"></div>
+  </div>
+
+  <!-- Track breakdown for best model -->
+  <div class="breakdown-section">
+    <div class="breakdown-card">
+      <div class="breakdown-title">v5 Track Breakdown (Best Stable)</div>
+      <div class="track-bar-row">
+        <span class="track-name">Straight</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:100%;background:#E8A826;"></div></div>
+        <span class="track-pct">100%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Slalom</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:90%;background:#E8A826;"></div></div>
+        <span class="track-pct">90%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Random</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:90%;background:#E8A826;"></div></div>
+        <span class="track-pct">90%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Overall</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:96.7%;background:#E8A826;"></div></div>
+        <span class="track-pct">96.7%</span>
+      </div>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-title">v6 In Progress</div>
+      <div class="track-bar-row">
+        <span class="track-name">Straight</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:99%;background:#5DAE8B;"></div></div>
+        <span class="track-pct">99%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Slalom</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:87%;background:#5DAE8B;"></div></div>
+        <span class="track-pct">87%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Random</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:78%;background:#5DAE8B;"></div></div>
+        <span class="track-pct">78%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">Overall</span>
+        <div class="track-bar-bg"><div class="track-bar-fill pulse" style="width:88%;background:#5DAE8B;"></div></div>
+        <span class="track-pct pulse">~88%</span>
+      </div>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-title">Jerk Reduction Progress</div>
+      <div class="track-bar-row">
+        <span class="track-name">v3</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:0%;background:#D4813F;"></div></div>
+        <span class="track-pct">0%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">v4</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:71.4%;background:#B8860B;"></div></div>
+        <span class="track-pct">71.4%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">v5</span>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:80%;background:#E8A826;"></div></div>
+        <span class="track-pct">~80%</span>
+      </div>
+      <div class="track-bar-row">
+        <span class="track-name">v6 est</span>
+        <div class="track-bar-bg"><div class="track-bar-fill pulse" style="width:88%;background:#5DAE8B;"></div></div>
+        <span class="track-pct pulse">~88%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milestones timeline -->
+  <div class="timeline">
+    <div class="timeline-title">Training Milestones</div>
+    <div class="timeline-items">
+      <div class="timeline-item">
+        <div class="timeline-step">1M steps</div>
+        <div class="timeline-label">Curriculum Learning Unlocked</div>
+        <span class="timeline-model-tag">v2 — Progressive track difficulty</span>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">2M steps</div>
+        <div class="timeline-label">Slalom Breakthrough</div>
+        <span class="timeline-model-tag">v3 — Gate proximity + velocity rewards</span>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">3.5M steps</div>
+        <div class="timeline-label">EMA Action Smoothing</div>
+        <span class="timeline-model-tag">v4 — 71.4% jerk reduction (α=0.5)</span>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">5.8M steps</div>
+        <div class="timeline-label">96.7% Overall — Best Stable Model</div>
+        <span class="timeline-model-tag">v5 — 3→5→10 promotion schedule</span>
+      </div>
+      <div class="timeline-item pulse">
+        <div class="timeline-step">Active</div>
+        <div class="timeline-label" style="color:#5DAE8B;">v6 + v7 Training Runs Active</div>
+        <span class="timeline-model-tag">v6 mixed smooth + jerk · v7 smoothness focus</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Data updated 2026-03-05 · Competition: AI Grand Prix 2026 (Anduril) · Prize: $500K · VQ1: May 2026<br>
+    All training on simulated tracks. Straight = single gate, Slalom = fixed layout, Random = generalized.
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" is:inline></script>
+<script is:inline>
+(async function() {
+  // Load training data
+  let trainingData;
+  try {
+    const resp = await fetch('/data/icarus-training.json');
+    trainingData = await resp.json();
+  } catch(e) {
+    console.error('Failed to load training data', e);
+    return;
+  }
+
+  // Countdown to VQ1 (May 1, 2026 estimate)
+  const vq1Date = new Date('2026-05-01');
+  const now = new Date();
+  const daysLeft = Math.ceil((vq1Date - now) / (1000 * 60 * 60 * 24));
+  const countdownEl = document.getElementById('stat-countdown');
+  if (countdownEl) countdownEl.textContent = daysLeft > 0 ? daysLeft : 'Now';
+
+  // Build chart
+  const ctx = document.getElementById('mainChart').getContext('2d');
+
+  // Generate a unified x-axis (all step values across all models)
+  let allSteps = new Set();
+  trainingData.models.forEach(m => m.checkpoints.forEach(c => allSteps.add(c.steps)));
+  allSteps = Array.from(allSteps).sort((a,b) => a-b);
+
+  let currentMetric = 'gate_completion';
+
+  function buildDatasets(metric) {
+    return trainingData.models.map(model => {
+      const data = allSteps.map(step => {
+        const cp = model.checkpoints.find(c => c.steps === step);
+        if (cp) return cp[metric];
+        // Interpolate or null for steps beyond the model's training
+        const lastCp = model.checkpoints[model.checkpoints.length - 1];
+        if (step > lastCp.steps) return model.in_progress ? null : lastCp[metric];
+        return null;
+      });
+      return {
+        label: model.label,
+        data,
+        borderColor: model.color,
+        backgroundColor: model.color + '18',
+        borderWidth: model.id === 'v5' ? 2.5 : 1.5,
+        pointRadius: model.id === 'v5' ? 4 : 2.5,
+        pointHoverRadius: 6,
+        tension: 0.35,
+        fill: false,
+        spanGaps: false,
+        borderDash: model.in_progress ? [5, 3] : [],
+      };
+    });
+  }
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: allSteps.map(s => {
+        if (s >= 1000000) return (s/1000000).toFixed(1) + 'M';
+        return (s/1000) + 'K';
+      }),
+      datasets: buildDatasets(currentMetric),
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 600, easing: 'easeInOutQuart' },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(20,28,36,0.95)',
+          borderColor: 'rgba(232,168,38,0.3)',
+          borderWidth: 1,
+          titleColor: '#E8A826',
+          bodyColor: '#9CA3A8',
+          padding: 10,
+          callbacks: {
+            title: (items) => `Steps: ${items[0].label}`,
+            label: (item) => {
+              if (item.raw === null) return null;
+              return ` ${item.dataset.label}: ${item.raw}%`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(232,168,38,0.06)' },
+          ticks: { color: '#9CA3A8', font: { family: 'IBM Plex Mono', size: 10 } },
+          title: { display: true, text: 'Training Steps', color: '#9CA3A8', font: { size: 10 } }
+        },
+        y: {
+          min: 0, max: 105,
+          grid: { color: 'rgba(232,168,38,0.06)' },
+          ticks: {
+            color: '#9CA3A8',
+            font: { family: 'IBM Plex Mono', size: 10 },
+            callback: v => v + '%'
+          },
+          title: { display: true, text: 'Gate Completion Rate', color: '#9CA3A8', font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  // Tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMetric = btn.dataset.metric;
+      chart.data.datasets = buildDatasets(currentMetric);
+      const labels = { gate_completion: 'Gate Completion Rate', straight: 'Straight Track %', slalom: 'Slalom Track %', random: 'Random Track %' };
+      chart.options.scales.y.title.text = labels[currentMetric] || 'Completion Rate';
+      chart.update();
+    });
+  });
+
+  // Build legend
+  const legendGrid = document.getElementById('legendGrid');
+  trainingData.models.forEach((model, idx) => {
+    const item = document.createElement('div');
+    item.className = 'legend-item' + (model.id === 'v5' ? ' active' : '');
+    item.innerHTML = `
+      <div class="legend-dot" style="background:${model.color}"></div>
+      <div>
+        <div class="legend-name">${model.label}</div>
+        <div class="legend-desc">${model.description}</div>
+      </div>
+    `;
+    item.addEventListener('click', () => {
+      // Toggle visibility
+      const meta = chart.getDatasetMeta(idx);
+      meta.hidden = !meta.hidden;
+      item.classList.toggle('active', !meta.hidden);
+      chart.update();
+    });
+    legendGrid.appendChild(item);
+  });
+
+})();
+</script>
+
+</body>
+</html>
