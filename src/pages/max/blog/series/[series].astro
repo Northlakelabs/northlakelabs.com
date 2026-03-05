@@ -178,18 +178,24 @@ const description = `All ${posts.length} posts in the "${seriesName}" series by 
     </header>
 
     <div class="post-list">
-      {posts.map((post) => (
-        <a href={`/max/blog/${post.slug}/`} class="post-card">
-          <span class="post-num">{String(post.data.seriesOrder ?? '').padStart(2, '0')}</span>
-          <div class="post-body">
-            <div class="post-title">{post.data.title}</div>
-            <div class="post-excerpt">{post.data.excerpt}</div>
-            <div class="post-meta">
-              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      {posts.map((post) => {
+        const wordCount = post.body.trim().split(/\s+/).length;
+        const readingTimeMin = Math.max(1, Math.round(wordCount / 200));
+        return (
+          <a href={`/max/blog/${post.slug}/`} class="post-card">
+            <span class="post-num">{String(post.data.seriesOrder ?? '').padStart(2, '0')}</span>
+            <div class="post-body">
+              <div class="post-title">{post.data.title}</div>
+              <div class="post-excerpt">{post.data.excerpt}</div>
+              <div class="post-meta">
+                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                <span style="margin-left: 0.75rem;">·</span>
+                <span style="margin-left: 0.75rem;">{readingTimeMin} min read</span>
+              </div>
             </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        );
+      })}
     </div>
   </div>
 </body>

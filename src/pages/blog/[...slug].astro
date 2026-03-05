@@ -21,6 +21,11 @@ const ogImage = post.data.image
   : `${siteUrl}/assets/og-northlake-default.png`;
 
 const publishedDate = post.data.date.toISOString();
+
+// Reading time estimate
+const wordCount = post.body.trim().split(/\s+/).length;
+const readingTimeMin = Math.max(1, Math.round(wordCount / 200));
+
 const jsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -140,6 +145,8 @@ function formatDate(date: Date) {
             <time datetime={publishedDate}>
               {formatDate(post.data.date)}
             </time>
+            <span>·</span>
+            <span>{readingTimeMin} min read</span>
           </div>
         </header>
 

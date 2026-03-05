@@ -14,13 +14,14 @@ const { post } = Astro.props;
 import TipJar from '../../../components/ui/TipJar.astro';
 import SubscribeCapture from '../../../components/ui/SubscribeCapture.astro';
 import SeriesNav from '../../../components/ui/SeriesNav.astro';
+import RelatedPosts from '../../../components/ui/RelatedPosts.astro';
 const { Content } = await post.render();
 
 const siteUrl = 'https://www.northlakelabs.com';
 const canonicalUrl = `${siteUrl}/max/blog/${post.slug}/`;
 const ogImage = post.data.image
   ? (post.data.image.startsWith('http') ? post.data.image : `${siteUrl}${post.data.image}`)
-  : `${siteUrl}/assets/og-maximus-default.png`;
+  : `${siteUrl}/og/${post.slug}.png`;
 
 const publishedDate = post.data.date.toISOString();
 
@@ -394,6 +395,14 @@ const jsonLd = {
         <SubscribeCapture />
         <TipJar />
       </div>
+
+      {post.data.tags && post.data.tags.length > 0 && (
+        <RelatedPosts 
+          currentSlug={post.slug}
+          currentTags={post.data.tags}
+          maxPosts={3}
+        />
+      )}
 
       {post.data.series && post.data.seriesOrder && (
         <SeriesNav

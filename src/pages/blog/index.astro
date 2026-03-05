@@ -140,6 +140,8 @@ function formatDate(date: Date) {
                         <time datetime={post.data.date.toISOString()}>
                           {formatDate(post.data.date)}
                         </time>
+                        <span>·</span>
+                        <span>{Math.max(1, Math.round(post.body.trim().split(/\s+/).length / 200))} min read</span>
                       </div>
                     </div>
 

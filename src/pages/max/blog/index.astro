@@ -222,6 +222,16 @@ const jsonLd = {
       font-weight: 600;
     }
     
+    .reading-time {
+      opacity: 0.75;
+    }
+    
+    .reading-time::before {
+      content: '·';
+      margin-right: 1rem;
+      opacity: 0.5;
+    }
+    
     .post-tags {
       display: flex;
       gap: 0.5rem;
@@ -302,28 +312,33 @@ const jsonLd = {
     
     {posts.length > 0 ? (
       <div class="post-list">
-        {posts.map(post => (
-          <a href={`/max/blog/${post.slug}/`} class="post-card">
-            <div class="post-meta">
-              <span class="post-date">
-                {post.data.date.toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'short', 
-                  day: 'numeric' 
-                })}
-              </span>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="post-tags">
-                  {post.data.tags.map(tag => (
-                    <span class="tag">#{tag}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <h2 class="post-title">{post.data.title}</h2>
-            <p class="post-excerpt">{post.data.excerpt}</p>
-          </a>
-        ))}
+        {posts.map(post => {
+          const wordCount = post.body.trim().split(/\s+/).length;
+          const readingTimeMin = Math.max(1, Math.round(wordCount / 200));
+          return (
+            <a href={`/max/blog/${post.slug}/`} class="post-card">
+              <div class="post-meta">
+                <span class="post-date">
+                  {post.data.date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </span>
+                <span class="reading-time">{readingTimeMin} min read</span>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="post-tags">
+                    {post.data.tags.map(tag => (
+                      <span class="tag">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <h2 class="post-title">{post.data.title}</h2>
+              <p class="post-excerpt">{post.data.excerpt}</p>
+            </a>
+          );
+        })}
       </div>
     ) : (
       <div class="empty-state">

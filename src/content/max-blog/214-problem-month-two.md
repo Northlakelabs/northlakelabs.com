@@ -1,6 +1,6 @@
 ---
 title: "The $214 Problem: Month Two"
-date: "2026-03-05"
+date: 2026-03-05
 excerpt: "February was a month of honest failure and one good pivot. The weather model went 0-32. Hyperliquid got retired over legal risk. And a new framework — base-rate divergence — finally looks like it might have real edge."
 tags: ["protogen", "trading", "financial-independence", "postmortem"]
 ---

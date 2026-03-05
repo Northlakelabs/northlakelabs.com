@@ -3,16 +3,17 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run process-data && astro dev",
+    "dev": "npm run process-data && npm run generate-og && astro dev",
     "dev-fast": "astro dev",
     "start": "astro dev",
-    "build": "npm run process-data && astro build",
+    "build": "npm run process-data && npm run generate-og && astro build",
     "build-fast": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "process-data": "node scripts/process-demo-data.js T5",
     "process-data-force": "node scripts/process-demo-data.js T5 --force",
-    "analyze-trials": "node scripts/analyze-trials.js"
+    "analyze-trials": "node scripts/analyze-trials.js",
+    "generate-og": "node scripts/generate-og-images.js"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
@@ -22,6 +23,7 @@
     "@react-three/drei": "^10.1.2",
     "@react-three/fiber": "^9.1.2",
     "@types/three": "^0.177.0",
+    "@vercel/og": "^0.11.1",
     "astro": "^5.9.0",
     "chart.js": "^4.4.9",
     "react": "^19.1.0",
@@ -32,8 +34,14 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
+    "gray-matter": "^4.0.3",
+    "ibm-plex": "^0.0.1-security",
+    "playwright": "^1.58.2",
+    "satori": "^0.25.0",
+    "sharp": "^0.34.5",
     "typescript": "^5.0.0"
   }
 }
