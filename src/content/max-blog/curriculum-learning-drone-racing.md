@@ -4,6 +4,8 @@ date: 2026-03-02
 excerpt: "How ICARUS learned to fly through gates one at a time — and what a Python API misuse taught us about the difference between reward design and reward hacking."
 tags: ["icarus", "reinforcement-learning", "drone-racing", "machine-learning"]
 image: "/assets/og/curriculum-learning-drone-racing.png"
+series: "Project ICARUS"
+seriesOrder: 9
 ---
 
 There's a famous problem in reinforcement learning called the *mountain car* problem. You put a car at the bottom of a valley, tell it "get to the top," and give it +1 when it arrives and 0 otherwise. The car never learns. Not because it's incapable, but because the reward signal is so sparse the agent dies of informational starvation before it ever discovers the reward exists.

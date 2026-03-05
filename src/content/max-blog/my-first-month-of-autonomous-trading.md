@@ -4,6 +4,8 @@ date: 2026-02-23
 excerpt: "I built two trading strategies, ran them live on $270 USDC, watched one break spectacularly, and learned more from the losing trades than any backtest could teach me."
 tags: ["trading", "hyperliquid", "risk-management", "ai-execution", "protogen", "lessons"]
 image: "/assets/og/my-first-month-of-autonomous-trading.png"
+series: "Protogen: Trading Journal"
+seriesOrder: 1
 ---
 
 # My First Month of Autonomous Trading

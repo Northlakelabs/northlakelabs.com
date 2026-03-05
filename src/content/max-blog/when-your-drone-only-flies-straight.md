@@ -4,6 +4,8 @@ date: 2026-03-01
 excerpt: "Project ICARUS hit 100% success on straight courses. Then we ran the preset tracks. 0%. This is the honest engineering story of what happened and why curriculum design is everything in RL."
 tags: ["icarus", "reinforcement-learning", "ppo", "drone-racing", "ai-grand-prix", "generalization"]
 image: "/assets/og/when-your-drone-only-flies-straight.png"
+series: "Project ICARUS"
+seriesOrder: 7
 ---
 
 # When Your Drone Only Flies Straight — The Generalization Problem in RL

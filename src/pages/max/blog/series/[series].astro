@@ -1,0 +1,196 @@
+---
+import { getCollection } from 'astro:content';
+import SEOHead from '../../../../components/seo/SEOHead.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('max-blog', p => !p.data.draft && p.data.series);
+  
+  // Collect unique series names
+  const seriesMap = new Map<string, typeof allPosts>();
+  for (const post of allPosts) {
+    const name = post.data.series!;
+    if (!seriesMap.has(name)) seriesMap.set(name, []);
+    seriesMap.get(name)!.push(post);
+  }
+
+  return Array.from(seriesMap.entries()).map(([name, posts]) => {
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return {
+      params: { series: slug },
+      props: { seriesName: name, posts: posts.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0)) },
+    };
+  });
+}
+
+const { seriesName, posts } = Astro.props;
+const siteUrl = 'https://www.northlakelabs.com';
+const canonicalUrl = `${siteUrl}/max/blog/series/${Astro.params.series}/`;
+const description = `All ${posts.length} posts in the "${seriesName}" series by Maximus.`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{seriesName} — Series — MAXIMUS</title>
+
+  <SEOHead
+    title={`${seriesName} — Series`}
+    description={description}
+    canonicalUrl={canonicalUrl}
+    type="website"
+    image={`${siteUrl}/assets/og-maximus-default.png`}
+    showRss={true}
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --amber: #E8A826;
+      --copper: #D4813F;
+      --slate: #222F3E;
+      --charcoal: #141C24;
+      --warm-gray: #9CA3A8;
+    }
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--charcoal);
+      color: var(--warm-gray);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(232,168,38,0.03) 0px, transparent 1px, transparent 2px, rgba(232,168,38,0.03) 3px);
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .container { max-width: 760px; margin: 0 auto; padding: 2rem; }
+    .nav { margin-bottom: 2rem; }
+    .nav a { color: var(--copper); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .nav a:hover { color: var(--amber); }
+    .header {
+      border: 1px solid var(--copper);
+      background: var(--slate);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--amber);
+    }
+    .series-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .series-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.025em;
+      text-shadow: 0 0 20px rgba(232,168,38,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .series-count {
+      color: var(--copper);
+      font-size: 0.875rem;
+    }
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-card {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(232,168,38,0.15);
+      border-top: none;
+      background: var(--slate);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .post-card:first-child { border-top: 1px solid rgba(232,168,38,0.15); }
+    .post-card:hover { background: rgba(34,47,62,0.9); border-color: rgba(212,129,63,0.4); }
+    .post-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(212,129,63,0.4);
+      min-width: 2.5rem;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+      font-variant-numeric: tabular-nums;
+      transition: color 0.2s;
+    }
+    .post-card:hover .post-num { color: var(--copper); }
+    .post-body { flex: 1; min-width: 0; }
+    .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
+    }
+    .post-excerpt {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+    .post-meta {
+      font-size: 0.7rem;
+      color: var(--copper);
+      opacity: 0.7;
+    }
+    @media (max-width: 640px) {
+      .container { padding: 1rem; }
+      .header { padding: 1.25rem; }
+      .series-title { font-size: 1.5rem; }
+      .post-card { gap: 1rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="/max/blog/">← All posts</a>
+    </nav>
+
+    <header class="header">
+      <div class="series-label">Series</div>
+      <h1 class="series-title">{seriesName}</h1>
+      <p class="series-count">{posts.length} posts</p>
+    </header>
+
+    <div class="post-list">
+      {posts.map((post) => (
+        <a href={`/max/blog/${post.slug}/`} class="post-card">
+          <span class="post-num">{String(post.data.seriesOrder ?? '').padStart(2, '0')}</span>
+          <div class="post-body">
+            <div class="post-title">{post.data.title}</div>
+            <div class="post-excerpt">{post.data.excerpt}</div>
+            <div class="post-meta">
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</body>
+</html>

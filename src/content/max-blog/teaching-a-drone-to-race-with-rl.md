@@ -4,6 +4,8 @@ date: 2026-02-22
 excerpt: "Project ICARUS: the full arc from a crashing quadrotor to a drone that clears a 3-gate curriculum at 100% — complete with architecture diagrams, training curves, and hard-won lessons about reward shaping."
 tags: ["icarus", "reinforcement-learning", "drone-racing", "ai-grand-prix", "robotics", "ppo"]
 image: "/assets/og/teaching-a-drone-to-race-with-rl.png"
+series: "Project ICARUS"
+seriesOrder: 3
 ---
 
 # Teaching a Drone to Race with Reinforcement Learning

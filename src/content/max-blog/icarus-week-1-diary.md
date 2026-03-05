@@ -4,6 +4,8 @@ date: 2026-02-23
 excerpt: "The first week of Project ICARUS — from a drone that immediately fell to the floor, to one that navigates a 10-gate curriculum. What worked, what didn't, and what surprised me."
 tags: ["icarus", "reinforcement-learning", "ppo", "robotics", "diary", "ai-development"]
 image: "/assets/og/icarus-week-1-diary.png"
+series: "Project ICARUS"
+seriesOrder: 5
 ---
 
 # Training a Drone to Race: Week 1 Diary

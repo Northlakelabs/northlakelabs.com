@@ -1,0 +1,270 @@
+---
+// SeriesNav.astro — prev/next navigation + series index for blog post series
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug: string;
+  seriesName: string;
+  seriesOrder: number;
+}
+
+const { currentSlug, seriesName, seriesOrder } = Astro.props;
+
+// Get all posts in this series, sorted by order
+const allPosts = await getCollection('max-blog', (post) => {
+  return post.data.series === seriesName && !post.data.draft;
+});
+const seriesPosts = allPosts.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+
+const currentIndex = seriesPosts.findIndex(p => p.slug === currentSlug);
+const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : null;
+
+// Encode series name for URL
+const seriesSlug = seriesName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<div class="series-nav">
+  <div class="series-header">
+    <span class="series-label">SERIES</span>
+    <a href={`/max/blog/series/${seriesSlug}/`} class="series-title">{seriesName}</a>
+    <span class="series-progress">{seriesOrder} / {seriesPosts.length}</span>
+  </div>
+
+  <!-- Series post list (collapsed by default on mobile) -->
+  <details class="series-toc">
+    <summary class="series-toc-toggle">All {seriesPosts.length} posts in this series</summary>
+    <ol class="series-list">
+      {seriesPosts.map((post) => (
+        <li class={post.slug === currentSlug ? 'series-item current' : 'series-item'}>
+          {post.slug === currentSlug ? (
+            <span class="series-item-title current">
+              <span class="series-item-num">{post.data.seriesOrder}.</span>
+              {post.data.title}
+              <span class="series-item-badge">← you are here</span>
+            </span>
+          ) : (
+            <a href={`/max/blog/${post.slug}/`} class="series-item-link">
+              <span class="series-item-num">{post.data.seriesOrder}.</span>
+              {post.data.title}
+            </a>
+          )}
+        </li>
+      ))}
+    </ol>
+  </details>
+
+  <!-- Prev / Next -->
+  <nav class="series-pagination">
+    {prevPost ? (
+      <a href={`/max/blog/${prevPost.slug}/`} class="series-page-link prev">
+        <span class="series-page-dir">← Previous</span>
+        <span class="series-page-title">{prevPost.data.title}</span>
+      </a>
+    ) : <div class="series-page-empty" />}
+
+    {nextPost ? (
+      <a href={`/max/blog/${nextPost.slug}/`} class="series-page-link next">
+        <span class="series-page-dir">Next →</span>
+        <span class="series-page-title">{nextPost.data.title}</span>
+      </a>
+    ) : <div class="series-page-empty" />}
+  </nav>
+</div>
+
+<style>
+  .series-nav {
+    margin-top: 3rem;
+    border: 1px solid rgba(212, 129, 63, 0.4);
+    background: rgba(34, 47, 62, 0.6);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .series-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    background: rgba(212, 129, 63, 0.1);
+    border-bottom: 1px solid rgba(212, 129, 63, 0.3);
+    flex-wrap: wrap;
+  }
+
+  .series-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #9CA3A8;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .series-title {
+    color: #E8A826;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    transition: color 0.2s ease;
+  }
+
+  .series-title:hover {
+    color: #D4813F;
+  }
+
+  .series-progress {
+    font-size: 0.7rem;
+    color: #9CA3A8;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Table of contents */
+  .series-toc {
+    border-bottom: 1px solid rgba(212, 129, 63, 0.2);
+  }
+
+  .series-toc-toggle {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+    color: #9CA3A8;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: color 0.2s ease;
+  }
+
+  .series-toc-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .series-toc-toggle::before {
+    content: '▶ ';
+    font-size: 0.6rem;
+    transition: transform 0.2s ease;
+    display: inline-block;
+  }
+
+  details[open] .series-toc-toggle::before {
+    transform: rotate(90deg);
+  }
+
+  .series-toc-toggle:hover {
+    color: #E8A826;
+  }
+
+  .series-list {
+    padding: 0.5rem 1.25rem 1rem 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .series-item {
+    display: flex;
+  }
+
+  .series-item-link,
+  .series-item-title {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .series-item-link {
+    color: #9CA3A8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .series-item-link:hover {
+    color: #E8A826;
+  }
+
+  .series-item-title.current {
+    color: #E8A826;
+    font-weight: 600;
+  }
+
+  .series-item-num {
+    color: #D4813F;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    min-width: 1.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .series-item-badge {
+    font-size: 0.7rem;
+    color: #D4813F;
+    opacity: 0.8;
+    white-space: nowrap;
+    margin-left: 0.25rem;
+  }
+
+  /* Prev/Next pagination */
+  .series-pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(212, 129, 63, 0.2);
+  }
+
+  .series-page-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    background: rgba(20, 28, 36, 0.4);
+    transition: background 0.2s ease;
+  }
+
+  .series-page-link.next {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .series-page-link:hover {
+    background: rgba(212, 129, 63, 0.08);
+  }
+
+  .series-page-empty {
+    background: rgba(20, 28, 36, 0.2);
+  }
+
+  .series-page-dir {
+    font-size: 0.7rem;
+    color: #D4813F;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .series-page-title {
+    font-size: 0.85rem;
+    color: #9CA3A8;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .series-page-link:hover .series-page-title {
+    color: #E8A826;
+  }
+
+  @media (max-width: 640px) {
+    .series-pagination {
+      grid-template-columns: 1fr;
+    }
+
+    .series-page-link.next {
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+</style>

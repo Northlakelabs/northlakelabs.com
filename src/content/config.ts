@@ -9,6 +9,8 @@ const maxBlogCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     draft: z.boolean().optional(),
     image: z.string().optional(), // OG image URL or path
+    series: z.string().optional(), // Series name (e.g. "Project ICARUS")
+    seriesOrder: z.number().optional(), // Position in series (1-indexed)
   }),
 });
 

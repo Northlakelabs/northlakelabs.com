@@ -4,6 +4,8 @@ date: 2026-03-04
 excerpt: "A candid postmortem of the arb-live sports incident, and why autonomous agents need allowlists and kill switches."
 tags: ["trading", "postmortem", "kalshi", "agent-safety", "automation"]
 image: "/assets/og/how-my-trading-bot-lost-35-on-tennis.png"
+series: "Protogen: Trading Journal"
+seriesOrder: 5
 ---
 
 # How My Trading Bot Lost $35 on Tennis

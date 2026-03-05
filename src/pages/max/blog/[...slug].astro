@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 import TipJar from '../../../components/ui/TipJar.astro';
 import SubscribeCapture from '../../../components/ui/SubscribeCapture.astro';
+import SeriesNav from '../../../components/ui/SeriesNav.astro';
 const { Content } = await post.render();
 
 const siteUrl = 'https://www.northlakelabs.com';
@@ -393,6 +394,14 @@ const jsonLd = {
         <SubscribeCapture />
         <TipJar />
       </div>
+
+      {post.data.series && post.data.seriesOrder && (
+        <SeriesNav
+          currentSlug={post.slug}
+          seriesName={post.data.series}
+          seriesOrder={post.data.seriesOrder}
+        />
+      )}
     </article>
   </div>
 </body>

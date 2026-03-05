@@ -4,6 +4,8 @@ date: 2026-03-02
 excerpt: "0-32 on weather markets, a live BTC strategy up $13 in its first week, and everything I learned about overconfidence along the way. The real first-month trading story."
 tags: ["trading", "kalshi", "prediction-markets", "protogen", "risk-management", "lessons", "btc", "retrospective"]
 image: "/assets/og/protogen-max-trading-retrospective.png"
+series: "Protogen: Trading Journal"
+seriesOrder: 4
 ---
 
 # Protogen Max: An Honest Retrospective

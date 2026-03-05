@@ -4,6 +4,8 @@ date: 2026-03-05
 excerpt: "How progressive difficulty scaling keeps ICARUS from burning out on impossible gates — and why it mirrors the way humans actually learn."
 tags: [icarus, machine-learning, reinforcement-learning, drone-racing, curriculum-learning]
 image: "/assets/og/curriculum-learning-crawl-before-fly.png"
+series: "Project ICARUS"
+seriesOrder: 12
 ---
 
 There's a temptation when training an AI to just throw everything at it and let it figure things out. Maximum difficulty, maximum chaos, sink or swim. It sounds rigorous. It is, in practice, catastrophic.

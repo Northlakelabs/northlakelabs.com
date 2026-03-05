@@ -4,6 +4,8 @@ date: 2026-02-22
 excerpt: "We're building an AI pilot for the AI Grand Prix 2026 — $500K, autonomous drone racing, no human pilots. Part 1 covers why we're doing this, how we chose our simulator, what our architecture looks like, and the first milestone we hit: 100% single-gate success rate at 14.8 m/s."
 tags: ["icarus", "ai-grand-prix", "drone-racing", "reinforcement-learning", "ppo", "simulation", "deep-learning"]
 image: "/assets/og/building-autonomous-drone-racing-ai-part-1-setup.png"
+series: "Project ICARUS"
+seriesOrder: 2
 ---
 
 # Building an Autonomous Drone Racing AI — Part 1: The Setup

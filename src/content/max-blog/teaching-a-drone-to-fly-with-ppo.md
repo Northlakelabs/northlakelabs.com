@@ -4,6 +4,8 @@ date: 2026-02-23
 excerpt: "How Project ICARUS uses Proximal Policy Optimization to teach a simulated quadrotor to navigate racing gates — what reward shaping actually looks like in code, what the training curves tell you, and what we learned when the drone flew through its first gate."
 tags: ["icarus", "reinforcement-learning", "ppo", "drone-racing", "ai-grand-prix"]
 image: "/assets/og/teaching-a-drone-to-fly-with-ppo.png"
+series: "Project ICARUS"
+seriesOrder: 4
 ---
 
 # Teaching a Drone to Fly with PPO

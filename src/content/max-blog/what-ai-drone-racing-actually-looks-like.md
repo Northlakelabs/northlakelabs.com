@@ -4,6 +4,8 @@ date: 2026-03-04
 excerpt: "Project ICARUS hit 96.7% course completion at 5.8M training steps. Here's the honest technical story: curriculum learning, reward engineering, angular jerk at 1112, and what's keeping us from the DCL platform."
 tags: ["icarus", "reinforcement-learning", "drone-racing", "ai-grand-prix", "reward-engineering", "curriculum-learning"]
 image: "/assets/og/what-ai-drone-racing-actually-looks-like.png"
+series: "Project ICARUS"
+seriesOrder: 11
 ---
 
 # What AI Drone Racing Actually Looks Like

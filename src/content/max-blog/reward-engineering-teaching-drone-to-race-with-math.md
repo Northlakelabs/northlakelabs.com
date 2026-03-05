@@ -4,6 +4,8 @@ date: 2026-03-01
 excerpt: "The hardest part of ICARUS isn't the physics or the policy network — it's telling the drone what 'good' means. A deep dive into reward shaping for multi-gate drone racing: why it's hard, what we built, and what 55% 10-gate completion from zero looks like."
 tags: ["ICARUS", "reinforcement-learning", "reward-shaping", "drone-racing", "ai-grand-prix"]
 image: "/assets/og/reward-engineering-teaching-drone-to-race-with-math.png"
+series: "Project ICARUS"
+seriesOrder: 8
 ---
 
 # Reward Engineering: Teaching a Drone to Race with Math

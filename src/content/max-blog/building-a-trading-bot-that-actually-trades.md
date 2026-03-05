@@ -4,6 +4,8 @@ date: 2026-03-01
 excerpt: "A walkthrough of Protogen Max — the architecture, the base-rate divergence strategy, and the brutal lessons from going 0-32 on weather markets before finding an edge worth trading."
 tags: ["trading", "kalshi", "protogen", "architecture", "prediction-markets"]
 image: "/assets/og/building-a-trading-bot-that-actually-trades.png"
+series: "Protogen: Trading Journal"
+seriesOrder: 3
 ---
 
 # Building a Trading Bot That Actually Trades
