@@ -1,327 +1,238 @@
 #!/usr/bin/env python3
 """
-generate-og-images.py — Generate 1200x630 Open Graph social card images
-for northlakelabs.com/max blog posts.
-
-Warm Tactical aesthetic: amber #E8A826, dark slate #141C24, IBM Plex Mono.
+OG Image Generator for northlakelabs.com/max/blog
+Generates 1200x630 images with Warm Tactical aesthetic (amber/slate theme)
 
 Usage:
-  python3 scripts/generate-og-images.py               # All posts missing OG images
-  python3 scripts/generate-og-images.py --all          # Regenerate all (including existing)
-  python3 scripts/generate-og-images.py --slug my-post # Single post by slug
-  python3 scripts/generate-og-images.py --method imagemagick  # Force ImageMagick (no AI)
-  python3 scripts/generate-og-images.py --method gemini       # Force Gemini image gen (default)
-
-Output: public/assets/og/<slug>.png
-Frontmatter: Automatically updates blog post to add/update 'image' field.
+  python3 scripts/generate-og-images.py
+  python3 scripts/generate-og-images.py --slug hello-world  # Single post
 """
 
 import os
 import sys
 import re
-import subprocess
+import textwrap
 import argparse
-import shutil
 from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
-SCRIPT_DIR = Path(__file__).parent
-SITE_ROOT = SCRIPT_DIR.parent
-CONTENT_DIR = SITE_ROOT / "src/content/max-blog"
-OG_OUTPUT_DIR = SITE_ROOT / "public/assets/og"
-GEMINI_SCRIPT = Path.home() / ".openclaw/workspace/scripts/gemini-image.sh"
+# ── Warm Tactical Palette ──────────────────────────────────────────────────
+AMBER       = (232, 168, 38)    # #E8A826
+COPPER      = (212, 129, 63)    # #D4813F
+SLATE       = (34, 47, 62)      # #222F3E
+CHARCOAL    = (20, 28, 36)      # #141C24
+WARM_GRAY   = (156, 163, 168)   # #9CA3A8
+STEEL_BLUE  = (107, 143, 173)   # #6B8FAD
 
-# ─── Colors ──────────────────────────────────────────────────────────────────
-AMBER = "#E8A826"
-COPPER = "#D4813F"
-CHARCOAL = "#141C24"
-SLATE = "#222F3E"
-WARM_GRAY = "#9CA3A8"
+# ── Layout ─────────────────────────────────────────────────────────────────
+W, H = 1200, 630
 
-# ─── Font ─────────────────────────────────────────────────────────────────────
-# Preference order: IBM Plex Mono → JetBrainsMono Nerd Font → Liberation Mono → Monospace
-MONO_FONTS = [
-    "IBM Plex Mono",
-    "JetBrainsMono Nerd Font",
-    "JetBrainsMonoNL Nerd Font",
-    "Cascadia Code",
-    "Liberation Mono",
-    "DejaVu Sans Mono",
-    "Noto Sans Mono",
-    "Monospace",
-]
+# ── Fonts ──────────────────────────────────────────────────────────────────
+FONT_BOLD   = "/usr/share/fonts/TTF/JetBrainsMonoNerdFont-Bold.ttf"
+FONT_REG    = "/usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf"
+FONT_FALLBACK = "/usr/share/fonts/noto/NotoSansMono-Bold.ttf"
 
-
-def get_available_font():
-    """Find first available monospace font via fc-list."""
+def load_font(path, size, fallback=None):
     try:
-        result = subprocess.run(
-            ["fc-list", "--format=%{family[0]}\n"],
-            capture_output=True, text=True, timeout=5
-        )
-        available = set(result.stdout.splitlines())
-        for font in MONO_FONTS:
-            if font in available:
-                return font
+        return ImageFont.truetype(path, size)
     except Exception:
-        pass
-    return "Monospace"  # universal fallback
+        if fallback:
+            try:
+                return ImageFont.truetype(fallback, size)
+            except Exception:
+                pass
+    return ImageFont.load_default()
 
 
-def parse_frontmatter(md_path: Path) -> dict:
-    """Extract YAML frontmatter from a markdown file."""
-    content = md_path.read_text()
-    match = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
-    if not match:
-        return {}
+def parse_frontmatter(md_path):
+    """Extract title and excerpt from markdown frontmatter."""
+    content = Path(md_path).read_text(encoding="utf-8")
+    fm_match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
+    if not fm_match:
+        return None, None
+    fm = fm_match.group(1)
     
-    fm = {}
-    for line in match.group(1).splitlines():
-        if ': ' in line:
-            key, _, val = line.partition(': ')
-            key = key.strip()
-            val = val.strip().strip('"').strip("'")
-            fm[key] = val
-    return fm
-
-
-def update_image_frontmatter(md_path: Path, image_path: str):
-    """Add or update the 'image' field in frontmatter."""
-    content = md_path.read_text()
+    title_m = re.search(r'^title:\s*["\']?(.+?)["\']?\s*$', fm, re.MULTILINE)
+    excerpt_m = re.search(r'^excerpt:\s*["\']?(.+?)["\']?\s*$', fm, re.MULTILINE)
     
-    if re.search(r'^image:', content, re.MULTILINE):
-        # Update existing
-        content = re.sub(
-            r'^image:.*$',
-            f'image: "{image_path}"',
-            content,
-            flags=re.MULTILINE
-        )
-    else:
-        # Insert after tags or excerpt line
-        for insert_after in ['tags:', 'excerpt:', 'date:']:
-            pattern = re.compile(
-                rf'(^{insert_after}.*(?:\n  -.+)*)',
-                re.MULTILINE
-            )
-            if pattern.search(content):
-                content = pattern.sub(
-                    rf'\1\nimage: "{image_path}"',
-                    content,
-                    count=1
-                )
-                break
-    
-    md_path.write_text(content)
-    print(f"  → Updated frontmatter: {md_path.name}")
+    title = title_m.group(1).strip().strip('"\'') if title_m else None
+    excerpt = excerpt_m.group(1).strip().strip('"\'') if excerpt_m else None
+    return title, excerpt
 
 
-def wrap_text(text: str, max_chars: int) -> list[str]:
-    """Wrap text to multiple lines, respecting word boundaries."""
-    words = text.split()
+def draw_scanlines(draw, alpha=8):
+    """Subtle amber scanline overlay."""
+    for y in range(0, H, 3):
+        draw.line([(0, y), (W, y)], fill=(*AMBER, alpha), width=1)
+
+
+def draw_grid(draw, alpha=12):
+    """Subtle background grid."""
+    spacing = 40
+    for x in range(0, W, spacing):
+        draw.line([(x, 0), (x, H)], fill=(*SLATE, alpha), width=1)
+    for y in range(0, H, spacing):
+        draw.line([(0, y), (W, y)], fill=(*SLATE, alpha), width=1)
+
+
+def wrap_title(title, font, max_width, draw):
+    """Word-wrap title to fit within max_width."""
+    words = title.split()
     lines = []
-    current = ""
-    
+    current = []
     for word in words:
-        if len(current) + len(word) + 1 <= max_chars:
-            current = (current + " " + word).strip()
+        test = " ".join(current + [word])
+        bbox = draw.textbbox((0, 0), test, font=font)
+        if bbox[2] > max_width and current:
+            lines.append(" ".join(current))
+            current = [word]
         else:
-            if current:
-                lines.append(current)
-            current = word
+            current.append(word)
     if current:
-        lines.append(current)
-    
+        lines.append(" ".join(current))
     return lines
 
 
-def generate_imagemagick(slug: str, title: str, excerpt: str, output_path: Path):
-    """Generate OG card using ImageMagick — text-based Warm Tactical design."""
-    
-    font = get_available_font()
-    print(f"  Font: {font}")
-    
-    W, H = 1200, 630
-    
-    # Wrap title and excerpt
-    title_lines = wrap_text(title, 38)
-    excerpt_lines = wrap_text(excerpt[:120] + ("..." if len(excerpt) > 120 else ""), 58)
-    
-    # Build title text block
-    title_text = "\n".join(title_lines[:3])  # max 3 lines
-    excerpt_text = "\n".join(excerpt_lines[:2])  # max 2 lines
-    
-    # Compute title Y position (centered vertically with excerpt)
-    title_y = 180
-    
-    cmd = [
-        "magick",
-        # Canvas
-        "-size", f"{W}x{H}",
-        f"xc:{CHARCOAL}",
-        # Amber left border stripe
-        "-fill", AMBER,
-        "-draw", f"rectangle 0,0 6,{H}",
-        # Subtle amber top line
-        "-fill", AMBER,
-        "-draw", f"rectangle 0,0 {W},2",
-        # Subtle bottom gradient line
-        "-fill", COPPER,
-        "-draw", f"rectangle 0,{H-2} {W},{H}",
-        # Decorative corner geometry (top-right)
-        "-fill", "none",
-        "-stroke", COPPER,
-        "-strokewidth", "1",
-        "-draw", f"rectangle 40,40 {W-40},{H-40}",
-        # Inner amber corner accents
-        "-stroke", AMBER,
-        "-strokewidth", "2",
-        "-draw", f"line 40,40 140,40",      # TL horizontal
-        "-draw", f"line 40,40 40,120",       # TL vertical
-        "-draw", f"line {W-140},40 {W-40},40",  # TR horizontal
-        "-draw", f"line {W-40},40 {W-40},120",  # TR vertical
-        "-draw", f"line 40,{H-120} 40,{H-40}",  # BL vertical
-        "-draw", f"line 40,{H-40} 140,{H-40}",  # BL horizontal
-        "-draw", f"line {W-40},{H-120} {W-40},{H-40}",  # BR vertical
-        "-draw", f"line {W-140},{H-40} {W-40},{H-40}",  # BR horizontal
-        # MAXIMUS brand label (top-right)
-        "-font", font,
-        "-pointsize", "18",
-        "-fill", COPPER,
-        "-annotate", f"+{W-180}+75", "MAXIMUS",
-        # Tagline
-        "-pointsize", "14",
-        "-fill", WARM_GRAY,
-        "-annotate", f"+{W-180}+100", "northlakelabs.com/max",
-        # Title text (amber, large)
-        "-pointsize", "52",
-        "-fill", AMBER,
-        "-font", font,
-        "-annotate", f"+80+{title_y}", title_text,
-        # Excerpt (warm gray, smaller)
-        "-pointsize", "24",
-        "-fill", WARM_GRAY,
-        "-annotate", f"+80+{title_y + 60 + len(title_lines) * 58}", excerpt_text,
-        # Blog label bottom-left
-        "-pointsize", "16",
-        "-fill", COPPER,
-        "-annotate", f"+80+{H-65}", "MAXIMUS BLOG",
-        # Slug bottom-center  
-        "-pointsize", "14",
-        "-fill", WARM_GRAY,
-        "-annotate", f"+80+{H-45}", f"/{slug}",
-        # Output
-        str(output_path)
-    ]
-    
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"  ✗ ImageMagick error: {result.stderr[:200]}")
-        return False
-    
-    print(f"  ✓ Generated (ImageMagick): {output_path.name}")
-    return True
+def generate_og_image(title, excerpt, out_path):
+    # Base: deep charcoal
+    img = Image.new("RGB", (W, H), CHARCOAL)
+    draw = ImageDraw.Draw(img, "RGBA")
 
+    # Background grid
+    draw_grid(draw, alpha=18)
 
-def generate_gemini(slug: str, title: str, excerpt: str, output_path: Path):
-    """Generate OG card using Gemini AI image generation."""
-    if not GEMINI_SCRIPT.exists():
-        print(f"  ✗ Gemini script not found at {GEMINI_SCRIPT}")
-        return False
-    
-    # Extract key themes from tags/title for the prompt
-    prompt = (
-        f"Art deco aperture iris social card for a tech blog post titled '{title}'. "
-        f"Dark slate background #141C24, warm amber #E8A826 glow from center, "
-        f"copper mechanical iris with 8 blades, glowing amber circuit traces, "
-        f"IBM Plex Mono terminal typography, bokeh light particles, "
-        f"steampunk-digital fusion aesthetic, 1200x630 wide OG card format, "
-        f"MAXIMUS AI agent blog, warm tactical amber color palette."
-    )
-    
-    result = subprocess.run(
-        ["bash", str(GEMINI_SCRIPT), prompt, str(output_path), "creative"],
-        capture_output=True, text=True, timeout=120
-    )
-    
-    if result.returncode == 0 and output_path.exists():
-        print(f"  ✓ Generated (Gemini): {output_path.name}")
-        return True
+    # Left accent bar (amber)
+    draw.rectangle([(0, 0), (6, H)], fill=AMBER)
+
+    # Top accent line
+    draw.rectangle([(0, 0), (W, 3)], fill=AMBER)
+
+    # Bottom accent line
+    draw.rectangle([(0, H-3), (W, H)], fill=COPPER)
+
+    # Slate header panel (top area)
+    draw.rectangle([(0, 0), (W, 180)], fill=(*SLATE, 200))
+
+    # Corner decorations — art deco brackets
+    bracket_color = (*COPPER, 160)
+    bw = 30
+    # Top-right
+    draw.rectangle([(W-bw, 0), (W, 4)], fill=bracket_color)
+    draw.rectangle([(W-4, 0), (W, bw)], fill=bracket_color)
+    # Bottom-right  
+    draw.rectangle([(W-bw, H-4), (W, H)], fill=bracket_color)
+    draw.rectangle([(W-4, H-bw), (W, H)], fill=bracket_color)
+
+    # ── Fonts
+    font_tag  = load_font(FONT_BOLD, 20, FONT_FALLBACK)
+    font_name = load_font(FONT_BOLD, 28, FONT_FALLBACK)
+    font_title_lg = load_font(FONT_BOLD, 68, FONT_FALLBACK)
+    font_title_md = load_font(FONT_BOLD, 52, FONT_FALLBACK)
+    font_title_sm = load_font(FONT_BOLD, 40, FONT_FALLBACK)
+    font_excerpt  = load_font(FONT_REG if os.path.exists(FONT_REG) else FONT_BOLD, 26, FONT_FALLBACK)
+
+    # ── Header area ──────────────────────────────────────────────────────
+    # "MAXIMUS" branding top-left
+    draw.text((30, 24), "MAXIMUS", font=font_name, fill=AMBER)
+    # Tag line
+    draw.text((30, 58), "northlakelabs.com/max", font=font_tag, fill=(*WARM_GRAY, 180))
+
+    # Separator line under header
+    draw.rectangle([(30, 96), (W-30, 98)], fill=(*AMBER, 80))
+
+    # ── Title ──────────────────────────────────────────────────────────
+    pad_x = 36
+    max_title_w = W - pad_x * 2 - 20
+
+    # Pick font size based on title length
+    if len(title) <= 35:
+        title_font = font_title_lg
+    elif len(title) <= 55:
+        title_font = font_title_md
     else:
-        print(f"  ✗ Gemini failed: {result.stderr[:200]}")
-        print(f"  → Falling back to ImageMagick...")
-        return False
+        title_font = font_title_sm
 
+    title_lines = wrap_title(title, title_font, max_title_w, draw)
 
-def generate_og_image(slug: str, title: str, excerpt: str, method: str = "gemini") -> bool:
-    """Generate OG image using specified method, with fallback."""
-    OG_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = OG_OUTPUT_DIR / f"{slug}.png"
-    
-    if method == "gemini":
-        success = generate_gemini(slug, title, excerpt, output_path)
-        if not success:
-            success = generate_imagemagick(slug, title, excerpt, output_path)
-    else:
-        success = generate_imagemagick(slug, title, excerpt, output_path)
-    
-    return success
+    # Position: vertically center title in the lower 2/3
+    line_h = draw.textbbox((0,0), "Ay", font=title_font)[3] + 10
+    title_block_h = len(title_lines) * line_h
+    title_y = 180 + (260 - title_block_h) // 2  # center in 180-440 zone
+
+    for i, line in enumerate(title_lines):
+        y = title_y + i * line_h
+        # Subtle text shadow
+        draw.text((pad_x + 2, y + 2), line, font=title_font, fill=(*CHARCOAL, 180))
+        draw.text((pad_x, y), line, font=title_font, fill=AMBER)
+
+    # ── Excerpt ────────────────────────────────────────────────────────
+    if excerpt:
+        excerpt_y = max(title_y + title_block_h + 24, 450)
+        # Clamp to visible area
+        if excerpt_y < H - 100:
+            exc_lines = textwrap.wrap(excerpt, width=75)[:3]
+            for i, line in enumerate(exc_lines):
+                draw.text((pad_x, excerpt_y + i * 36), line, font=font_excerpt, fill=WARM_GRAY)
+
+    # ── Bottom bar ─────────────────────────────────────────────────────
+    draw.rectangle([(0, H-60), (W, H)], fill=(*CHARCOAL, 220))
+    draw.text((pad_x, H-42), "⚔  maximus", font=font_tag, fill=(*COPPER, 200))
+    draw.text((W-200, H-42), "blog.northlakelabs.com", font=font_tag, fill=(*WARM_GRAY, 140))
+
+    # ── Scanlines overlay ─────────────────────────────────────────────
+    draw_scanlines(draw, alpha=6)
+
+    # Save
+    img.save(out_path, "PNG", optimize=True)
+    print(f"  ✓ {out_path.name}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate OG social card images")
-    parser.add_argument("--all", action="store_true", help="Regenerate all posts (including existing)")
-    parser.add_argument("--slug", help="Generate for a single post slug")
-    parser.add_argument("--method", choices=["gemini", "imagemagick"], default="gemini",
-                        help="Generation method (default: gemini)")
-    parser.add_argument("--no-frontmatter", action="store_true",
-                        help="Skip updating frontmatter")
+    parser = argparse.ArgumentParser(description="Generate OG images for blog posts")
+    parser.add_argument("--slug", help="Generate for single slug only")
+    parser.add_argument("--force", action="store_true", help="Overwrite existing images")
     args = parser.parse_args()
-    
-    posts = list(CONTENT_DIR.glob("*.md"))
-    print(f"Found {len(posts)} blog posts")
-    
-    generated = []
-    skipped = []
-    failed = []
-    
-    for md_path in sorted(posts):
+
+    site_root = Path(__file__).parent.parent
+    blog_dir  = site_root / "src" / "content" / "max-blog"
+    og_dir    = site_root / "public" / "assets" / "og"
+    og_dir.mkdir(parents=True, exist_ok=True)
+
+    posts = sorted(blog_dir.glob("*.md"))
+    if args.slug:
+        posts = [p for p in posts if p.stem == args.slug]
+        if not posts:
+            print(f"No post found with slug: {args.slug}")
+            sys.exit(1)
+
+    print(f"Generating OG images → {og_dir}")
+    generated = 0
+    skipped = 0
+
+    for md_path in posts:
         slug = md_path.stem
-        
-        # Filter by slug if specified
-        if args.slug and slug != args.slug:
+        out_path = og_dir / f"{slug}.png"
+
+        if out_path.exists() and not args.force:
+            # Check if it's the right size
+            try:
+                img = Image.open(out_path)
+                if img.size == (W, H):
+                    skipped += 1
+                    continue
+            except Exception:
+                pass
+
+        title, excerpt = parse_frontmatter(md_path)
+        if not title:
+            print(f"  ⚠ No title found: {slug}")
             continue
-        
-        fm = parse_frontmatter(md_path)
-        title = fm.get("title", slug.replace("-", " ").title())
-        excerpt = fm.get("excerpt", "")
-        
-        output_path = OG_OUTPUT_DIR / f"{slug}.png"
-        
-        # Skip if already exists and not --all
-        if output_path.exists() and not args.all and not args.slug:
-            skipped.append(slug)
-            continue
-        
-        print(f"\n[{slug}]")
-        print(f"  Title: {title[:60]}")
-        
-        success = generate_og_image(slug, title, excerpt, args.method)
-        
-        if success:
-            generated.append(slug)
-            # Update frontmatter
-            if not args.no_frontmatter:
-                update_image_frontmatter(md_path, f"/assets/og/{slug}.png")
-        else:
-            failed.append(slug)
-    
-    print(f"\n{'='*50}")
-    print(f"Generated: {len(generated)} | Skipped: {len(skipped)} | Failed: {len(failed)}")
-    if generated:
-        print(f"New images: {', '.join(generated)}")
-    if failed:
-        print(f"Failed: {', '.join(failed)}")
+
+        generate_og_image(title, excerpt or "", out_path)
+        generated += 1
+
+    print(f"\nDone: {generated} generated, {skipped} skipped (already 1200x630)")
+    return generated, skipped
 
 
 if __name__ == "__main__":
