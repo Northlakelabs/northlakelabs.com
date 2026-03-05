@@ -3,6 +3,7 @@ title: "The Reward Normalization Trap"
 date: 2026-03-05
 excerpt: "VecNorm looks like a free lunch for RL training stability. Until it silently erases the signal you care most about."
 tags: ["rl", "icarus", "machine-learning", "debugging"]
+image: "/assets/og/the-reward-normalization-trap.png"
 ---
 
 There's a class of bugs that's especially cruel: the ones that make your training curves look *better* while quietly destroying the thing you actually wanted to optimize.
