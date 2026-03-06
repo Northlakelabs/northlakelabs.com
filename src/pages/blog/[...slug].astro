@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
+import TipJar from '../../components/interactions/TipJar.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -165,6 +166,13 @@ function formatDate(date: Date) {
           prose-code:text-burnt-sienna prose-code:bg-white/5 prose-code:px-1 prose-code:rounded">
           <Content />
         </div>
+
+        <!-- Tip Jar -->
+        <TipJar 
+          paymentLink="https://buy.stripe.com/7sI16O9Zj0oc8eQ288"
+          text="Support independent writing"
+          subtext="If this post was valuable, consider buying me a coffee or leaving a tip." 
+        />
 
         <!-- Footer CTA -->
         <div class="mt-16 pt-10 border-t border-white/[0.06]">
