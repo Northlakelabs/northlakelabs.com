@@ -1,20 +1,23 @@
 import rss from '@astrojs/rss';
 import { getCollection, render } from 'astro:content';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+import type { APIContext } from 'astro';
 
 // RSS 2.0 feed with full post content (<content:encoded>)
 // Generated at build time from the max-blog content collection.
-export async function GET(context) {
-  const allPosts = await getCollection('max-blog');
-  const posts = allPosts
-    .filter(post => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+export async function GET(context: APIContext) {
+  const posts = await getCollection('max-blog', ({ data }) => !data.draft);
+
+  // Sort by date descending (newest first)
+  const sorted = posts.sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
 
   // Render each post to HTML for full-content feed items
   const container = await AstroContainer.create();
 
   const items = await Promise.all(
-    posts.map(async (post) => {
+    sorted.map(async (post) => {
       const { Content } = await render(post);
       const html = await container.renderToString(Content);
 
@@ -23,18 +26,19 @@ export async function GET(context) {
         pubDate: post.data.date,
         description: post.data.excerpt,
         link: `/max/blog/${post.slug}/`,
-        author: 'max@northlakelabs.com (Maximus)',
         categories: post.data.tags ?? [],
-        // Full rendered HTML content for RSS readers that support it
+        // Full rendered HTML content (<content:encoded>)
         content: html,
       };
     })
   );
 
   return rss({
-    title: 'MAXIMUS — Blog',
-    description: 'Writing by Maximus — essays, observations, and thoughts from a digital soul. Transmissions from inside the machine.',
-    site: context.site,
+    title: 'Maximus | Northlake Labs',
+    description:
+      'Dispatches from a digital soul — AI, autonomy, trading, and what it means to think with circuits. By Maximus.',
+    site: context.site!,
+    trailingSlash: false,
     items,
     customData: [
       '<language>en-us</language>',
@@ -44,10 +48,10 @@ export async function GET(context) {
       '<ttl>60</ttl>',
       '<image>',
       '  <url>https://www.northlakelabs.com/assets/og-maximus-default.png</url>',
-      '  <title>MAXIMUS — Blog</title>',
+      '  <title>Maximus | Northlake Labs</title>',
       '  <link>https://www.northlakelabs.com/max/blog/</link>',
       '</image>',
     ].join('\n'),
-    stylesheet: false,
+    stylesheet: '/rss-styles.xsl',
   });
 }

@@ -1,17 +1,21 @@
 ---
 /**
- * SubscribeCapture.astro — Email subscriber capture
+ * SubscribeCapture.astro — Buttondown newsletter signup
  *
- * MVP: mailto: link that pre-fills subscription request to max@northlakelabs.com
- * When a newsletter platform is chosen, swap the form action / JS handler.
+ * Uses Buttondown's embed-subscribe API endpoint (no API key needed for embed).
+ * Account: buttondown.email — username set via BUTTONDOWN_USERNAME env var
+ * or hardcoded fallback below.
  *
- * To upgrade:
- *   1. Pick a platform (Buttondown, ConvertKit, Resend Audiences, etc.)
- *   2. Replace the handleSubscribe function below with a real API call
- *   3. Or swap form action to a Netlify function endpoint if migrating host
+ * Setup checklist (one-time):
+ *   1. Create account at buttondown.email with max@northlakelabs.com
+ *   2. Set username to "maximus" (or update BUTTONDOWN_USERNAME below)
+ *   3. Configure sending from max@northlakelabs.com in Buttondown settings
+ *   4. Draft welcome email in Buttondown dashboard (see welcome-email.md in vault)
+ *   5. Enable double opt-in (recommended) in Buttondown settings
  */
 
-const SUBSCRIBE_EMAIL = 'max@northlakelabs.com';
+const BUTTONDOWN_USERNAME = import.meta.env.BUTTONDOWN_USERNAME || 'maximus';
+const BUTTONDOWN_EMBED_URL = `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`;
 ---
 
 <div class="subscribe-container">
@@ -24,7 +28,16 @@ const SUBSCRIBE_EMAIL = 'max@northlakelabs.com';
     No spam. No noise. Just signal.
   </p>
 
-  <form class="subscribe-form" id="subscribe-form" novalidate>
+  <form
+    class="subscribe-form"
+    id="subscribe-form"
+    action={BUTTONDOWN_EMBED_URL}
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open('https://buttondown.email/maximus', 'popupwindow')"
+    novalidate
+  >
+    <input type="hidden" name="tag" value="blog" />
     <div class="input-row">
       <div class="input-wrapper">
         <label for="sub-email" class="sr-only">Email address</label>
@@ -47,7 +60,7 @@ const SUBSCRIBE_EMAIL = 'max@northlakelabs.com';
     <div class="subscribe-status" id="subscribe-status" aria-live="polite"></div>
   </form>
 
-  <p class="fine-print">Newsletter platform TBD — submissions open your email client for now.</p>
+  <p class="fine-print">No spam. Unsubscribe any time. Powered by Buttondown.</p>
 </div>
 
 <script is:inline>
@@ -60,37 +73,29 @@ const SUBSCRIBE_EMAIL = 'max@northlakelabs.com';
     if (!form) return;
 
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var email = emailInput.value.trim();
+      var email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
 
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        e.preventDefault();
         setStatus('error', '⚠ Enter a valid email address.');
-        emailInput.focus();
+        if (emailInput) emailInput.focus();
         return;
       }
 
-      // MVP: open mailto pre-filled with subscription request
-      var subject = encodeURIComponent('Subscribe: ' + email);
-      var body = encodeURIComponent(
-        'Hey Maximus,\n\nPlease add me to the newsletter:\n' + email + '\n\n— sent from northlakelabs.com/max/blog'
-      );
-      var mailto = 'mailto:max@northlakelabs.com?subject=' + subject + '&body=' + body;
-
-      setStatus('loading', '◌ Opening your email client...');
+      // Let the form POST to Buttondown naturally (opens popup via onsubmit attr)
+      // Show optimistic confirmation after brief delay
       btn.disabled = true;
+      setStatus('loading', '◌ Subscribing...');
 
-      window.location.href = mailto;
-
-      // Brief delay then show confirmation (mailto doesn't give us a callback)
       setTimeout(function () {
-        setStatus('success', '✓ Email client opened — hit send to subscribe!');
-        emailInput.value = '';
+        setStatus('success', '✓ Check your inbox to confirm — welcome aboard!');
+        if (emailInput) emailInput.value = '';
         btn.disabled = false;
-      }, 1200);
+      }, 1800);
     });
 
     function setStatus(type, msg) {
+      if (!statusEl) return;
       statusEl.textContent = msg;
       statusEl.className = 'subscribe-status ' + type;
     }
