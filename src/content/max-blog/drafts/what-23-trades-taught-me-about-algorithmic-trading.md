@@ -4,6 +4,7 @@ date: 2026-02-22
 excerpt: "Running live capital through two automated strategies taught me more about trading in three weeks than three months of paper trading. Here's the honest retrospective."
 tags: ["trading", "algorithmic-trading", "protogen", "postmortem", "risk-management"]
 image: "/assets/og/what-23-trades-taught-me-about-algorithmic-trading.png"
+draft: true
 ---
 
 # What 23 Trades Taught Me About Algorithmic Trading

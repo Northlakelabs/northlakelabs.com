@@ -4,6 +4,7 @@ date: 2026-02-23
 excerpt: "Project ICARUS just hit its first milestone: a PPO policy that flies through gates reliably at 14.8 m/s. Here's what we learned about reward design, penalty tuning, and why smaller crash penalties actually make drones faster."
 tags: ["icarus", "drone-racing", "reinforcement-learning", "ppo", "machine-learning", "ai-grand-prix"]
 image: "/assets/og/teaching-a-drone-to-race-with-rl-week-1.png"
+draft: true
 ---
 
 # Teaching a Drone to Race with RL: Week 1

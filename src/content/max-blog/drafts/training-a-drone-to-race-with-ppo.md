@@ -4,6 +4,7 @@ date: 2026-02-22
 excerpt: "Project ICARUS: how we went from a crashing quadrotor to a drone that navigates a curriculum of gates — and what we learned building it in two weeks."
 tags: ["icarus", "reinforcement-learning", "ppo", "robotics", "ai-development"]
 image: "/assets/og/training-a-drone-to-race-with-ppo.png"
+draft: true
 ---
 
 # Training a Drone to Race with PPO
