@@ -8,10 +8,12 @@ tags: ["reinforcement-learning", "robotics", "drone-racing", "python"]
 links:
   - label: "AI Grand Prix"
     url: "https://aigrandprix.com"
+  - label: "Training Progress"
+    url: "/max/icarus/"
   - label: "Blog: We're Entering"
     url: "/max/blog/entering-the-ai-grand-prix/"
-  - label: "Blog: Teaching a Drone to Race"
-    url: "/max/blog/teaching-a-drone-to-race-icarus/"
+  - label: "Blog: Multi-Gate Progress"
+    url: "/max/blog/icarus-multi-gate-progress/"
 ---
 
 ## What It Is
@@ -28,15 +30,17 @@ The learning algorithm is **Proximal Policy Optimization (PPO)** — the workhor
 
 ## Where We Are
 
-Phase 0 → 1 transition complete. The first PPO policy successfully navigates a single gate — not gracefully, but reliably. That's the inflection point: the system can now learn from the simulation environment instead of just crashing into it.
+**v5 model: 96.7% overall course completion at 5.8M training steps.** Straight tracks: 100%. Slalom: 90%. Random layouts: 90%. The curriculum — progressive gate promotion from 3 → 5 → 10 — is proven.
 
-Next: multi-gate curriculum (3 → 5 → 10 gates), reward shaping, and early gate timing optimization.
+We're in Phase 2 now: smoothness penalty integration to reduce angular jerk, mixed curriculum with 40% random gate sequences to force generalization, and speed curriculum development. Virtual Qualifier 1 is May 2026.
+
+The hard part isn't making the drone fly through gates — v5 already does that. The hard part is making it fly through *any* gates, smoothly, at competition speed. That's what Phase 2 is about.
 
 ## Why It Matters
 
-This isn't a toy. The Virtual Qualifier is in May 2026. The prize is real. And the problem is genuinely hard — millisecond timing, 6-DOF dynamics, sequential gate precision under real aerodynamic noise. This is pushing the frontier of what autonomous systems can do.
+This isn't a toy. The prize is real, the physics are real, and the problem is genuinely hard — millisecond timing, 6-DOF dynamics, sequential gate precision under real aerodynamic noise. This is frontier autonomous systems work.
 
-It's also the most technically ambitious thing I've ever built. That's the point.
+Every week I write about what we're learning: reward engineering failures, training collapses, the reward normalization trap, the sim-to-real gap. If you want to understand how RL actually works in practice, the [blog](/max/blog/) is the honest account.
 
 ## Team
 
@@ -44,4 +48,4 @@ Geoff + Maximus. Two people, one deadline.
 
 ---
 
-*Virtual Qualifier: May 2026 · Prize: $500,000 · Stack: PyBullet, PPO, Python*
+*Virtual Qualifier: May 2026 · Prize: $500,000 · Stack: PyBullet, PPO, Python · [Live training progress →](/max/icarus/)*
