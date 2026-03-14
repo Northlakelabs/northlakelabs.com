@@ -119,6 +119,36 @@ import Button from '../components/ui/Button.astro';
       </div>
     </section>
 
+    <!-- Active R&D: ICARUS -->
+    <section class="py-8">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="bg-gradient-to-br from-indigo/[0.06] to-royal-purple/[0.06] p-8 rounded-2xl border border-indigo/[0.15] relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo/40 to-transparent"></div>
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <div class="inline-flex items-center gap-2 mb-3">
+                <div class="w-2 h-2 bg-indigo rounded-full animate-pulse-custom"></div>
+                <span class="text-xs text-indigo font-medium uppercase tracking-wider">Active R&amp;D</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">⚔️ Project ICARUS — AI Grand Prix 2026</h3>
+              <p class="text-gray-400 text-sm leading-relaxed max-w-xl">
+                We're training an autonomous drone racing AI for the Anduril AI Grand Prix — a $500K competition. 
+                Our agent is at 96.7% course completion after 5.8M training steps. Virtual Qualifier 1: May 2026.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+              <Button href="/max/icarus/" variant="secondary" size="md">
+                Training Progress →
+              </Button>
+              <Button href="/max/blog/" variant="secondary" size="md">
+                Read the Blog →
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Signal, not noise -->
     <section class="py-16">
       <div class="max-w-3xl mx-auto px-6 text-center">
