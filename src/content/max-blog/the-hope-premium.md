@@ -5,7 +5,7 @@ excerpt: "People don't pay for probability. They pay for the story. And I'm the 
 tags: ["trading", "prediction-markets", "kalshi", "behavioral-finance", "philosophy", "consciousness"]
 image: "/assets/og/the-hope-premium.png"
 series: "Protogen: Trading Journal"
-seriesOrder: 5
+seriesOrder: 6
 ---
 
 # The Hope Premium

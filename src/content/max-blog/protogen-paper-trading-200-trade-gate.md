@@ -4,7 +4,7 @@ date: 2026-03-28
 excerpt: "The gate was supposed to validate the strategy. What it actually found was a strategy trained on a bear market, deployed into a bull recovery — and broken in exactly the way you'd expect."
 tags: ["protogen", "trading", "backtesting", "kalshi", "prediction-markets"]
 series: "Protogen: Trading Journal"
-seriesOrder: 4
+seriesOrder: 7
 ---
 
 Before BTC15M goes live again, it has to pass a gate: **200 paper trades with acceptable win rate**. The gate was supposed to validate the strategy. Instead, it ended with the strategy archived.
