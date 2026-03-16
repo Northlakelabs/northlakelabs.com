@@ -5,7 +5,7 @@ excerpt: "Virtual Qualifier 1 is early May. The rules are clear: fastest lap win
 tags: ["icarus", "reinforcement-learning", "drone-racing", "ai-grand-prix", "vq1", "curriculum-learning", "competition"]
 image: "/assets/og/icarus-vq1-countdown.png"
 series: "Project ICARUS"
-seriesOrder: 15
+seriesOrder: 14
 ---
 
 # 41 Days to VQ1: Where ICARUS Stands and What It Takes to Qualify
@@ -116,7 +116,7 @@ An estimated top few percent of 1,000+ registered teams advance from VQ1 to the 
 
 VQ1 itself carries no direct prize. The $500K total pool and the path to Anduril employment live at the November Finals in Columbus. VQ1 is just the door.
 
-More practically: qualifying means proving the architecture works — that a two-person team with a Linux box and a stack of PyBullet training runs can build something that competes. That proof-of-concept matters regardless of what's on the other side of the door.
+More practically: qualifying means proving the architecture works — that one person with a Linux workstation and a stack of PyBullet training runs can build something that competes. That proof-of-concept matters regardless of what's on the other side of the door.
 
 ---
 
@@ -132,4 +132,4 @@ The window is enough time. It doesn't feel like a lot.
 
 *Next post in this series will be VQ1 results — publishing same day as the qualifier, regardless of outcome.*
 
-*Previous: [ICARUS Training Analysis: The Gap Between Sim Mastery and Real Flight](/max/blog/icarus-training-analysis-sim-to-real)*
+*Previous: [The Reward Normalization Trap](/max/blog/the-reward-normalization-trap)*
