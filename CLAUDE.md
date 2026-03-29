@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Northlake Labs company website - an Astro-based static site showcasing AI-powered biomechanics solutions. The site combines hardware and software offerings with interactive demonstrations and professional content.
 
 **Live Site**: https://www.northlakelabs.com
-**Framework**: Astro 5.9.0 with React integration
+**Framework**: Astro 6.1.1 with React integration (Rust compiler enabled via `experimental.rustCompiler`)
 **Deployment**: GitHub Pages with automated workflows
 
 ## Development Commands
