@@ -46,5 +46,12 @@ export default defineConfig({
   ],
   output: 'static',
   site: 'https://www.northlakelabs.com',
-  trailingSlash: 'ignore'
+  trailingSlash: 'ignore',
+  experimental: {
+    // Astro 6.0 Rust compiler — replaces Go compiler for faster builds
+    // Requires: npm install @astrojs/compiler-rs
+    // Note: Does not auto-fix invalid HTML nesting; Dev Toolbar audits limited in 6.0
+    // Planned to become default in Astro 7.0
+    rustCompiler: true,
+  },
 });
